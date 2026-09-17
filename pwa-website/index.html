@@ -6,13 +6,13 @@
   <title>TradeScore - Pre-Trade Evaluation PWA</title>
   
   <!-- PWA Meta Tags -->
-  <link rel="manifest" href="./manifest.json">
+  <link rel="manifest" href="/manifest.json">
   <meta name="theme-color" content="#7061E7">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="TradeScore">
-  <link rel="apple-touch-icon" href="./icon-192.svg">
-  <link rel="icon" type="image/svg+xml" href="./icon-192.svg">
+  <link rel="apple-touch-icon" href="/icon-192.svg">
+  <link rel="icon" type="image/svg+xml" href="/icon-192.svg">
 
   <!-- Google Fonts: Plus Jakarta Sans -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -1274,9 +1274,13 @@
     function setupPWA() {
       // Register Service Worker
       if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('./sw.js')
-          .then(() => console.log('[PWA] Service Worker registered'))
-          .catch(err => console.log('[PWA] SW error:', err));
+        navigator.serviceWorker.register('/sw.js', { scope: '/' })
+          .then((reg) => {
+            console.log('[PWA] Service Worker registered:', reg.scope);
+            // Check for updates
+            reg.update();
+          })
+          .catch((err) => console.log('[PWA] SW error:', err));
       }
 
       // Handle Install Banner
