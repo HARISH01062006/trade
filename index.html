@@ -1,0 +1,1311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>TradeScore - Pre-Trade Evaluation PWA</title>
+  
+  <!-- PWA Meta Tags -->
+  <link rel="manifest" href="./manifest.json">
+  <meta name="theme-color" content="#7061E7">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="TradeScore">
+  <link rel="apple-touch-icon" href="./icon-192.svg">
+  <link rel="icon" type="image/svg+xml" href="./icon-192.svg">
+
+  <!-- Google Fonts: Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --primary: #7061E7;
+      --primary-light: #8E82FE;
+      --primary-subtle: #EDEBFD;
+      --bg-top: #7061E7;
+      --bg-mid: #9082F8;
+      --bg-bottom: #DDD8FE;
+      --card-bg: #FFFFFF;
+      --card-shadow: 0 14px 34px rgba(112, 97, 231, 0.14), 0 2px 8px rgba(0, 0, 0, 0.03);
+      --inset-bg: #F4F2FE;
+      --text-dark: #1E1B38;
+      --text-muted: #8A85A6;
+      --success: #10B981;
+      --warning: #F59E0B;
+      --danger: #EF4444;
+      --radius-lg: 26px;
+      --radius-md: 18px;
+      --radius-sm: 12px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    body {
+      background: linear-gradient(180deg, var(--bg-top) 0%, var(--bg-mid) 40%, #C3B9FD 75%, var(--bg-bottom) 100%);
+      min-height: 100vh;
+      color: var(--text-dark);
+      padding: 0;
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      overflow-x: hidden;
+    }
+
+    /* Mobile Container App Shell */
+    .app-viewport {
+      width: 100%;
+      max-width: 480px;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      padding: 16px 16px 80px 16px;
+      position: relative;
+    }
+
+    /* Neumorphic Cards */
+    .neu-card {
+      background: var(--card-bg);
+      border-radius: var(--radius-lg);
+      padding: 20px;
+      box-shadow: var(--card-shadow);
+      border: 1px solid rgba(255, 255, 255, 0.9);
+      margin-bottom: 16px;
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    .neu-card:active {
+      transform: scale(0.99);
+    }
+
+    .neu-highlight-card {
+      background: linear-gradient(135deg, #7061E7 0%, #897BFC 50%, #A99EFE 100%);
+      border-radius: var(--radius-lg);
+      padding: 22px;
+      color: #FFFFFF;
+      box-shadow: 0 16px 36px rgba(112, 97, 231, 0.35);
+      border: 1px solid rgba(255, 255, 255, 0.35);
+      margin-bottom: 16px;
+    }
+
+    .neu-button {
+      background: linear-gradient(135deg, #7061E7 0%, #8D81FE 100%);
+      color: #FFFFFF;
+      border: none;
+      border-radius: var(--radius-md);
+      padding: 15px 20px;
+      font-size: 15px;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+      width: 100%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      box-shadow: 0 8px 20px rgba(112, 97, 231, 0.35);
+      transition: all 0.2s ease;
+    }
+
+    .neu-button:active {
+      transform: translateY(2px);
+      box-shadow: 0 4px 10px rgba(112, 97, 231, 0.3);
+    }
+
+    .neu-icon-btn {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: #FFFFFF;
+      border: 1px solid rgba(255, 255, 255, 0.9);
+      box-shadow: 0 6px 16px rgba(112, 97, 231, 0.15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: var(--primary);
+    }
+
+    .neu-inset {
+      background: var(--inset-bg);
+      border-radius: var(--radius-md);
+      border: 1px solid rgba(112, 97, 231, 0.1);
+      box-shadow: inset 2px 2px 5px rgba(112, 97, 231, 0.05);
+      padding: 12px;
+    }
+
+    /* Header */
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 18px;
+      padding: 8px 4px 0 4px;
+    }
+
+    .user-profile {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .avatar-ring {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: #FFFFFF;
+      border: 2px solid rgba(255, 255, 255, 0.85);
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      color: var(--primary);
+      font-size: 17px;
+      position: relative;
+    }
+
+    .online-dot {
+      width: 10px;
+      height: 10px;
+      background: var(--success);
+      border: 2px solid #FFFFFF;
+      border-radius: 50%;
+      position: absolute;
+      bottom: 0;
+      right: 0;
+    }
+
+    .header-title {
+      color: #FFFFFF;
+      font-size: 18px;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .pro-badge {
+      background: rgba(255, 255, 255, 0.22);
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      border-radius: 6px;
+      padding: 1px 6px;
+      font-size: 9px;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+    }
+
+    .header-sub {
+      color: #EDE8FE;
+      font-size: 11px;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* Semicircle Gauge */
+    .gauge-wrapper {
+      position: relative;
+      width: 100%;
+      max-width: 320px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .gauge-svg {
+      width: 100%;
+      height: 160px;
+    }
+
+    .gauge-center-text {
+      position: absolute;
+      bottom: 10px;
+      left: 0;
+      right: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .score-label {
+      font-size: 11px;
+      font-weight: 800;
+      color: var(--text-muted);
+      letter-spacing: 1px;
+    }
+
+    .score-value {
+      font-size: 46px;
+      font-weight: 800;
+      line-height: 1;
+      color: var(--text-dark);
+      display: flex;
+      align-items: baseline;
+      justify-content: center;
+    }
+
+    .score-denom {
+      font-size: 16px;
+      color: var(--text-muted);
+      font-weight: 600;
+      margin-left: 2px;
+    }
+
+    .score-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(16, 185, 129, 0.12);
+      border: 1px solid rgba(16, 185, 129, 0.4);
+      color: var(--success);
+      padding: 3px 12px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 800;
+      margin-top: 6px;
+      letter-spacing: 0.5px;
+    }
+
+    /* Sub Metrics Row */
+    .sub-metrics-row {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      margin-top: 18px;
+    }
+
+    .sub-metric {
+      text-align: center;
+      flex: 1;
+    }
+
+    .sub-metric-title {
+      font-size: 11px;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+
+    .sub-metric-val {
+      font-size: 19px;
+      font-weight: 800;
+      color: var(--text-dark);
+      margin: 2px 0;
+    }
+
+    .sub-metric-sub {
+      font-size: 10px;
+      color: var(--text-muted);
+    }
+
+    .metric-divider {
+      width: 1px;
+      height: 32px;
+      background: rgba(112, 97, 231, 0.12);
+    }
+
+    /* 2x2 Stats Grid */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .stat-card {
+      background: var(--card-bg);
+      border-radius: var(--radius-md);
+      padding: 14px;
+      box-shadow: var(--card-shadow);
+      border: 1px solid rgba(255, 255, 255, 0.9);
+    }
+
+    .stat-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 11px;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+
+    .stat-val {
+      font-size: 22px;
+      font-weight: 800;
+      margin: 4px 0 2px 0;
+    }
+
+    .stat-sub {
+      font-size: 10px;
+      color: var(--text-muted);
+    }
+
+    .stat-tag {
+      display: inline-block;
+      padding: 2px 6px;
+      border-radius: 6px;
+      font-size: 9px;
+      font-weight: 800;
+      margin-top: 4px;
+    }
+
+    /* Recent Trade Row */
+    .trade-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #FFFFFF;
+      border-radius: var(--radius-md);
+      padding: 14px;
+      margin-bottom: 10px;
+      box-shadow: var(--card-shadow);
+      border: 1px solid rgba(255, 255, 255, 0.9);
+      cursor: pointer;
+      transition: transform 0.15s;
+    }
+
+    .trade-row:active {
+      transform: scale(0.98);
+    }
+
+    .trade-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .trade-badge-dir {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 15px;
+    }
+
+    .dir-buy {
+      background: #EDEBFD;
+      border: 1px solid #C7BFFB;
+      color: var(--primary);
+    }
+
+    .dir-sell {
+      background: #FFECEE;
+      border: 1px solid #FFCCD2;
+      color: var(--danger);
+    }
+
+    .trade-sym-row {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .trade-sym {
+      font-size: 15px;
+      font-weight: 800;
+      color: var(--text-dark);
+    }
+
+    .trade-dir-pill {
+      font-size: 9px;
+      font-weight: 800;
+      padding: 1px 5px;
+      border-radius: 4px;
+    }
+
+    .trade-info {
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    .trade-right {
+      text-align: right;
+    }
+
+    .trade-score-text {
+      font-size: 18px;
+      font-weight: 800;
+    }
+
+    .trade-quality-pill {
+      font-size: 9px;
+      font-weight: 800;
+      padding: 2px 6px;
+      border-radius: 6px;
+      margin-top: 2px;
+      display: inline-block;
+    }
+
+    /* Modal */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(30, 27, 56, 0.6);
+      backdrop-filter: blur(8px);
+      display: none;
+      align-items: flex-end;
+      justify-content: center;
+      z-index: 999;
+      opacity: 0;
+      transition: opacity 0.25s ease;
+    }
+
+    .modal-overlay.active {
+      display: flex;
+      opacity: 1;
+    }
+
+    .modal-sheet {
+      background: #FFFFFF;
+      width: 100%;
+      max-width: 480px;
+      max-height: 90vh;
+      border-radius: 32px 32px 0 0;
+      padding: 24px;
+      overflow-y: auto;
+      box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.2);
+      transform: translateY(100%);
+      transition: transform 0.3s cubic-bezier(0.2, 0.9, 0.3, 1);
+    }
+
+    .modal-overlay.active .modal-sheet {
+      transform: translateY(0);
+    }
+
+    .modal-handle {
+      width: 44px;
+      height: 5px;
+      background: #D5D0F8;
+      border-radius: 10px;
+      margin: 0 auto 16px auto;
+    }
+
+    /* Rule Checkbox Item */
+    .rule-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 12px;
+      border-radius: var(--radius-md);
+      background: #F8F7FF;
+      border: 1px solid rgba(112, 97, 231, 0.1);
+      margin-bottom: 8px;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .rule-checkbox {
+      width: 22px;
+      height: 22px;
+      border-radius: 6px;
+      border: 2px solid var(--primary-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 2px;
+      flex-shrink: 0;
+      transition: all 0.15s;
+    }
+
+    .rule-item.checked .rule-checkbox {
+      background: var(--primary);
+      border-color: var(--primary);
+    }
+
+    .rule-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-dark);
+    }
+
+    .rule-desc {
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    /* Form Fields */
+    .form-group {
+      margin-bottom: 14px;
+    }
+
+    .form-label {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--text-muted);
+      letter-spacing: 0.5px;
+      margin-bottom: 6px;
+      display: block;
+    }
+
+    .form-input, .form-select {
+      width: 100%;
+      padding: 12px 14px;
+      background: #F6F4FE;
+      border: 1px solid rgba(112, 97, 231, 0.15);
+      border-radius: var(--radius-sm);
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text-dark);
+      outline: none;
+    }
+
+    .form-input:focus, .form-select:focus {
+      border-color: var(--primary);
+      background: #FFFFFF;
+    }
+
+    /* PWA Install Banner */
+    .install-banner {
+      background: #FFFFFF;
+      border-radius: var(--radius-md);
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 14px;
+      box-shadow: var(--card-shadow);
+      display: none;
+    }
+
+    .install-btn {
+      background: var(--primary);
+      color: white;
+      border: none;
+      border-radius: 10px;
+      padding: 8px 14px;
+      font-size: 12px;
+      font-weight: 800;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="app-viewport">
+    
+    <!-- PWA Install Prompt Banner -->
+    <div id="pwaBanner" class="install-banner">
+      <div style="display: flex; align-items: center; gap: 10px;">
+        <img src="./icon-192.svg" width="32" height="32" alt="TradeScore Icon">
+        <div>
+          <div style="font-size: 12px; font-weight: 800;">Install TradeScore PWA</div>
+          <div style="font-size: 10px; color: var(--text-muted);">Access offline on home screen</div>
+        </div>
+      </div>
+      <button id="installBtn" class="install-btn">Install</button>
+    </div>
+
+    <!-- 1. WELCOMING HEADER -->
+    <header class="header">
+      <div class="user-profile">
+        <div class="avatar-ring">
+          AM
+          <div class="online-dot"></div>
+        </div>
+        <div>
+          <div class="header-title">
+            <span id="greetingText">Good Morning</span>, Alex
+            <span class="pro-badge">PRO</span>
+          </div>
+          <div class="header-sub">
+            <span style="color: #10B981;">●</span> London Session • Discipline First
+          </div>
+        </div>
+      </div>
+
+      <div style="display: flex; gap: 8px;">
+        <button class="neu-icon-btn" onclick="openChecklistModal()" title="Daily Routine">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+        </button>
+        <button class="neu-icon-btn" onclick="alert('Settings & Risk Profile\nMax Risk: 1.5% per trade\nDaily Stop: $300\nBroker API: Connected')" title="Settings">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+        </button>
+      </div>
+    </header>
+
+    <!-- 2. REDESIGNED PROFESSIONAL SCORE SECTION (Arch Gauge) -->
+    <div class="neu-card">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+        <div style="display: flex; align-items: center; gap: 8px;">
+          <div style="width: 28px; height: 28px; border-radius: 50%; background: rgba(112, 97, 231, 0.12); display: flex; align-items: center; justify-content: center; color: var(--primary);">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          </div>
+          <div>
+            <div style="font-size: 12px; font-weight: 800; letter-spacing: 0.5px;">HISTORICAL SETUP QUALITY</div>
+            <div style="font-size: 11px; color: var(--text-muted);">Pre-trade Confluence Index</div>
+          </div>
+        </div>
+        <div style="background: rgba(112, 97, 231, 0.1); border: 1px solid rgba(112, 97, 231, 0.25); color: var(--primary); padding: 3px 8px; border-radius: 8px; font-size: 10px; font-weight: 800;">
+          LAST 30 DAYS
+        </div>
+      </div>
+
+      <!-- Semicircle Arch Gauge -->
+      <div class="gauge-wrapper">
+        <svg class="gauge-svg" viewBox="0 0 240 130">
+          <defs>
+            <linearGradient id="scoreGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stop-color="#8E82FE"/>
+              <stop offset="100%" stop-color="#10B981"/>
+            </linearGradient>
+            <filter id="glowTip" x="-50%" y="-50%" width="200%" height="200%">
+              <feDropShadow dx="0" dy="0" stdDeviation="4" flood-color="#10B981" flood-opacity="0.6"/>
+            </filter>
+          </defs>
+
+          <!-- Ticks background -->
+          <g id="gaugeTicks"></g>
+
+          <!-- Background Track -->
+          <path d="M 25 120 A 95 95 0 0 1 215 120" fill="none" stroke="#E8E5FB" stroke-width="14" stroke-linecap="round"/>
+
+          <!-- Animated Active Arc -->
+          <path id="activeArc" d="M 25 120 A 95 95 0 0 1 215 120" fill="none" stroke="url(#scoreGrad)" stroke-width="14" stroke-linecap="round" stroke-dasharray="298" stroke-dashoffset="50" style="transition: stroke-dashoffset 1.2s cubic-bezier(0.2, 0.8, 0.2, 1);"/>
+
+          <!-- Glowing Tip Bead -->
+          <circle id="tipBead" cx="196" cy="74" r="5.5" fill="#FFFFFF" stroke="#10B981" stroke-width="3" filter="url(#glowTip)" style="transition: all 1.2s cubic-bezier(0.2, 0.8, 0.2, 1);"/>
+        </svg>
+
+        <div class="gauge-center-text">
+          <div class="score-label">SETUP SCORE</div>
+          <div class="score-value">
+            <span id="scoreNum">84</span>
+            <span class="score-denom">/100</span>
+          </div>
+          <div id="verdictPill" class="score-badge">
+            <span>●</span> HIGH QUALITY SETUP
+          </div>
+        </div>
+      </div>
+
+      <!-- Sub Metrics Pill Container -->
+      <div class="neu-inset" style="margin-top: 14px;">
+        <div class="sub-metrics-row">
+          <div class="sub-metric">
+            <div class="sub-metric-title">Setups Checked</div>
+            <div class="sub-metric-val" id="statTotalChecked">12</div>
+            <div class="sub-metric-sub">Evaluated</div>
+          </div>
+          <div class="metric-divider"></div>
+          <div class="sub-metric">
+            <div class="sub-metric-title">Discipline Rate</div>
+            <div class="sub-metric-val" style="color: var(--primary);" id="statDiscipline">86%</div>
+            <div class="sub-metric-sub">Rule Adherence</div>
+          </div>
+          <div class="metric-divider"></div>
+          <div class="sub-metric">
+            <div class="sub-metric-title">High Quality</div>
+            <div class="sub-metric-val" style="color: var(--success);" id="statHighQuality">8</div>
+            <div class="sub-metric-sub">Score ≥ 80</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3. CENTRAL 'CHECK TRADE SCORE' ACTION HERO -->
+    <div class="neu-highlight-card">
+      <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px;">
+        <div>
+          <div style="display: flex; align-items: center; gap: 5px; font-size: 11px; font-weight: 800; color: #EDEAFD; letter-spacing: 1px;">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="#FFD166"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+            PRE-TRADE SETUP EVALUATOR
+          </div>
+          <div style="font-size: 20px; font-weight: 800; margin-top: 4px;">Ready to enter a trade?</div>
+          <div style="font-size: 12px; color: #E4E0FD; margin-top: 4px; line-height: 1.4;">
+            Score setup confluences, position sizing & stop-loss rules before placing capital on the line.
+          </div>
+        </div>
+        <div style="width: 42px; height: 42px; border-radius: 50%; background: rgba(255,255,255,0.2); display: flex; align-items: center; justify-content: center; border: 1px solid rgba(255,255,255,0.35); flex-shrink: 0;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </div>
+      </div>
+
+      <!-- Feature Chips -->
+      <div style="display: flex; gap: 6px; margin-bottom: 16px; flex-wrap: wrap;">
+        <span style="background: rgba(255,255,255,0.18); border: 1px solid rgba(255,255,255,0.3); padding: 3px 8px; border-radius: 20px; font-size: 10px; font-weight: 700;">✓ Confluence Scan</span>
+        <span style="background: rgba(255,255,255,0.18); border: 1px solid rgba(255,255,255,0.3); padding: 3px 8px; border-radius: 20px; font-size: 10px; font-weight: 700;">✓ Risk Calculator</span>
+        <span style="background: rgba(255,255,255,0.18); border: 1px solid rgba(255,255,255,0.3); padding: 3px 8px; border-radius: 20px; font-size: 10px; font-weight: 700;">✓ Bias Check</span>
+      </div>
+
+      <button class="neu-button" onclick="openEvaluationModal()">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+        CHECK TRADE SCORE
+      </button>
+    </div>
+
+    <!-- 4. PRE-MARKET ROUTINE CHECKLIST BANNER -->
+    <div class="neu-card" onclick="openChecklistModal()" style="cursor: pointer;">
+      <div style="display: flex; justify-content: space-between; align-items: center;">
+        <div style="flex: 1;">
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <span style="font-size: 15px; font-weight: 800;">Daily Pre-Market Routine</span>
+            <span id="routinePctBadge" style="background: rgba(112, 97, 231, 0.12); color: var(--primary); padding: 2px 6px; border-radius: 6px; font-size: 11px; font-weight: 800;">60% Done</span>
+          </div>
+          <div style="width: 88%; height: 6px; background: #E2E0FB; border-radius: 3px; margin-top: 8px; overflow: hidden;">
+            <div id="routineProgressBar" style="width: 60%; height: 100%; background: var(--primary); border-radius: 3px; transition: width 0.4s ease;"></div>
+          </div>
+        </div>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+      </div>
+    </div>
+
+    <!-- 5. 2x2 PERFORMANCE STATISTICS GRID -->
+    <div style="display: flex; justify-content: space-between; align-items: center; margin: 8px 4px 10px 4px;">
+      <div style="font-size: 12px; font-weight: 800; color: #FFFFFF; letter-spacing: 1px;">TRADING PERFORMANCE</div>
+      <div style="font-size: 11px; color: #E8E5FE;">Past 30 Days</div>
+    </div>
+
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-head">
+          <span>Setups Checked</span>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2.5"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
+        </div>
+        <div class="stat-val" id="gridTotal">12</div>
+        <div class="stat-sub">Pre-trade reviews</div>
+        <div class="stat-tag" style="background: rgba(112, 97, 231, 0.1); color: var(--primary);">+3 this week</div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-head">
+          <span>Average Quality</span>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--success)" stroke-width="2.5"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+        </div>
+        <div class="stat-val" style="color: var(--success);" id="gridAvg">84/100</div>
+        <div class="stat-sub">Disciplined Execution</div>
+        <div class="stat-tag" style="background: rgba(16, 185, 129, 0.1); color: var(--success);">Top 15%</div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-head">
+          <span>A+ Grade Setups</span>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--success)" stroke-width="2.5"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+        </div>
+        <div class="stat-val" style="color: var(--success);" id="gridA">8</div>
+        <div class="stat-sub">Score ≥ 80 (High Edge)</div>
+        <div class="stat-tag" style="background: rgba(16, 185, 129, 0.1); color: var(--success);">86% Win Rate</div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-head">
+          <span>Avoided Bad Setups</span>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--warning)" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <div class="stat-val" style="color: var(--warning);" id="gridAvoid">4</div>
+        <div class="stat-sub">Low quality filtered</div>
+        <div class="stat-tag" style="background: rgba(245, 158, 11, 0.1); color: var(--warning);">Capital Saved</div>
+      </div>
+    </div>
+
+    <!-- 6. RECENT TRADE ASSESSMENTS -->
+    <div style="display: flex; justify-content: space-between; align-items: center; margin: 12px 4px 10px 4px;">
+      <div style="font-size: 12px; font-weight: 800; color: #FFFFFF; letter-spacing: 1px;">RECENT ASSESSMENTS</div>
+      <div id="recentCountText" style="font-size: 11px; color: #E8E5FE;">3 shown</div>
+    </div>
+
+    <!-- Trade List Container -->
+    <div id="recentTradeList"></div>
+
+  </div>
+
+  <!-- MODAL: PRE-TRADE EVALUATOR -->
+  <div id="evalModal" class="modal-overlay">
+    <div class="modal-sheet">
+      <div class="modal-handle"></div>
+      
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+        <div>
+          <div style="font-size: 18px; font-weight: 800;">Evaluate Trade Setup</div>
+          <div style="font-size: 12px; color: var(--text-muted);">Answer the 8-point confluence criteria</div>
+        </div>
+        <button onclick="closeEvaluationModal()" style="background: none; border: none; font-size: 20px; cursor: pointer; color: var(--text-muted);">✕</button>
+      </div>
+
+      <!-- Live Score Badge in Modal -->
+      <div class="neu-inset" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; padding: 14px;">
+        <div>
+          <div style="font-size: 10px; font-weight: 800; color: var(--text-muted);">CALCULATED SCORE</div>
+          <div id="modalScoreDisplay" style="font-size: 28px; font-weight: 800; color: var(--primary);">0/100</div>
+        </div>
+        <div id="modalVerdictBadge" class="score-badge" style="background: #F3F4F6; border-color: #E5E7EB; color: #6B7280;">
+          AWAITING INPUT
+        </div>
+      </div>
+
+      <!-- Trade Setup Inputs -->
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 14px;">
+        <div class="form-group">
+          <label class="form-label">SYMBOL / PAIR</label>
+          <input type="text" id="tradeSymbol" class="form-input" placeholder="e.g. EURUSD, BTC" value="EURUSD">
+        </div>
+        <div class="form-group">
+          <label class="form-label">DIRECTION</label>
+          <select id="tradeDirection" class="form-select">
+            <option value="BUY">BUY / LONG</option>
+            <option value="SELL">SELL / SHORT</option>
+          </select>
+        </div>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 16px;">
+        <div class="form-group">
+          <label class="form-label">MARKET & TIMEFRAME</label>
+          <select id="tradeMarket" class="form-select">
+            <option value="Forex • 15m">Forex • 15m</option>
+            <option value="Forex • 1h">Forex • 1h</option>
+            <option value="Crypto • 15m">Crypto • 15m</option>
+            <option value="Crypto • 1h">Crypto • 1h</option>
+            <option value="Stocks • 5m">Stocks • 5m</option>
+            <option value="Futures • 5m">Futures • 5m</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">RISK : REWARD</label>
+          <input type="text" id="tradeRR" class="form-input" placeholder="1:2.5" value="1:2.5">
+        </div>
+      </div>
+
+      <div style="font-size: 12px; font-weight: 800; color: var(--text-muted); margin-bottom: 8px;">CHECKLIST CRITERIA (TAP TO CONFIRM)</div>
+
+      <!-- 8 Checklist Rules with Weights -->
+      <div id="rulesContainer">
+        <!-- Injected via JS -->
+      </div>
+
+      <div style="margin-top: 18px;">
+        <button class="neu-button" onclick="saveTradeAssessment()">
+          SAVE TRADE ASSESSMENT
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: DAILY PRE-MARKET ROUTINE -->
+  <div id="checklistModal" class="modal-overlay">
+    <div class="modal-sheet">
+      <div class="modal-handle"></div>
+      
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+        <div>
+          <div style="font-size: 18px; font-weight: 800;">Daily Pre-Market Routine</div>
+          <div style="font-size: 12px; color: var(--text-muted);">Prime your psychology & check economic news</div>
+        </div>
+        <button onclick="closeChecklistModal()" style="background: none; border: none; font-size: 20px; cursor: pointer; color: var(--text-muted);">✕</button>
+      </div>
+
+      <div id="routineListContainer">
+        <!-- Injected via JS -->
+      </div>
+
+      <div style="margin-top: 18px;">
+        <button class="neu-button" onclick="closeChecklistModal()">
+          DONE WITH ROUTINE
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // -------------------------------------------------------------
+    // 1. Core Data State & LocalStorage
+    // -------------------------------------------------------------
+    const PRE_MARKET_TASKS = [
+      { id: 1, title: "Review High-Impact Economic News", desc: "Check ForexFactory or Fed speaker schedule", done: true },
+      { id: 2, title: "Mark Daily & 4H Key Support / Resistance", desc: "Identify major institutional supply & demand zones", done: true },
+      { id: 3, title: "Identify Overall Market Regime / Trend", desc: "Are indices (DXY, SPX) trending or range-bound?", done: true },
+      { id: 4, title: "Psychology & Emotional State Check", desc: "Calm, rested, disciplined, not revenge-trading", done: false },
+      { id: 5, title: "Verify Risk Sizing & Daily Loss Limit", desc: "Max 1.5% account loss per trade; max 3 trades", done: false }
+    ];
+
+    const EVAL_RULES = [
+      { id: 'r1', weight: 15, title: "Higher Timeframe Trend Alignment", desc: "Trade aligns with 4H / 1D momentum & 50/200 EMA" },
+      { id: 'r2', weight: 15, title: "Clear Key Level / Supply & Demand Zone", desc: "Setup originates from a tested S/R level or order block" },
+      { id: 'r3', weight: 15, title: "Strong Confirmation Trigger", desc: "Candlestick rejection pinbar, engulfing, or breakout volume" },
+      { id: 'r4', weight: 15, title: "Valid Risk-to-Reward Ratio (≥ 1:2)", desc: "Stop loss placed outside invalidation; minimum 1:2 R:R" },
+      { id: 'r5', weight: 10, title: "Defined Exact Position Sizing (≤ 1.5% Risk)", desc: "Calculated lot/unit size according to stop distance" },
+      { id: 'r6', weight: 10, title: "No High-Impact News in Next 30 Mins", desc: "Safe from CPI, NFP, or FOMC volatility spikes" },
+      { id: 'r7', weight: 10, title: "Multi-Timeframe Confluence (≥ 3 Factors)", desc: "RSI divergence, Fibonacci 61.8%, moving average bounce" },
+      { id: 'r8', weight: 10, title: "Disciplined Psychological State", desc: "Zero FOMO, zero revenge trade urge, fully patient" }
+    ];
+
+    let defaultTrades = [
+      { id: 1, symbol: "EURUSD", direction: "BUY", market: "Forex • 15m", rr: "1:2.8", score: 90, verdict: "A+ QUALITY", timestamp: Date.now() - 3600000 * 2 },
+      { id: 2, symbol: "BTCUSDT", direction: "BUY", market: "Crypto • 1h", rr: "1:3.2", score: 85, verdict: "HIGH QUALITY", timestamp: Date.now() - 3600000 * 24 },
+      { id: 3, symbol: "GBPJPY", direction: "SELL", market: "Forex • 5m", rr: "1:1.5", score: 45, verdict: "WEAK (AVOIDED)", timestamp: Date.now() - 3600000 * 48 }
+    ];
+
+    let userTrades = JSON.parse(localStorage.getItem('tradescore_trades')) || defaultTrades;
+    let routineTasks = JSON.parse(localStorage.getItem('tradescore_routine')) || PRE_MARKET_TASKS;
+    let checkedRules = new Set(['r1', 'r2', 'r3', 'r4', 'r5', 'r7']); // Default pre-checked for demo
+
+    // -------------------------------------------------------------
+    // 2. Initialize UI & Semicircle Ticks
+    // -------------------------------------------------------------
+    function init() {
+      renderGaugeTicks();
+      renderTrades();
+      renderStats();
+      renderRoutine();
+      updateGreeting();
+      setupPWA();
+    }
+
+    function updateGreeting() {
+      const hour = new Date().getHours();
+      let greeting = "Good Morning";
+      if (hour >= 12 && hour < 17) greeting = "Good Afternoon";
+      else if (hour >= 17) greeting = "Good Evening";
+      document.getElementById('greetingText').innerText = greeting;
+    }
+
+    function renderGaugeTicks() {
+      const g = document.getElementById('gaugeTicks');
+      g.innerHTML = '';
+      const totalTicks = 20;
+      const radius = 95;
+      const cx = 120;
+      const cy = 120;
+
+      for (let i = 0; i <= totalTicks; i++) {
+        const angleDeg = 180 + (180 * (i / totalTicks));
+        const angleRad = (angleDeg * Math.PI) / 180;
+        const isMajor = i % 5 === 0;
+        const tickLen = isMajor ? 6 : 3;
+
+        const x1 = cx + (radius + 10) * Math.cos(angleRad);
+        const y1 = cy + (radius + 10) * Math.sin(angleRad);
+        const x2 = cx + (radius + 10 + tickLen) * Math.cos(angleRad);
+        const y2 = cy + (radius + 10 + tickLen) * Math.sin(angleRad);
+
+        const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+        line.setAttribute('x1', x1);
+        line.setAttribute('y1', y1);
+        line.setAttribute('x2', x2);
+        line.setAttribute('y2', y2);
+        line.setAttribute('stroke', isMajor ? '#C5BEF8' : '#E2DFFB');
+        line.setAttribute('stroke-width', isMajor ? '1.8' : '1');
+        line.setAttribute('stroke-linecap', 'round');
+        g.appendChild(line);
+      }
+    }
+
+    function updateGauge(score) {
+      const arc = document.getElementById('activeArc');
+      const bead = document.getElementById('tipBead');
+      const scoreNum = document.getElementById('scoreNum');
+      const verdictPill = document.getElementById('verdictPill');
+
+      const maxDash = 298;
+      const fraction = Math.min(Math.max(score / 100, 0), 1);
+      const offset = maxDash - (maxDash * fraction);
+      arc.style.strokeDashoffset = offset;
+
+      // Tip bead position along semicircle
+      const angleDeg = 180 + (180 * fraction);
+      const angleRad = (angleDeg * Math.PI) / 180;
+      const beadX = 120 + 95 * Math.cos(angleRad);
+      const beadY = 120 + 95 * Math.sin(angleRad);
+      bead.setAttribute('cx', beadX);
+      bead.setAttribute('cy', beadY);
+
+      scoreNum.innerText = score;
+
+      let verdict = "A+ HIGH QUALITY SETUP";
+      let color = "#10B981";
+      let bg = "rgba(16, 185, 129, 0.12)";
+      let border = "rgba(16, 185, 129, 0.4)";
+
+      if (score < 50) {
+        verdict = "DANGER — AVOID TRADE";
+        color = "#EF4444";
+        bg = "rgba(239, 68, 68, 0.12)";
+        border = "rgba(239, 68, 68, 0.4)";
+      } else if (score < 70) {
+        verdict = "WEAK — INCOMPLETE CONFLUENCE";
+        color = "#F59E0B";
+        bg = "rgba(245, 158, 11, 0.12)";
+        border = "rgba(245, 158, 11, 0.4)";
+      } else if (score < 80) {
+        verdict = "MODERATE SETUP";
+        color = "#7061E7";
+        bg = "rgba(112, 97, 231, 0.12)";
+        border = "rgba(112, 97, 231, 0.4)";
+      }
+
+      verdictPill.innerHTML = `<span>●</span> ${verdict}`;
+      verdictPill.style.color = color;
+      verdictPill.style.backgroundColor = bg;
+      verdictPill.style.borderColor = border;
+    }
+
+    // -------------------------------------------------------------
+    // 3. Stats & Trade History
+    // -------------------------------------------------------------
+    function renderStats() {
+      const total = userTrades.length;
+      const avg = total > 0 ? Math.round(userTrades.reduce((acc, t) => acc + t.score, 0) / total) : 84;
+      const highQuality = userTrades.filter(t => t.score >= 80).length;
+      const avoided = userTrades.filter(t => t.score < 60).length;
+      const discipline = total > 0 ? Math.round((highQuality / total) * 100) : 86;
+
+      // Update Sub-metrics
+      document.getElementById('statTotalChecked').innerText = total;
+      document.getElementById('statDiscipline').innerText = `${discipline}%`;
+      document.getElementById('statHighQuality').innerText = highQuality;
+
+      // Update 2x2 Grid
+      document.getElementById('gridTotal').innerText = total;
+      document.getElementById('gridAvg').innerText = `${avg}/100`;
+      document.getElementById('gridA').innerText = highQuality;
+      document.getElementById('gridAvoid').innerText = avoided;
+
+      updateGauge(avg);
+    }
+
+    function renderTrades() {
+      const container = document.getElementById('recentTradeList');
+      container.innerHTML = '';
+      document.getElementById('recentCountText').innerText = `${userTrades.length} assessed`;
+
+      userTrades.forEach((trade) => {
+        const isBuy = trade.direction.toUpperCase() === 'BUY';
+        const color = trade.score >= 80 ? '#10B981' : trade.score >= 60 ? '#7061E7' : '#EF4444';
+        const bg = trade.score >= 80 ? 'rgba(16, 185, 129, 0.12)' : trade.score >= 60 ? 'rgba(112, 97, 231, 0.12)' : 'rgba(239, 68, 68, 0.12)';
+
+        const div = document.createElement('div');
+        div.className = 'trade-row';
+        div.onclick = () => alert(`Trade Assessment:\nSymbol: ${trade.symbol}\nDirection: ${trade.direction}\nMarket: ${trade.market}\nRisk:Reward: ${trade.rr || '1:2.5'}\nScore: ${trade.score}/100\nVerdict: ${trade.verdict}`);
+        div.innerHTML = `
+          <div class="trade-left">
+            <div class="trade-badge-dir ${isBuy ? 'dir-buy' : 'dir-sell'}">
+              ${isBuy ? 'B' : 'S'}
+            </div>
+            <div>
+              <div class="trade-sym-row">
+                <span class="trade-sym">${trade.symbol}</span>
+                <span class="trade-dir-pill ${isBuy ? 'dir-buy' : 'dir-sell'}">${trade.direction}</span>
+              </div>
+              <div class="trade-info">${trade.market} • R:R ${trade.rr || '1:2.5'}</div>
+            </div>
+          </div>
+          <div class="trade-right">
+            <div class="trade-score-text" style="color: ${color};">${trade.score}<span style="font-size: 11px; color: var(--text-muted);">/100</span></div>
+            <div class="trade-quality-pill" style="color: ${color}; background: ${bg};">${trade.verdict}</div>
+          </div>
+        `;
+        container.appendChild(div);
+      });
+    }
+
+    // -------------------------------------------------------------
+    // 4. Pre-Trade Evaluation Modal Logic
+    // -------------------------------------------------------------
+    function openEvaluationModal() {
+      renderRulesList();
+      recalcModalScore();
+      document.getElementById('evalModal').classList.add('active');
+    }
+
+    function closeEvaluationModal() {
+      document.getElementById('evalModal').classList.remove('active');
+    }
+
+    function renderRulesList() {
+      const container = document.getElementById('rulesContainer');
+      container.innerHTML = '';
+
+      EVAL_RULES.forEach(rule => {
+        const isChecked = checkedRules.has(rule.id);
+        const div = document.createElement('div');
+        div.className = `rule-item ${isChecked ? 'checked' : ''}`;
+        div.onclick = () => toggleRule(rule.id);
+        div.innerHTML = `
+          <div class="rule-checkbox">
+            ${isChecked ? '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>' : ''}
+          </div>
+          <div>
+            <div class="rule-title">${rule.title} <span style="font-size: 10px; color: var(--primary);">(+${rule.weight} pts)</span></div>
+            <div class="rule-desc">${rule.desc}</div>
+          </div>
+        `;
+        container.appendChild(div);
+      });
+    }
+
+    function toggleRule(id) {
+      if (checkedRules.has(id)) {
+        checkedRules.delete(id);
+      } else {
+        checkedRules.add(id);
+      }
+      renderRulesList();
+      recalcModalScore();
+    }
+
+    function recalcModalScore() {
+      let score = 0;
+      EVAL_RULES.forEach(rule => {
+        if (checkedRules.has(rule.id)) score += rule.weight;
+      });
+
+      const display = document.getElementById('modalScoreDisplay');
+      const badge = document.getElementById('modalVerdictBadge');
+      display.innerText = `${score}/100`;
+
+      if (score >= 80) {
+        display.style.color = '#10B981';
+        badge.innerHTML = '● A+ HIGH QUALITY';
+        badge.style.color = '#10B981';
+        badge.style.backgroundColor = 'rgba(16, 185, 129, 0.12)';
+        badge.style.borderColor = 'rgba(16, 185, 129, 0.4)';
+      } else if (score >= 60) {
+        display.style.color = '#7061E7';
+        badge.innerHTML = '● MODERATE SETUP';
+        badge.style.color = '#7061E7';
+        badge.style.backgroundColor = 'rgba(112, 97, 231, 0.12)';
+        badge.style.borderColor = 'rgba(112, 97, 231, 0.4)';
+      } else {
+        display.style.color = '#EF4444';
+        badge.innerHTML = '● AVOID SETUP';
+        badge.style.color = '#EF4444';
+        badge.style.backgroundColor = 'rgba(239, 68, 68, 0.12)';
+        badge.style.borderColor = 'rgba(239, 68, 68, 0.4)';
+      }
+    }
+
+    function saveTradeAssessment() {
+      let score = 0;
+      EVAL_RULES.forEach(rule => {
+        if (checkedRules.has(rule.id)) score += rule.weight;
+      });
+
+      const symbol = document.getElementById('tradeSymbol').value.trim() || 'EURUSD';
+      const direction = document.getElementById('tradeDirection').value;
+      const market = document.getElementById('tradeMarket').value;
+      const rr = document.getElementById('tradeRR').value.trim() || '1:2.5';
+
+      let verdict = score >= 80 ? "A+ QUALITY" : score >= 60 ? "MODERATE" : "WEAK (AVOIDED)";
+
+      const newTrade = {
+        id: Date.now(),
+        symbol: symbol.toUpperCase(),
+        direction: direction,
+        market: market,
+        rr: rr,
+        score: score,
+        verdict: verdict,
+        timestamp: Date.now()
+      };
+
+      userTrades.unshift(newTrade);
+      localStorage.setItem('tradescore_trades', JSON.stringify(userTrades));
+
+      renderStats();
+      renderTrades();
+      closeEvaluationModal();
+    }
+
+    // -------------------------------------------------------------
+    // 5. Daily Pre-Market Routine Modal Logic
+    // -------------------------------------------------------------
+    function openChecklistModal() {
+      renderRoutineModal();
+      document.getElementById('checklistModal').classList.add('active');
+    }
+
+    function closeChecklistModal() {
+      document.getElementById('checklistModal').classList.remove('active');
+    }
+
+    function renderRoutine() {
+      const doneCount = routineTasks.filter(t => t.done).length;
+      const total = routineTasks.length;
+      const pct = Math.round((doneCount / total) * 100);
+
+      document.getElementById('routinePctBadge').innerText = `${pct}% Done`;
+      document.getElementById('routineProgressBar').style.width = `${pct}%`;
+    }
+
+    function renderRoutineModal() {
+      const container = document.getElementById('routineListContainer');
+      container.innerHTML = '';
+
+      routineTasks.forEach(task => {
+        const div = document.createElement('div');
+        div.className = `rule-item ${task.done ? 'checked' : ''}`;
+        div.onclick = () => toggleTask(task.id);
+        div.innerHTML = `
+          <div class="rule-checkbox">
+            ${task.done ? '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>' : ''}
+          </div>
+          <div>
+            <div class="rule-title">${task.title}</div>
+            <div class="rule-desc">${task.desc}</div>
+          </div>
+        `;
+        container.appendChild(div);
+      });
+    }
+
+    function toggleTask(id) {
+      routineTasks = routineTasks.map(t => t.id === id ? { ...t, done: !t.done } : t);
+      localStorage.setItem('tradescore_routine', JSON.stringify(routineTasks));
+      renderRoutine();
+      renderRoutineModal();
+    }
+
+    // -------------------------------------------------------------
+    // 6. Progressive Web App (PWA) Registration & Install
+    // -------------------------------------------------------------
+    let deferredPrompt;
+
+    function setupPWA() {
+      // Register Service Worker
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('./sw.js')
+          .then(() => console.log('[PWA] Service Worker registered'))
+          .catch(err => console.log('[PWA] SW error:', err));
+      }
+
+      // Handle Install Banner
+      window.addEventListener('beforeinstallprompt', (e) => {
+        e.preventDefault();
+        deferredPrompt = e;
+        const banner = document.getElementById('pwaBanner');
+        if (banner) banner.style.display = 'flex';
+      });
+
+      const installBtn = document.getElementById('installBtn');
+      if (installBtn) {
+        installBtn.addEventListener('click', () => {
+          if (deferredPrompt) {
+            deferredPrompt.prompt();
+            deferredPrompt.userChoice.then((choiceResult) => {
+              if (choiceResult.outcome === 'accepted') {
+                console.log('User installed PWA');
+              }
+              deferredPrompt = null;
+              document.getElementById('pwaBanner').style.display = 'none';
+            });
+          }
+        });
+      }
+    }
+
+    // Initialize on DOM load
+    window.addEventListener('DOMContentLoaded', init);
+  </script>
+</body>
+</html>

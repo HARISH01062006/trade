@@ -1,0 +1,24 @@
+{
+  "name": "TradeScore - Pre-Trade Evaluation",
+  "short_name": "TradeScore",
+  "description": "Professional pre-trade setup evaluator and trading journal with soft neumorphic fintech styling.",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#7061E7",
+  "theme_color": "#7061E7",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "./icon-192.svg",
+      "sizes": "192x192",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "./icon-512.svg",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
