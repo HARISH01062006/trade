@@ -1,0 +1,6 @@
+{
+  "name": "TradeScore",
+  "description": "Professional pre-trade setup evaluator and trading journal with soft neumorphic lavender design, dynamic scoring engine, risk management, and checklist analytics.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
