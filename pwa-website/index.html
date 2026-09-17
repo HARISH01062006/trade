@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-  <title>TradeScore - Pre-Trade Evaluation</title>
+  <title>TradeScore - Pre-Trade Setup Evaluator</title>
   
   <!-- PWA Meta Tags -->
   <link rel="manifest" href="/manifest.json">
@@ -501,7 +501,7 @@
       color: var(--danger);
     }
 
-    /* 7. FLOATING FOOTER NAVIGATION - Exact pill sizes matching screenshot 2 */
+    /* 7. FLOATING FOOTER NAVIGATION - Exact pill sizes matching preview */
     .trade-bottom-bar {
       position: fixed;
       bottom: calc(env(safe-area-inset-bottom, 12px) + 6px);
@@ -556,19 +556,21 @@
       display: inline;
     }
 
-    /* 8. CHECK TRADE SCORE VIEW (Full-Screen / Modal matching Screenshot 1 exactly) */
+    /* =========================================================
+       8. CHECK TRADE SCORE MODAL (EXACT 1:1 REPLICA OF USER IMAGE)
+       ========================================================= */
     .modal-overlay {
       position: fixed;
       inset: 0;
-      background: rgba(26, 22, 54, 0.62);
-      backdrop-filter: blur(6px);
-      -webkit-backdrop-filter: blur(6px);
+      background: rgba(22, 18, 48, 0.72);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
       display: none;
       align-items: flex-end;
       justify-content: center;
       z-index: 1000;
       opacity: 0;
-      transition: opacity 0.22s ease;
+      transition: opacity 0.24s ease;
     }
 
     .modal-overlay.active {
@@ -580,163 +582,297 @@
       background: #FFFFFF;
       width: 100%;
       max-width: 440px;
+      height: 92vh;
       max-height: 94vh;
-      border-radius: 32px 32px 0 0;
-      padding: 20px 18px calc(env(safe-area-inset-bottom, 16px) + 16px) 18px;
+      border-radius: 36px 36px 0 0;
+      padding: 16px 20px calc(env(safe-area-inset-bottom, 16px) + 20px) 20px;
       overflow-y: auto;
-      box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.22);
+      box-shadow: 0 -16px 48px rgba(18, 12, 54, 0.35);
       transform: translateY(100%);
       transition: transform 0.28s cubic-bezier(0.2, 0.9, 0.3, 1);
+      display: flex;
+      flex-direction: column;
     }
 
     .modal-overlay.active .modal-sheet {
       transform: translateY(0);
     }
 
-    .modal-handle {
-      width: 44px;
+    /* Top Handle Bar matching image */
+    .modal-handle-bar {
+      width: 48px;
       height: 4.5px;
       background: #DDD8FE;
       border-radius: 10px;
       margin: 0 auto 16px auto;
+      flex-shrink: 0;
     }
 
-    /* Evaluate Header matching Screenshot 1 */
-    .eval-header-title {
-      font-size: 20px;
+    /* Header matching image: "Evaluate Trade Setup", subtitle and close X */
+    .eval-header-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 18px;
+      flex-shrink: 0;
+    }
+
+    .eval-title {
+      font-size: 22px;
       font-weight: 800;
-      color: var(--text-dark);
+      color: #1A1633;
+      letter-spacing: -0.3px;
       line-height: 1.2;
     }
 
-    .eval-header-sub {
-      font-size: 12px;
-      color: var(--text-muted);
-      margin-top: 3px;
+    .eval-subtitle {
+      font-size: 13px;
+      color: #8E89AA;
+      margin-top: 4px;
       font-weight: 500;
     }
 
-    /* Calculated Score Card matching Screenshot 1 */
-    .eval-score-card {
-      background: #F6F4FE;
-      border: 1.2px solid rgba(112, 97, 231, 0.16);
-      border-radius: 20px;
-      padding: 14px 18px;
+    .eval-close-btn {
+      background: transparent;
+      border: none;
+      color: #8E89AA;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 4px;
+      border-radius: 50%;
+      transition: background 0.15s ease;
+    }
+
+    .eval-close-btn:active {
+      background: #F3F0FF;
+    }
+
+    .eval-close-btn svg {
+      width: 22px;
+      height: 22px;
+      stroke-width: 2.2;
+    }
+
+    /* CALCULATED SCORE CARD (Exact image style) */
+    .calc-score-card {
+      background: #F7F5FE;
+      border: 1.2px solid #E4E0FB;
+      border-radius: 22px;
+      padding: 16px 20px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin: 16px 0;
+      margin-bottom: 20px;
+      flex-shrink: 0;
     }
 
-    .eval-score-num {
-      font-size: 32px;
-      font-weight: 800;
-      color: #10B981;
-      line-height: 1;
-      margin-top: 3px;
-    }
-
-    .eval-score-tag {
-      background: #ECFDF5;
-      border: 1px solid #A7F3D0;
-      color: #059669;
-      padding: 4px 12px;
-      border-radius: 18px;
+    .calc-score-lbl {
       font-size: 11px;
       font-weight: 800;
-      display: inline-flex;
-      align-items: center;
-      gap: 5px;
-    }
-
-    /* Input Pill Fields matching Screenshot 1 */
-    .form-group-label {
-      font-size: 10.5px;
-      font-weight: 800;
-      color: var(--text-muted);
-      letter-spacing: 0.5px;
-      margin-bottom: 6px;
-      display: block;
+      color: #8E89AA;
+      letter-spacing: 0.6px;
       text-transform: uppercase;
     }
 
-    .eval-input-pill {
-      width: 100%;
-      background: #F8F7FF;
-      border: 1.2px solid #E4E0FB;
-      border-radius: 16px;
-      padding: 13px 14px;
-      font-size: 14.5px;
+    .calc-score-val {
+      font-size: 34px;
       font-weight: 800;
-      color: var(--text-dark);
-      outline: none;
-      transition: border 0.15s ease;
+      color: #00B67A;
+      line-height: 1;
+      margin-top: 4px;
     }
 
-    .eval-input-pill:focus {
+    .calc-score-pill {
+      background: #EAFBF5;
+      border: 1.4px solid #A8F0DA;
+      color: #00A36C;
+      padding: 6px 14px;
+      border-radius: 22px;
+      font-size: 11.5px;
+      font-weight: 800;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      white-space: nowrap;
+    }
+
+    /* INPUT SECTION - 2 Columns matching image */
+    .eval-grid-inputs {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-bottom: 14px;
+      flex-shrink: 0;
+    }
+
+    .eval-col-group {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .eval-input-lbl {
+      font-size: 11px;
+      font-weight: 800;
+      color: #8E89AA;
+      letter-spacing: 0.6px;
+      text-transform: uppercase;
+      margin-bottom: 7px;
+    }
+
+    /* Big rounded pill input field matching image */
+    .eval-pill-box {
+      width: 100%;
+      height: 52px;
+      background: #F8F7FF;
+      border: 1.4px solid #E2DEFB;
+      border-radius: 18px;
+      padding: 0 16px;
+      font-size: 15px;
+      font-weight: 800;
+      color: #1A1633;
+      outline: none;
+      display: flex;
+      align-items: center;
+      transition: border-color 0.15s ease, background 0.15s ease;
+      appearance: none;
+      -webkit-appearance: none;
+    }
+
+    .eval-pill-box:focus {
       border-color: var(--primary);
       background: #FFFFFF;
+      box-shadow: 0 0 0 3px rgba(112, 97, 231, 0.12);
     }
 
-    /* 8 Checklist Criteria Cards matching Screenshot 1 */
-    .criteria-card {
-      background: #FAF9FF;
-      border: 1.4px solid #DFDAFC;
+    .eval-select-box {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%238E89AA' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 14px center;
+      padding-right: 36px;
+      cursor: pointer;
+    }
+
+    /* SECTION TITLE: CHECKLIST CRITERIA (TAP TO CONFIRM) */
+    .criteria-header {
+      font-size: 12px;
+      font-weight: 800;
+      color: #8E89AA;
+      letter-spacing: 0.6px;
+      text-transform: uppercase;
+      margin: 10px 0 14px 0;
+      flex-shrink: 0;
+    }
+
+    /* CRITERIA CARDS matching image */
+    .criteria-card-item {
+      background: #F9F8FE;
+      border: 1.5px solid #DFDCFB;
       border-radius: 20px;
-      padding: 14px 14px;
-      margin-bottom: 10px;
+      padding: 16px;
+      margin-bottom: 12px;
       display: flex;
       align-items: flex-start;
-      gap: 12px;
+      gap: 13px;
       cursor: pointer;
       transition: all 0.15s ease;
       user-select: none;
+      flex-shrink: 0;
     }
 
-    .criteria-card.checked {
-      background: #F3EFFF;
-      border-color: var(--primary);
+    .criteria-card-item:active {
+      transform: scale(0.99);
     }
 
-    .criteria-checkbox {
-      width: 22px;
-      height: 22px;
-      border-radius: 7px;
-      background: #EAE6FB;
-      border: 1.8px solid #C7BFF8;
+    .criteria-card-item.checked {
+      background: #F4F1FE;
+      border-color: #7061E7;
+      box-shadow: 0 4px 16px rgba(112, 97, 231, 0.12);
+    }
+
+    /* Checkbox box */
+    .criteria-chk-box {
+      width: 24px;
+      height: 24px;
+      border-radius: 8px;
+      background: #EAE7FB;
+      border: 1.8px solid #C7BFFB;
       display: flex;
       align-items: center;
       justify-content: center;
       flex-shrink: 0;
-      margin-top: 2px;
+      margin-top: 1px;
       transition: all 0.15s ease;
     }
 
-    .criteria-card.checked .criteria-checkbox {
-      background: var(--primary);
-      border-color: var(--primary);
+    .criteria-card-item.checked .criteria-chk-box {
+      background: #7061E7;
+      border-color: #7061E7;
     }
 
-    .criteria-title {
-      font-size: 13.5px;
-      font-weight: 800;
-      color: var(--text-dark);
-      line-height: 1.3;
+    .criteria-chk-box svg {
+      width: 15px;
+      height: 15px;
+      stroke: #FFFFFF;
+      stroke-width: 3.2;
+      display: none;
     }
 
-    .criteria-pts {
-      font-size: 11px;
+    .criteria-card-item.checked .criteria-chk-box svg {
+      display: block;
+    }
+
+    .criteria-text-col {
+      flex: 1;
+    }
+
+    .criteria-title-line {
+      font-size: 14.5px;
       font-weight: 800;
-      color: var(--primary);
+      color: #1A1633;
+      line-height: 1.35;
+    }
+
+    .criteria-pts-tag {
+      color: #7061E7;
+      font-weight: 800;
+      font-size: 12.5px;
       margin-left: 2px;
     }
 
-    .criteria-desc {
-      font-size: 11px;
-      color: var(--text-muted);
-      margin-top: 3px;
+    .criteria-desc-line {
+      font-size: 12px;
+      color: #8E89AA;
+      margin-top: 4px;
       line-height: 1.4;
       font-weight: 500;
+    }
+
+    /* Save Button at Bottom */
+    .eval-save-btn {
+      background: #7061E7;
+      color: #FFFFFF;
+      border: none;
+      border-radius: 18px;
+      padding: 16px 20px;
+      font-size: 15px;
+      font-weight: 800;
+      letter-spacing: 0.6px;
+      width: 100%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      box-shadow: 0 10px 24px rgba(70, 52, 175, 0.4);
+      margin-top: 12px;
+      flex-shrink: 0;
+      transition: transform 0.12s ease;
+    }
+
+    .eval-save-btn:active {
+      transform: scale(0.98);
     }
 
     /* Screen Views for Tabs */
@@ -762,7 +898,7 @@
     <!-- TAB 1: HOME DASHBOARD -->
     <div id="tabHome" class="tab-view active">
       
-      <!-- 1. WELCOMING HEADER: Proportionate & perfectly aligned -->
+      <!-- 1. WELCOMING HEADER -->
       <header class="header">
         <div class="user-profile">
           <div class="avatar-ring">
@@ -790,7 +926,7 @@
         </div>
       </header>
 
-      <!-- 2. ARCH GAUGE CARD matching Screenshot 2 -->
+      <!-- 2. ARCH GAUGE CARD matching Preview -->
       <div class="neu-card">
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
           <div style="display: flex; align-items: center; gap: 8px;">
@@ -1037,32 +1173,32 @@
         </div>
 
         <div style="margin-bottom: 12px;">
-          <div class="form-group-label">MAX RISK PER TRADE</div>
-          <input type="text" class="eval-input-pill" value="1.5% Account Balance" readonly>
+          <div class="eval-input-lbl">MAX RISK PER TRADE</div>
+          <input type="text" class="eval-pill-box" value="1.5% Account Balance" readonly>
         </div>
 
         <div style="margin-bottom: 12px;">
-          <div class="form-group-label">DAILY MAX LOSS LIMIT</div>
-          <input type="text" class="eval-input-pill" value="$300.00 (Hard Stop)" readonly>
+          <div class="eval-input-lbl">DAILY MAX LOSS LIMIT</div>
+          <input type="text" class="eval-pill-box" value="$300.00 (Hard Stop)" readonly>
         </div>
 
         <div>
-          <div class="form-group-label">PREFERRED SESSIONS</div>
-          <input type="text" class="eval-input-pill" value="London & New York Overlap" readonly>
+          <div class="eval-input-lbl">PREFERRED SESSIONS</div>
+          <input type="text" class="eval-pill-box" value="London & New York Overlap" readonly>
         </div>
       </div>
     </div>
 
-    <!-- 7. FLOATING FOOTER NAVIGATION - Exact pill sizes matching screenshot 2 -->
+    <!-- 7. FLOATING FOOTER NAVIGATION -->
     <nav class="trade-bottom-bar">
       <button class="nav-tab active" id="tabBtnHome" onclick="switchTab('home')">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
         <span>Home</span>
       </button>
 
-      <button class="nav-tab" id="tabBtnHistory" onclick="switchTab('journal')">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 14 14"/></svg>
-        <span>History</span>
+      <button class="nav-tab" id="tabBtnCheck" onclick="openEvaluationModal()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+        <span>Check</span>
       </button>
 
       <button class="nav-tab" id="tabBtnJournal" onclick="switchTab('journal')">
@@ -1083,51 +1219,55 @@
 
   </div>
 
-  <!-- 8. CHECK TRADE SCORE MODAL (Pixel-Perfect Match with Screenshot 1) -->
+  <!-- =========================================================
+       8. CHECK TRADE SCORE MODAL (EXACT 1:1 MATCH TO USER IMAGE)
+       ========================================================= -->
   <div id="evalModal" class="modal-overlay">
     <div class="modal-sheet">
-      <div class="modal-handle"></div>
+      <div class="modal-handle-bar"></div>
       
-      <!-- Modal Header -->
-      <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 14px;">
+      <!-- Modal Header: "Evaluate Trade Setup" & Close X -->
+      <div class="eval-header-row">
         <div>
-          <div class="eval-header-title">Evaluate Trade Setup</div>
-          <div class="eval-header-sub">Answer the 8-point confluence criteria</div>
+          <div class="eval-title">Evaluate Trade Setup</div>
+          <div class="eval-subtitle">Answer the 8-point confluence criteria</div>
         </div>
-        <button onclick="closeEvaluationModal()" style="background: none; border: none; font-size: 24px; cursor: pointer; color: #8E89AA; line-height: 1; padding: 2px;">✕</button>
+        <button class="eval-close-btn" onclick="closeEvaluationModal()" title="Close">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
       </div>
 
-      <!-- Calculated Score Card (Matching Screenshot 1: 80/100 • A+ HIGH QUALITY) -->
-      <div class="eval-score-card">
+      <!-- CALCULATED SCORE CARD: 80/100 • A+ HIGH QUALITY -->
+      <div class="calc-score-card">
         <div>
-          <div style="font-size: 10px; font-weight: 800; color: #8E89AA; letter-spacing: 0.5px;">CALCULATED SCORE</div>
-          <div id="modalScoreDisplay" class="eval-score-num">80/100</div>
+          <div class="calc-score-lbl">CALCULATED SCORE</div>
+          <div id="modalScoreDisplay" class="calc-score-val">80/100</div>
         </div>
-        <div id="modalVerdictBadge" class="eval-score-tag">
+        <div id="modalVerdictBadge" class="calc-score-pill">
           ● A+ HIGH QUALITY
         </div>
       </div>
 
-      <!-- Trade Setup Inputs Row 1 -->
-      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 14px;">
-        <div>
-          <label class="form-group-label">SYMBOL / PAIR</label>
-          <input type="text" id="tradeSymbol" class="eval-input-pill" placeholder="EURUSD" value="EURUSD">
+      <!-- INPUT ROW 1: SYMBOL / PAIR & DIRECTION -->
+      <div class="eval-grid-inputs">
+        <div class="eval-col-group">
+          <label class="eval-input-lbl">SYMBOL / PAIR</label>
+          <input type="text" id="tradeSymbol" class="eval-pill-box" placeholder="EURUSD" value="EURUSD">
         </div>
-        <div>
-          <label class="form-group-label">DIRECTION</label>
-          <select id="tradeDirection" class="eval-input-pill" style="cursor: pointer;">
+        <div class="eval-col-group">
+          <label class="eval-input-lbl">DIRECTION</label>
+          <select id="tradeDirection" class="eval-pill-box eval-select-box">
             <option value="BUY" selected>BUY / LONG</option>
             <option value="SELL">SELL / SHORT</option>
           </select>
         </div>
       </div>
 
-      <!-- Trade Setup Inputs Row 2 -->
-      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 18px;">
-        <div>
-          <label class="form-group-label">MARKET & TIMEFRAME</label>
-          <select id="tradeMarket" class="eval-input-pill" style="cursor: pointer;">
+      <!-- INPUT ROW 2: MARKET & TIMEFRAME & RISK : REWARD -->
+      <div class="eval-grid-inputs">
+        <div class="eval-col-group">
+          <label class="eval-input-lbl">MARKET & TIMEFRAME</label>
+          <select id="tradeMarket" class="eval-pill-box eval-select-box">
             <option value="Forex • 15m" selected>Forex • 15m</option>
             <option value="Forex • 1h">Forex • 1h</option>
             <option value="Crypto • 15m">Crypto • 15m</option>
@@ -1135,49 +1275,47 @@
             <option value="Stocks • 5m">Stocks • 5m</option>
           </select>
         </div>
-        <div>
-          <label class="form-group-label">RISK : REWARD</label>
-          <input type="text" id="tradeRR" class="eval-input-pill" placeholder="1:2.5" value="1:2.5">
+        <div class="eval-col-group">
+          <label class="eval-input-lbl">RISK : REWARD</label>
+          <input type="text" id="tradeRR" class="eval-pill-box" placeholder="1:2.5" value="1:2.5">
         </div>
       </div>
 
-      <!-- Checklist Section Title -->
-      <div style="font-size: 11.5px; font-weight: 800; color: #8E89AA; margin-bottom: 12px; letter-spacing: 0.5px;">
+      <!-- SECTION TITLE: CHECKLIST CRITERIA (TAP TO CONFIRM) -->
+      <div class="criteria-header">
         CHECKLIST CRITERIA (TAP TO CONFIRM)
       </div>
 
-      <!-- 8 Checklist Criteria Cards matching Screenshot 1 -->
+      <!-- 8 Checklist Criteria Cards (Identical to user image) -->
       <div id="rulesContainer"></div>
 
       <!-- Bottom Save Action Button -->
-      <div style="margin-top: 18px;">
-        <button class="neu-hero-btn" onclick="saveTradeAssessment()" style="margin-top: 0;">
-          SAVE TRADE ASSESSMENT
-        </button>
-      </div>
+      <button class="eval-save-btn" onclick="saveTradeAssessment()">
+        SAVE TRADE ASSESSMENT
+      </button>
     </div>
   </div>
 
   <!-- MODAL: DAILY PRE-MARKET ROUTINE -->
   <div id="checklistModal" class="modal-overlay">
-    <div class="modal-sheet">
-      <div class="modal-handle"></div>
+    <div class="modal-sheet" style="height: auto; max-height: 86vh;">
+      <div class="modal-handle-bar"></div>
       
-      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+      <div class="eval-header-row">
         <div>
-          <div class="eval-header-title">Daily Pre-Market Routine</div>
-          <div class="eval-header-sub">Prime your psychology & check economic news</div>
+          <div class="eval-title">Daily Pre-Market Routine</div>
+          <div class="eval-subtitle">Prime your psychology & check economic news</div>
         </div>
-        <button onclick="closeChecklistModal()" style="background: none; border: none; font-size: 24px; cursor: pointer; color: #8E89AA; padding: 2px;">✕</button>
+        <button class="eval-close-btn" onclick="closeChecklistModal()" title="Close">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
       </div>
 
       <div id="routineListContainer"></div>
 
-      <div style="margin-top: 18px;">
-        <button class="neu-hero-btn" onclick="closeChecklistModal()" style="margin-top: 0;">
-          DONE WITH ROUTINE
-        </button>
-      </div>
+      <button class="eval-save-btn" onclick="closeChecklistModal()" style="margin-top: 16px;">
+        DONE WITH ROUTINE
+      </button>
     </div>
   </div>
 
@@ -1193,6 +1331,7 @@
       { id: 5, title: "Verify Risk Sizing & Daily Loss Limit", desc: "Max 1.5% account loss per trade; max 3 trades", done: false }
     ];
 
+    // The 8 Criteria from the user's uploaded preview image
     const EVAL_RULES = [
       { id: 'r1', weight: 15, title: "Higher Timeframe Trend Alignment", desc: "Trade aligns with 4H / 1D momentum & 50/200 EMA" },
       { id: 'r2', weight: 15, title: "Clear Key Level / Supply & Demand Zone", desc: "Setup originates from a tested S/R level or order block" },
@@ -1238,6 +1377,7 @@
 
     function renderGaugeTicks() {
       const g = document.getElementById('gaugeTicks');
+      if (!g) return;
       g.innerHTML = '';
       const totalTicks = 20;
       const radius = 95;
@@ -1272,6 +1412,7 @@
       const bead = document.getElementById('tipBead');
       const scoreNum = document.getElementById('scoreNum');
       const verdictPill = document.getElementById('verdictPill');
+      if (!arc || !bead || !scoreNum || !verdictPill) return;
 
       const maxDash = 298;
       const fraction = Math.min(Math.max(score / 100, 0), 1);
@@ -1338,6 +1479,7 @@
     function renderTrades() {
       const container = document.getElementById('recentTradeList');
       const journalContainer = document.getElementById('journalTradeList');
+      if (!container) return;
       container.innerHTML = '';
       if (journalContainer) journalContainer.innerHTML = '';
       document.getElementById('recentCountText').innerText = `${userTrades.length} assessed`;
@@ -1394,35 +1536,38 @@
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
-    // Evaluation Modal (Screenshot 1 Format)
+    // Evaluation Modal (1:1 with user image)
     function openEvaluationModal() {
       renderRulesList();
       recalcModalScore();
       document.getElementById('evalModal').classList.add('active');
+      document.body.style.overflow = 'hidden';
     }
 
     function closeEvaluationModal() {
       document.getElementById('evalModal').classList.remove('active');
+      document.body.style.overflow = '';
     }
 
     function renderRulesList() {
       const container = document.getElementById('rulesContainer');
+      if (!container) return;
       container.innerHTML = '';
 
       EVAL_RULES.forEach(rule => {
         const isChecked = checkedRules.has(rule.id);
         const div = document.createElement('div');
-        div.className = `criteria-card ${isChecked ? 'checked' : ''}`;
+        div.className = `criteria-card-item ${isChecked ? 'checked' : ''}`;
         div.onclick = () => toggleRule(rule.id);
         div.innerHTML = `
-          <div class="criteria-checkbox">
-            ${isChecked ? '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3.2"><polyline points="20 6 9 17 4 12"/></svg>' : ''}
+          <div class="criteria-chk-box">
+            <svg viewBox="0 0 24 24" fill="none"><polyline points="20 6 9 17 4 12"/></svg>
           </div>
-          <div style="flex: 1;">
-            <div class="criteria-title">
-              ${rule.title} <span class="criteria-pts">(+${rule.weight} pts)</span>
+          <div class="criteria-text-col">
+            <div class="criteria-title-line">
+              ${rule.title} <span class="criteria-pts-tag">(+${rule.weight} pts)</span>
             </div>
-            <div class="criteria-desc">${rule.desc}</div>
+            <div class="criteria-desc-line">${rule.desc}</div>
           </div>
         `;
         container.appendChild(div);
@@ -1444,14 +1589,16 @@
 
       const display = document.getElementById('modalScoreDisplay');
       const badge = document.getElementById('modalVerdictBadge');
+      if (!display || !badge) return;
+
       display.innerText = `${score}/100`;
 
       if (score >= 80) {
-        display.style.color = '#10B981';
+        display.style.color = '#00B67A';
         badge.innerHTML = '● A+ HIGH QUALITY';
-        badge.style.color = '#059669';
-        badge.style.backgroundColor = '#ECFDF5';
-        badge.style.borderColor = '#A7F3D0';
+        badge.style.color = '#00A36C';
+        badge.style.backgroundColor = '#EAFBF5';
+        badge.style.borderColor = '#A8F0DA';
       } else if (score >= 60) {
         display.style.color = '#7061E7';
         badge.innerHTML = '● MODERATE SETUP';
@@ -1503,10 +1650,12 @@
     function openChecklistModal() {
       renderRoutineModal();
       document.getElementById('checklistModal').classList.add('active');
+      document.body.style.overflow = 'hidden';
     }
 
     function closeChecklistModal() {
       document.getElementById('checklistModal').classList.remove('active');
+      document.body.style.overflow = '';
     }
 
     function renderRoutine() {
@@ -1523,19 +1672,20 @@
 
     function renderRoutineModal() {
       const container = document.getElementById('routineListContainer');
+      if (!container) return;
       container.innerHTML = '';
 
       routineTasks.forEach(task => {
         const div = document.createElement('div');
-        div.className = `criteria-card ${task.done ? 'checked' : ''}`;
+        div.className = `criteria-card-item ${task.done ? 'checked' : ''}`;
         div.onclick = () => toggleTask(task.id);
         div.innerHTML = `
-          <div class="criteria-checkbox">
-            ${task.done ? '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3.2"><polyline points="20 6 9 17 4 12"/></svg>' : ''}
+          <div class="criteria-chk-box">
+            <svg viewBox="0 0 24 24" fill="none"><polyline points="20 6 9 17 4 12"/></svg>
           </div>
-          <div style="flex: 1;">
-            <div class="criteria-title">${task.title}</div>
-            <div class="criteria-desc">${task.desc}</div>
+          <div class="criteria-text-col">
+            <div class="criteria-title-line">${task.title}</div>
+            <div class="criteria-desc-line">${task.desc}</div>
           </div>
         `;
         container.appendChild(div);
@@ -1553,7 +1703,10 @@
     function setupPWA() {
       if ('serviceWorker' in navigator) {
         navigator.serviceWorker.register('/sw.js', { scope: '/' })
-          .then(reg => reg.update())
+          .then(reg => {
+            reg.update();
+            console.log('[PWA] Registered');
+          })
           .catch(err => console.log('[PWA] SW error:', err));
       }
     }
