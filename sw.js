@@ -1,4 +1,4 @@
-const CACHE_NAME = 'tradescore-pwa-v4';
+const CACHE_NAME = 'tradescore-pwa-v5';
 const CORE_ASSETS = [
   '/',
   '/index.html',
