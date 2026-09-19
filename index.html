@@ -578,89 +578,73 @@
       display: flex;
     }
 
+    /* Setup Evaluation Header (Image 2) */
+    .setup-page-header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 16px;
+      padding-top: 4px;
+    }
+
+    .setup-header-text {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .setup-page-title {
+      font-size: 20px;
+      font-weight: 800;
+      color: #FFFFFF;
+      margin: 0;
+      line-height: 1.2;
+    }
+
+    .setup-page-subtitle {
+      font-size: 12px;
+      font-weight: 500;
+      color: #E2DFFC;
+      margin-top: 2px;
+    }
+
+    /* Questionnaire Top Header (Image 3) */
     .score-page-header {
       display: flex;
       align-items: center;
       justify-content: space-between;
       margin-bottom: 14px;
       padding-top: 4px;
+      width: 100%;
     }
 
-    .score-page-header-text {
-      text-align: center;
-      flex: 1;
-      margin: 0 10px;
-    }
-
-    .score-page-title {
-      font-size: 20px;
-      font-weight: 800;
+    .score-header-center-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255, 255, 255, 0.22);
+      border: 1px solid rgba(255, 255, 255, 0.45);
+      padding: 6px 16px;
+      border-radius: 16px;
       color: #FFFFFF;
-      margin: 0;
-      line-height: 1.2;
-      text-shadow: 0 2px 8px rgba(30, 20, 90, 0.2);
-    }
-
-    .score-page-subtitle {
       font-size: 12px;
-      font-weight: 600;
-      color: #E2DFFC;
-      margin-top: 2px;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
     }
 
     .score-page-step-badge {
-      font-size: 13px;
+      font-size: 14px;
       font-weight: 800;
       color: #FFFFFF;
-      background: rgba(255, 255, 255, 0.22);
-      border: 1px solid rgba(255, 255, 255, 0.45);
-      padding: 5px 12px;
-      border-radius: 16px;
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
+      text-align: right;
+      min-width: 48px;
     }
 
-    .score-setup-bar {
-      display: flex;
-      justify-content: center;
-      margin-bottom: 14px;
-    }
-
-    .score-setup-pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 7px;
-      background: rgba(255, 255, 255, 0.22);
-      border: 1px solid rgba(255, 255, 255, 0.45);
-      padding: 6px 14px;
-      border-radius: 20px;
-      color: #FFFFFF;
-      font-size: 12px;
-      font-weight: 700;
-      cursor: pointer;
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
-      transition: background 0.15s ease, transform 0.1s ease;
-    }
-
-    .score-setup-pill:active {
-      transform: scale(0.97);
-      background: rgba(255, 255, 255, 0.32);
-    }
-
-    .setup-quick-editor {
-      background: #FFFFFF;
-      border-radius: 20px;
-      padding: 16px;
-      margin-bottom: 14px;
-      box-shadow: var(--card-shadow);
-      border: 1.2px solid #DFDCFB;
-      animation: fadeIn 0.2s ease;
-    }
-
+    /* Linear Progress Bar */
     .score-progress-wrapper {
       width: 100%;
-      margin-bottom: 20px;
+      margin-bottom: 24px;
     }
 
     .score-progress-track {
@@ -679,14 +663,202 @@
       box-shadow: 0 0 10px rgba(255, 255, 255, 0.7);
     }
 
+    /* Setup Evaluation Screen Cards (Image 2) */
+    .eval-setup-card {
+      background: #FFFFFF;
+      border-radius: 24px;
+      padding: 20px 18px;
+      margin-bottom: 16px;
+      box-shadow: 0 12px 30px rgba(35, 22, 90, 0.16);
+      border: 1.2px solid rgba(255, 255, 255, 0.95);
+    }
+
+    .eval-section-tag {
+      font-size: 11px;
+      font-weight: 800;
+      color: #8E89AA;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+
+    .eval-field-label {
+      font-size: 12px;
+      font-weight: 600;
+      color: #5A527A;
+      margin-bottom: 6px;
+      display: block;
+    }
+
+    .eval-text-input {
+      width: 100%;
+      background: #FFFFFF;
+      border: 1.5px solid #D6D3F5;
+      border-radius: 16px;
+      padding: 12px 14px;
+      font-size: 14.5px;
+      font-weight: 700;
+      color: #1A1633;
+      font-family: inherit;
+      outline: none;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+      box-sizing: border-box;
+    }
+
+    .eval-text-input:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(112, 97, 231, 0.15);
+    }
+
+    /* Direction Segmented Toggle */
+    .eval-segmented-toggle {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      background: #F4F2FD;
+      border-radius: 16px;
+      padding: 4px;
+      gap: 4px;
+      margin-bottom: 14px;
+    }
+
+    .eval-toggle-btn {
+      border: none;
+      background: transparent;
+      padding: 10px;
+      border-radius: 12px;
+      font-size: 12.5px;
+      font-weight: 700;
+      color: #7061E7;
+      cursor: pointer;
+      font-family: inherit;
+      transition: all 0.18s ease;
+    }
+
+    .eval-toggle-btn.active {
+      background: #7061E7;
+      color: #FFFFFF;
+      box-shadow: 0 3px 10px rgba(112, 97, 231, 0.35);
+    }
+
+    /* Market Asset Class Chips */
+    .eval-chips-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .eval-market-chip {
+      border: 1.2px solid #E4E0FB;
+      background: #F4F2FD;
+      color: #5A527A;
+      padding: 7px 14px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      font-family: inherit;
+      transition: all 0.18s ease;
+    }
+
+    .eval-market-chip.active {
+      background: #7061E7;
+      border-color: #7061E7;
+      color: #FFFFFF;
+      box-shadow: 0 4px 12px rgba(112, 97, 231, 0.3);
+    }
+
+    /* 2-column grid for Stop Loss & Take Profit */
+    .eval-two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+
+    /* Risk Slider */
+    .eval-slider-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+
+    .eval-slider-value {
+      font-size: 13.5px;
+      font-weight: 800;
+      color: var(--primary);
+      background: #F3F0FE;
+      padding: 3px 10px;
+      border-radius: 10px;
+    }
+
+    .eval-range-slider {
+      width: 100%;
+      height: 6px;
+      -webkit-appearance: none;
+      background: #E4E0FB;
+      border-radius: 3px;
+      outline: none;
+      margin: 10px 0 6px 0;
+    }
+
+    .eval-range-slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: var(--primary);
+      cursor: pointer;
+      box-shadow: 0 2px 8px rgba(112, 97, 231, 0.4);
+      border: 3px solid #FFFFFF;
+    }
+
+    .eval-slider-ticks {
+      display: flex;
+      justify-content: space-between;
+      font-size: 10.5px;
+      font-weight: 700;
+      color: #8E89AA;
+      padding: 0 4px;
+    }
+
+    /* Proceed Button */
+    .eval-proceed-btn {
+      width: 100%;
+      background: linear-gradient(135deg, #7061E7 0%, #8E7CFA 100%);
+      color: #FFFFFF;
+      border: none;
+      border-radius: 20px;
+      padding: 16px;
+      font-size: 14px;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+      cursor: pointer;
+      box-shadow: 0 10px 24px rgba(112, 97, 231, 0.4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      font-family: inherit;
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+      margin-top: 6px;
+      margin-bottom: 20px;
+    }
+
+    .eval-proceed-btn:active {
+      transform: scale(0.98);
+    }
+
+    /* Floating Question Card (Image 3) */
     .score-q-card {
       background: #FFFFFF;
       border-radius: 28px;
-      padding: 26px 20px;
+      padding: 28px 20px;
       box-shadow: 0 16px 36px rgba(45, 34, 110, 0.22), 0 2px 6px rgba(45, 34, 110, 0.08);
       border: 1.2px solid rgba(255, 255, 255, 0.95);
       text-align: center;
-      margin-bottom: 18px;
+      margin-bottom: 22px;
       position: relative;
     }
 
@@ -698,10 +870,10 @@
       font-size: 11px;
       font-weight: 800;
       letter-spacing: 1px;
-      text-transform uppercase;
+      text-transform: uppercase;
       padding: 5px 14px;
       border-radius: 14px;
-      margin-bottom: 14px;
+      margin-bottom: 16px;
     }
 
     .score-q-step {
@@ -710,15 +882,15 @@
       color: #8E89AA;
       letter-spacing: 1.2px;
       text-transform: uppercase;
-      margin-bottom: 14px;
+      margin-bottom: 16px;
     }
 
     .score-q-text {
-      font-size: 20px;
+      font-size: 21px;
       font-weight: 800;
       color: #1A1633;
-      line-height: 1.42;
-      margin-bottom: 10px;
+      line-height: 1.4;
+      margin-bottom: 18px;
       min-height: 60px;
       display: flex;
       align-items: center;
@@ -726,21 +898,18 @@
     }
 
     .score-q-desc {
-      font-size: 12.5px;
-      color: #6B658A;
-      line-height: 1.45;
-      margin-bottom: 16px;
+      display: none;
     }
 
     .score-q-impact {
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      font-size: 11.5px;
-      font-weight: 700;
+      font-size: 12px;
+      font-weight: 600;
       color: #4B456D;
       background: #F6F5FE;
-      padding: 4px 12px;
+      padding: 5px 14px;
       border-radius: 16px;
     }
 
@@ -751,14 +920,16 @@
       border-radius: 50%;
     }
 
+    /* Decision Buttons Row (Image 3) */
     .decision-buttons-row {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 14px;
-      margin-bottom: 16px;
+      gap: 16px;
+      margin-bottom: 10px;
     }
 
     .decision-btn {
+      background: #FFFFFF;
       border-radius: 24px;
       height: 74px;
       border: 2px solid transparent;
@@ -772,6 +943,7 @@
       outline: none;
       user-select: none;
       -webkit-tap-highlight-color: transparent;
+      box-shadow: 0 6px 18px rgba(35, 22, 90, 0.1);
     }
 
     .decision-btn .decision-icon-circle {
@@ -792,9 +964,7 @@
 
     .decision-btn.btn-yes {
       background: #FFFFFF;
-      border-color: #10B981;
       color: #00A36C;
-      box-shadow: 0 6px 18px rgba(16, 185, 129, 0.15);
     }
 
     .decision-btn.btn-yes .decision-icon-circle {
@@ -817,9 +987,7 @@
 
     .decision-btn.btn-no {
       background: #FFFFFF;
-      border-color: #EF4444;
       color: #EF4444;
-      box-shadow: 0 6px 18px rgba(239, 68, 68, 0.15);
     }
 
     .decision-btn.btn-no .decision-icon-circle {
@@ -838,6 +1006,15 @@
     .decision-btn.btn-no.selected .decision-icon-circle {
       background: rgba(255, 255, 255, 0.25);
       color: #FFFFFF;
+    }
+
+    .score-decision-caption {
+      font-size: 12px;
+      font-weight: 500;
+      color: #E2DFFC;
+      text-align: center;
+      margin-top: 10px;
+      margin-bottom: 14px;
     }
 
     .score-nav-row {
@@ -2156,85 +2333,116 @@
          ========================================================= -->
     <div id="pageCheckTradeScore" class="page-screen">
       
-      <!-- 1. HEADER: Back button, Page Title, Subtitle, Step Counter -->
-      <div class="score-page-header">
-        <button type="button" class="neu-icon-btn" onclick="handleBackFromCheckScore()" title="Back to previous question or dashboard">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2.5"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+      <!-- STAGE 1: SETUP EVALUATION (EXACT MATCH TO USER IMAGE 2 & TradeEntryScreen.kt) -->
+      <div id="setupEvaluationStage">
+        <!-- Header: Back button, Title & Subtitle -->
+        <div class="setup-page-header">
+          <button type="button" class="neu-icon-btn" onclick="navigateToRoute('/')" title="Back to Dashboard">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2.5"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+          </button>
+          <div class="setup-header-text">
+            <h1 class="setup-page-title">Setup Evaluation</h1>
+            <div class="setup-page-subtitle">Enter setup specs before checking score</div>
+          </div>
+        </div>
+
+        <!-- Card 1: TRADE INSTRUMENT -->
+        <div class="eval-setup-card">
+          <div class="eval-section-tag">TRADE INSTRUMENT</div>
+          
+          <label class="eval-field-label">Trading Symbol (e.g. EURUSD, BTC, NVDA)</label>
+          <input type="text" id="evalSetupSymbol" class="eval-text-input" value="EURUSD" style="margin-bottom: 14px; text-transform: uppercase;">
+          
+          <label class="eval-field-label">Direction</label>
+          <div class="eval-segmented-toggle">
+            <button type="button" class="eval-toggle-btn active" id="btnDirBuy" onclick="setEvalDirection('BUY')">BUY / LONG</button>
+            <button type="button" class="eval-toggle-btn" id="btnDirSell" onclick="setEvalDirection('SELL')">SELL / SHORT</button>
+          </div>
+          
+          <label class="eval-field-label">Market Asset Class</label>
+          <div class="eval-chips-row" id="evalMarketChips">
+            <button type="button" class="eval-market-chip active" onclick="setEvalMarket('Forex', this)">Forex</button>
+            <button type="button" class="eval-market-chip" onclick="setEvalMarket('Crypto', this)">Crypto</button>
+            <button type="button" class="eval-market-chip" onclick="setEvalMarket('Stocks', this)">Stocks</button>
+            <button type="button" class="eval-market-chip" onclick="setEvalMarket('Indices', this)">Indices</button>
+            <button type="button" class="eval-market-chip" onclick="setEvalMarket('Commodities', this)">Commodities</button>
+          </div>
+        </div>
+
+        <!-- Card 2: PRICE TARGETS & RISK -->
+        <div class="eval-setup-card">
+          <div class="eval-section-tag">PRICE TARGETS & RISK</div>
+          
+          <label class="eval-field-label">Entry Price</label>
+          <input type="number" step="any" id="evalSetupEntry" class="eval-text-input" value="1.08500" style="margin-bottom: 14px;">
+          
+          <div class="eval-two-col">
+            <div>
+              <label class="eval-field-label">Stop Loss</label>
+              <input type="number" step="any" id="evalSetupSL" class="eval-text-input" value="1.08200">
+            </div>
+            <div>
+              <label class="eval-field-label">Take Profit</label>
+              <input type="number" step="any" id="evalSetupTP" class="eval-text-input" value="1.09250">
+            </div>
+          </div>
+          
+          <div class="eval-slider-row" style="margin-top: 6px;">
+            <label class="eval-field-label" style="margin: 0;">Account Risk Percentage</label>
+            <span class="eval-slider-value" id="evalRiskValBadge">1.0%</span>
+          </div>
+          
+          <input type="range" min="0.25" max="5.0" step="0.25" value="1.0" class="eval-range-slider" id="evalRiskSlider" oninput="updateEvalRisk(this.value)">
+          <div class="eval-slider-ticks">
+            <span>0.5%</span>
+            <span>1.0%</span>
+            <span>2.0%</span>
+            <span>3.0%</span>
+            <span>5.0%</span>
+          </div>
+        </div>
+
+        <!-- Proceed Button -->
+        <button type="button" class="eval-proceed-btn" onclick="startQuestionnaireFlow()">
+          <span>PROCEED TO CONFLUENCE EVALUATION</span>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
         </button>
-
-        <div class="score-page-header-text">
-          <h1 class="score-page-title">Check Trade Score</h1>
-          <div class="score-page-subtitle">Setup Confluence Evaluation</div>
-        </div>
-
-        <div class="score-page-step-badge" id="evalProgressText">
-          1 / 8
-        </div>
       </div>
 
-      <!-- 2. SETUP SPEC SUMMARY PILL -->
-      <div class="score-setup-bar">
-        <div class="score-setup-pill" onclick="toggleSetupEditor()" title="Click to customize setup specs">
-          <span id="evalSetupSummaryText">EURUSD • BUY • Forex 15m</span>
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+      <!-- STAGE 2: QUESTIONNAIRE (EXACT MATCH TO USER IMAGE 3 & QuestionnaireScreen.kt) -->
+      <div id="questionnaireStage" style="display: none;">
+        <!-- Top Bar: Back button, Center pill (Symbol • Direction), Right counter (1 / 10) -->
+        <div class="score-page-header">
+          <button type="button" class="neu-icon-btn" onclick="handleBackFromQuestionnaire()" title="Back">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2.5"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+          </button>
+          
+          <div class="score-header-center-badge" id="qHeaderSymbolBadge">
+            EURUSD • BUY
+          </div>
+          
+          <div class="score-page-step-badge" id="evalProgressText">
+            1 / 10
+          </div>
         </div>
-      </div>
 
-      <!-- Collapsible Setup Quick Editor -->
-      <div id="scoreSetupEditor" class="setup-quick-editor" style="display: none;">
-        <div class="eval-grid-inputs">
-          <div class="eval-col-group">
-            <label class="eval-input-lbl">SYMBOL / PAIR</label>
-            <input type="text" id="checkScoreSymbol" class="eval-pill-box" value="EURUSD" oninput="updateSetupSummary()">
-          </div>
-          <div class="eval-col-group">
-            <label class="eval-input-lbl">DIRECTION</label>
-            <select id="checkScoreDirection" class="eval-pill-box eval-select-box" onchange="updateSetupSummary()">
-              <option value="BUY" selected>BUY / LONG</option>
-              <option value="SELL">SELL / SHORT</option>
-            </select>
+        <!-- Linear Progress Bar -->
+        <div class="score-progress-wrapper">
+          <div class="score-progress-track">
+            <div class="score-progress-fill" id="evalProgressBar" style="width: 10%;"></div>
           </div>
         </div>
-        <div class="eval-grid-inputs">
-          <div class="eval-col-group">
-            <label class="eval-input-lbl">MARKET & TIMEFRAME</label>
-            <select id="checkScoreMarket" class="eval-pill-box eval-select-box" onchange="updateSetupSummary()">
-              <option value="Forex • 15m" selected>Forex • 15m</option>
-              <option value="Forex • 1h">Forex • 1h</option>
-              <option value="Crypto • 15m">Crypto • 15m</option>
-              <option value="Crypto • 1h">Crypto • 1h</option>
-              <option value="Stocks • 5m">Stocks • 5m</option>
-            </select>
-          </div>
-          <div class="eval-col-group">
-            <label class="eval-input-lbl">RISK : REWARD</label>
-            <input type="text" id="checkScoreRR" class="eval-pill-box" value="1:2.5" oninput="updateSetupSummary()">
-          </div>
-        </div>
-        <div style="text-align: right; margin-top: 8px;">
-          <button type="button" onclick="toggleSetupEditor()" style="background: var(--primary); color: #fff; border: none; padding: 6px 14px; border-radius: 12px; font-weight: 700; font-size: 11.5px; cursor: pointer;">Done</button>
-        </div>
-      </div>
 
-      <!-- 3. LINEAR PROGRESS INDICATOR -->
-      <div class="score-progress-wrapper">
-        <div class="score-progress-track">
-          <div class="score-progress-fill" id="evalProgressBar" style="width: 12.5%;"></div>
-        </div>
-      </div>
-
-      <!-- 4. ACTIVE QUESTION INTERFACE -->
-      <div id="scoreQuestionInterface">
-        <!-- Question Neumorphic Card -->
+        <!-- Floating Question Card -->
         <div class="score-q-card">
-          <div class="score-q-category" id="qCategory">MARKET STRUCTURE</div>
-          <div class="score-q-step" id="qStepLabel">QUESTION 1 OF 8</div>
-          <div class="score-q-text" id="qText">Is the trade setup strictly aligned with higher timeframe market structure & trend?</div>
-          <div class="score-q-desc" id="qDesc">Trade aligns with 4H / 1D momentum & 50/200 EMA</div>
+          <div class="score-q-category" id="qCategory">STRATEGY</div>
+          <div class="score-q-step" id="qStepLabel">QUESTION 1 OF 10</div>
+          <div class="score-q-text" id="qText">Is the trade setup aligned with your trading strategy?</div>
+          <div class="score-q-desc" id="qDesc">Trade setup adheres to your written trading plan and predefined rules</div>
           
           <div class="score-q-impact">
             <span class="score-q-dot"></span>
-            <span id="qImpact">Score Impact: +15 pts</span>
+            <span id="qImpact">Score Impact: +10 pts</span>
           </div>
         </div>
 
@@ -2255,14 +2463,18 @@
           </button>
         </div>
 
+        <div class="score-decision-caption">
+          Select YES or NO to advance to next check
+        </div>
+
         <!-- Question Navigation Controls -->
-        <div class="score-nav-row">
+        <div class="score-nav-row" style="margin-top: 6px;">
           <button type="button" class="score-nav-prev-btn" id="btnPrevQuestion" onclick="goToPrevQuestion()" style="visibility: hidden;">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
             Previous
           </button>
           
-          <div class="score-nav-hint" id="evalNavHint">Tap YES or NO to proceed</div>
+          <div style="flex: 1;"></div>
           
           <button type="button" class="score-nav-next-btn" id="btnNextQuestion" onclick="goToNextQuestion()">
             Next
@@ -2277,7 +2489,7 @@
         </button>
       </div>
 
-      <!-- 5. SCORE RESULT VIEW (Matching Google AI Studio ScoreResultScreen.kt) -->
+      <!-- STAGE 3: SCORE RESULT VIEW -->
       <div id="scoreResultView" style="display: none;">
         <div class="result-top-bar">
           <button type="button" class="neu-icon-btn" onclick="returnToDashboard()" title="Back to Dashboard" style="background: rgba(255,255,255,0.95);">
@@ -2302,7 +2514,7 @@
           <div class="result-verdict-desc" id="resVerdictDesc">Strong setup based on your checklist. Discipline verified.</div>
           
           <div class="result-specs-row" id="resSpecsSummary">
-            <span>EURUSD</span> • <span>BUY</span> • <span>Forex • 15m</span> • <span>R:R 1:2.5</span>
+            <span>EURUSD</span> • <span>BUY</span> • <span>Forex</span> • <span>Risk 1.0%</span>
           </div>
         </div>
 
@@ -2310,7 +2522,7 @@
         <div class="neu-card" style="padding: 18px 16px;">
           <div style="font-size: 12.5px; font-weight: 800; color: var(--text-dark); margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center;">
             <span>CONFLUENCE CHECKLIST BREAKDOWN</span>
-            <span id="resPassCountBadge" style="font-size: 11px; font-weight: 800; background: #EAFBF5; color: #00A36C; padding: 3px 8px; border-radius: 8px;">6 of 8 Passed</span>
+            <span id="resPassCountBadge" style="font-size: 11px; font-weight: 800; background: #EAFBF5; color: #00A36C; padding: 3px 8px; border-radius: 8px;">8 of 10 Passed</span>
           </div>
           <div id="resChecklistBreakdown"></div>
         </div>
@@ -3108,78 +3320,175 @@
 
     // =========================================================
     // CHECK TRADE SCORE DEDICATED FULL SCREEN WORKFLOW & ROUTER
+    // Matches Google AI Studio Preview: Image 2 & Image 3
     // =========================================================
     const CHECK_SCORE_QUESTIONS = [
       {
-        id: 'r1',
-        category: "MARKET STRUCTURE",
-        title: "Is the trade setup strictly aligned with higher timeframe market structure & trend?",
-        desc: "Trade aligns with 4H / 1D momentum & 50/200 EMA",
-        weight: 15
-      },
-      {
-        id: 'r2',
-        category: "KEY LEVELS / S&D",
-        title: "Is the setup entering directly from a tested key support/resistance or order block?",
-        desc: "Originates from a tested institutional S/R level or supply/demand zone",
-        weight: 15
-      },
-      {
-        id: 'r3',
-        category: "CONFIRMATION TRIGGER",
-        title: "Is there a confirmed entry trigger on the execution timeframe?",
-        desc: "Candlestick rejection pinbar, engulfing, or breakout volume confirmation",
-        weight: 15
-      },
-      {
-        id: 'r4',
-        category: "RISK-TO-REWARD RATIO",
-        title: "Does the setup provide a valid risk-to-reward ratio of at least 1:2.0?",
-        desc: "Stop loss placed outside invalidation; minimum 1:2 R:R achieved",
-        weight: 15
-      },
-      {
-        id: 'r5',
-        category: "CAPITAL PRESERVATION",
-        title: "Is your stop loss logically placed and risk calculated at or below 1.5%?",
-        desc: "Calculated lot/unit size strictly obeys maximum loss per trade rule",
+        id: 'q1',
+        category: "STRATEGY",
+        title: "Is the trade setup aligned with your trading strategy?",
+        desc: "Trade setup adheres to your written trading plan and predefined rules",
         weight: 10
       },
       {
-        id: 'r6',
+        id: 'q2',
+        category: "TECHNICAL ANALYSIS",
+        title: "Is the current market trend supporting your trade direction?",
+        desc: "Higher timeframe trend & EMA alignment support your execution bias",
+        weight: 10
+      },
+      {
+        id: 'q3',
+        category: "TECHNICAL ANALYSIS",
+        title: "Is there a clear entry confirmation?",
+        desc: "Rejection candle, breakout retest, or order block reaction confirmed",
+        weight: 10
+      },
+      {
+        id: 'q4',
+        category: "RISK MANAGEMENT",
+        title: "Is the stop loss placed at a logical level?",
+        desc: "Placed safely beyond structural swing high/low or key invalidation point",
+        weight: 10
+      },
+      {
+        id: 'q5',
+        category: "RISK MANAGEMENT",
+        title: "Is the risk/reward ratio acceptable (>= 1:2)?",
+        desc: "Target profit offers at least twice the potential stop loss distance",
+        weight: 10
+      },
+      {
+        id: 'q6',
+        category: "RISK MANAGEMENT",
+        title: "Is your risk within your predefined risk limit?",
+        desc: "Position sizing strictly obeys maximum risk per trade rule (e.g. 1.0%)",
+        weight: 10
+      },
+      {
+        id: 'q7',
+        category: "PSYCHOLOGY",
+        title: "Are you entering because of a valid setup rather than emotion?",
+        desc: "Free from FOMO, boredom, revenge trading, or chasing runaway candles",
+        weight: 10
+      },
+      {
+        id: 'q8',
+        category: "TECHNICAL ANALYSIS",
+        title: "Have you checked the higher timeframe trend and structure?",
+        desc: "4H / Daily market structure and major key levels support the trade",
+        weight: 10
+      },
+      {
+        id: 'q9',
         category: "MARKET CONDITIONS",
-        title: "Are there zero high-impact economic news releases due in the next 30 minutes?",
-        desc: "Safe from CPI, NFP, or FOMC volatility spikes & unexpected slippage",
+        title: "Is there sufficient market liquidity and normal spread?",
+        desc: "Active market session with tight spreads and solid volume flow",
         weight: 10
       },
       {
-        id: 'r7',
-        category: "CONFLUENCE STACK",
-        title: "Do you have at least 3 distinct confluence factors backing this trade?",
-        desc: "RSI divergence, Fibonacci 61.8%, moving average bounce, or VWAP reclaim",
-        weight: 10
-      },
-      {
-        id: 'r8',
-        category: "TRADER PSYCHOLOGY",
-        title: "Are you in a calm, disciplined emotional state with zero FOMO or revenge trading?",
-        desc: "Zero impatience, zero revenge trading urge, fully disciplined mindset",
+        id: 'q10',
+        category: "MARKET CONDITIONS",
+        title: "Is there any major high-impact news event due shortly?",
+        desc: "Zero imminent tier-1 news events (CPI, NFP, FOMC) within entry window",
         weight: 10
       }
     ];
 
     let currentQuestionIndex = 0;
-    // Initial answers representing checked criteria
     let questionAnswers = {
-      'r1': true,
-      'r2': true,
-      'r3': true,
-      'r4': true,
-      'r5': true,
-      'r6': false,
-      'r7': true,
-      'r8': false
+      'q1': true,
+      'q2': true,
+      'q3': true,
+      'q4': true,
+      'q5': true,
+      'q6': true,
+      'q7': true,
+      'q8': true,
+      'q9': false,
+      'q10': false
     };
+
+    let evalSetup = {
+      symbol: 'EURUSD',
+      direction: 'BUY',
+      market: 'Forex',
+      entry: '1.08500',
+      sl: '1.08200',
+      tp: '1.09250',
+      riskPct: '1.0'
+    };
+
+    function setEvalDirection(dir) {
+      evalSetup.direction = dir;
+      const btnBuy = document.getElementById('btnDirBuy');
+      const btnSell = document.getElementById('btnDirSell');
+      if (btnBuy) btnBuy.classList.toggle('active', dir === 'BUY');
+      if (btnSell) btnSell.classList.toggle('active', dir === 'SELL');
+    }
+
+    function setEvalMarket(mkt, el) {
+      evalSetup.market = mkt;
+      document.querySelectorAll('.eval-market-chip').forEach(c => c.classList.remove('active'));
+      if (el) el.classList.add('active');
+    }
+
+    function updateEvalRisk(val) {
+      evalSetup.riskPct = val;
+      const badge = document.getElementById('evalRiskValBadge');
+      if (badge) badge.innerText = parseFloat(val).toFixed(1) + '%';
+    }
+
+    function startQuestionnaireFlow() {
+      const symInput = document.getElementById('evalSetupSymbol');
+      if (symInput && symInput.value.trim()) {
+        evalSetup.symbol = symInput.value.trim().toUpperCase();
+      }
+      const entryInput = document.getElementById('evalSetupEntry');
+      if (entryInput && entryInput.value) evalSetup.entry = entryInput.value;
+      const slInput = document.getElementById('evalSetupSL');
+      if (slInput && slInput.value) evalSetup.sl = slInput.value;
+      const tpInput = document.getElementById('evalSetupTP');
+      if (tpInput && tpInput.value) evalSetup.tp = tpInput.value;
+
+      // Update question header pill
+      const badge = document.getElementById('qHeaderSymbolBadge');
+      if (badge) {
+        badge.innerText = `${evalSetup.symbol} • ${evalSetup.direction}`;
+      }
+
+      // Transition from Stage 1 to Stage 2
+      const stage1 = document.getElementById('setupEvaluationStage');
+      const stage2 = document.getElementById('questionnaireStage');
+      const bottomBar = document.querySelector('.trade-bottom-bar');
+
+      if (stage1) stage1.style.display = 'none';
+      if (stage2) stage2.style.display = 'block';
+      if (bottomBar) bottomBar.classList.add('hidden');
+
+      currentQuestionIndex = 0;
+      renderCurrentQuestion();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function handleBackFromQuestionnaire() {
+      if (currentQuestionIndex > 0) {
+        goToPrevQuestion();
+      } else {
+        // Return to Stage 1: Setup Evaluation
+        const stage1 = document.getElementById('setupEvaluationStage');
+        const stage2 = document.getElementById('questionnaireStage');
+        const resView = document.getElementById('scoreResultView');
+        const bottomBar = document.querySelector('.trade-bottom-bar');
+
+        if (stage2) stage2.style.display = 'none';
+        if (resView) resView.style.display = 'none';
+        if (stage1) stage1.style.display = 'block';
+        if (bottomBar) bottomBar.classList.remove('hidden');
+
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    }
 
     function navigateToRoute(route, replace = false) {
       if (replace) {
@@ -3219,21 +3528,36 @@
       const viewport = document.querySelector('.app-viewport');
 
       if (checkPage) checkPage.classList.add('active');
-      if (bottomBar) bottomBar.classList.add('hidden');
       if (viewport) viewport.classList.add('full-page-mode');
 
       document.querySelectorAll('.nav-tab').forEach(el => el.classList.remove('active'));
       const checkTabBtn = document.getElementById('tabBtnCheck');
       if (checkTabBtn) checkTabBtn.classList.add('active');
 
-      // Reset to question view
-      const qInterface = document.getElementById('scoreQuestionInterface');
+      // Initialize on Stage 1 (Setup Evaluation, Image 2)
+      const stage1 = document.getElementById('setupEvaluationStage');
+      const stage2 = document.getElementById('questionnaireStage');
       const resView = document.getElementById('scoreResultView');
-      if (qInterface) qInterface.style.display = 'block';
-      if (resView) resView.style.display = 'none';
 
-      updateSetupSummary();
-      renderCurrentQuestion();
+      if (stage1) stage1.style.display = 'block';
+      if (stage2) stage2.style.display = 'none';
+      if (resView) resView.style.display = 'none';
+      if (bottomBar) bottomBar.classList.remove('hidden');
+
+      // Sync form values
+      const symInput = document.getElementById('evalSetupSymbol');
+      if (symInput) symInput.value = evalSetup.symbol;
+      const entryInput = document.getElementById('evalSetupEntry');
+      if (entryInput) entryInput.value = evalSetup.entry;
+      const slInput = document.getElementById('evalSetupSL');
+      if (slInput) slInput.value = evalSetup.sl;
+      const tpInput = document.getElementById('evalSetupTP');
+      if (tpInput) tpInput.value = evalSetup.tp;
+      const slider = document.getElementById('evalRiskSlider');
+      if (slider) slider.value = evalSetup.riskPct;
+      updateEvalRisk(evalSetup.riskPct);
+      setEvalDirection(evalSetup.direction);
+
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
@@ -3259,43 +3583,22 @@
       const resView = document.getElementById('scoreResultView');
       if (resView && resView.style.display !== 'none') {
         resView.style.display = 'none';
-        document.getElementById('scoreQuestionInterface').style.display = 'block';
+        document.getElementById('questionnaireStage').style.display = 'block';
         renderCurrentQuestion();
         return;
       }
 
-      if (currentQuestionIndex > 0) {
-        goToPrevQuestion();
-      } else {
-        returnToDashboard();
+      const stage2 = document.getElementById('questionnaireStage');
+      if (stage2 && stage2.style.display !== 'none') {
+        handleBackFromQuestionnaire();
+        return;
       }
+
+      returnToDashboard();
     }
 
     function returnToDashboard() {
       navigateToRoute('/');
-    }
-
-    function toggleSetupEditor() {
-      const editor = document.getElementById('scoreSetupEditor');
-      if (!editor) return;
-      editor.style.display = editor.style.display === 'none' ? 'block' : 'none';
-    }
-
-    function updateSetupSummary() {
-      const sym = (document.getElementById('checkScoreSymbol')?.value || 'EURUSD').toUpperCase();
-      const dir = document.getElementById('checkScoreDirection')?.value || 'BUY';
-      const mkt = document.getElementById('checkScoreMarket')?.value || 'Forex • 15m';
-      const rr = document.getElementById('checkScoreRR')?.value || '1:2.5';
-
-      const sumEl = document.getElementById('evalSetupSummaryText');
-      if (sumEl) {
-        sumEl.innerText = `${sym} • ${dir} • ${mkt}`;
-      }
-
-      const resSpecs = document.getElementById('resSpecsSummary');
-      if (resSpecs) {
-        resSpecs.innerHTML = `<span>${sym}</span> • <span>${dir}</span> • <span>${mkt}</span> • <span>R:R ${rr}</span>`;
-      }
     }
 
     function renderCurrentQuestion() {
@@ -3313,7 +3616,6 @@
       const prevBtn = document.getElementById('btnPrevQuestion');
       const nextBtn = document.getElementById('btnNextQuestion');
       const showScoreBtn = document.getElementById('btnShowMyScore');
-      const navHint = document.getElementById('evalNavHint');
 
       if (progressTxt) progressTxt.innerText = `${currentQuestionIndex + 1} / ${total}`;
       if (progressBar) progressBar.style.width = `${((currentQuestionIndex + 1) / total) * 100}%`;
@@ -3350,14 +3652,6 @@
       if (showScoreBtn) {
         showScoreBtn.style.display = (isLast || allAnswered) ? 'flex' : 'none';
       }
-
-      if (navHint) {
-        if (answer !== undefined) {
-          navHint.innerText = isLast ? 'All questions evaluated' : 'Response recorded';
-        } else {
-          navHint.innerText = 'Tap YES or NO to proceed';
-        }
-      }
     }
 
     function recordQuestionAnswer(val) {
@@ -3384,11 +3678,11 @@
         showScoreBtn.style.display = 'flex';
       }
 
-      // Automatically advance to next question smoothly after 220ms if not on the last question
+      // Automatically advance to next question smoothly after 240ms if not on the last question
       if (currentQuestionIndex < total - 1) {
         setTimeout(() => {
           goToNextQuestion();
-        }, 220);
+        }, 240);
       } else {
         setTimeout(() => {
           showScoreResultView();
@@ -3425,7 +3719,7 @@
     function showScoreResultView() {
       const { score, passedCount } = calculateScore();
 
-      document.getElementById('scoreQuestionInterface').style.display = 'none';
+      document.getElementById('questionnaireStage').style.display = 'none';
       const resView = document.getElementById('scoreResultView');
       resView.style.display = 'block';
 
@@ -3434,6 +3728,7 @@
       const descEl = document.getElementById('resVerdictDesc');
       const passBadge = document.getElementById('resPassCountBadge');
       const breakdownEl = document.getElementById('resChecklistBreakdown');
+      const specsEl = document.getElementById('resSpecsSummary');
 
       if (scoreNumEl) scoreNumEl.innerText = score;
 
@@ -3462,6 +3757,10 @@
 
       if (passBadge) {
         passBadge.innerText = `${passedCount} of ${CHECK_SCORE_QUESTIONS.length} Passed`;
+      }
+
+      if (specsEl) {
+        specsEl.innerHTML = `<span>${evalSetup.symbol}</span> • <span>${evalSetup.direction}</span> • <span>${evalSetup.market}</span> • <span>Risk ${evalSetup.riskPct}%</span>`;
       }
 
       if (breakdownEl) {
@@ -3494,17 +3793,17 @@
       questionAnswers = {};
       currentQuestionIndex = 0;
       document.getElementById('scoreResultView').style.display = 'none';
-      document.getElementById('scoreQuestionInterface').style.display = 'block';
+      document.getElementById('questionnaireStage').style.display = 'block';
       renderCurrentQuestion();
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
     function saveAndFinishAssessment() {
       const { score } = calculateScore();
-      const symbol = (document.getElementById('checkScoreSymbol')?.value || 'EURUSD').trim().toUpperCase();
-      const direction = document.getElementById('checkScoreDirection')?.value || 'BUY';
-      const market = document.getElementById('checkScoreMarket')?.value || 'Forex • 15m';
-      const rr = (document.getElementById('checkScoreRR')?.value || '1:2.5').trim();
+      const symbol = evalSetup.symbol || 'EURUSD';
+      const direction = evalSetup.direction || 'BUY';
+      const market = evalSetup.market || 'Forex';
+      const rr = '1:2.5';
 
       let verdict = score >= 80 ? "A+ QUALITY" : score >= 60 ? "MODERATE" : "WEAK (AVOIDED)";
 
@@ -3519,7 +3818,7 @@
         outcome: "PENDING",
         pnl: "$0.00",
         emotion: "Calm & Focused",
-        notes: "Evaluated with Trade Score confluence engine.",
+        notes: `Evaluated with Trade Score confluence engine (Risk ${evalSetup.riskPct}%).`,
         timestamp: Date.now()
       };
 
