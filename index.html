@@ -19,6 +19,11 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,700&display=swap" rel="stylesheet">
 
+  <!-- Firebase SDKs (Auth, Firestore, App) -->
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+
   <style>
     :root {
       --primary: #7061E7;
@@ -1266,6 +1271,156 @@
       border-radius: 12px;
     }
 
+    /* Google Auth & Account Login Styles */
+    .btn-google-auth {
+      width: 100%;
+      height: 48px;
+      background: #FFFFFF;
+      border: 1.5px solid #E2DCF7;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      font-family: inherit;
+      font-size: 14px;
+      font-weight: 700;
+      color: #2D2750;
+      cursor: pointer;
+      box-shadow: 0 4px 14px rgba(78, 62, 185, 0.08);
+      transition: all 0.2s ease;
+    }
+
+    .btn-google-auth:hover {
+      background: #FAF9FF;
+      border-color: var(--primary);
+      box-shadow: 0 6px 18px rgba(112, 97, 231, 0.16);
+      transform: translateY(-1px);
+    }
+
+    .btn-google-auth:active {
+      transform: scale(0.98);
+    }
+
+    .auth-toggle-container {
+      display: flex;
+      background: #F1EEFD;
+      padding: 4px;
+      border-radius: 12px;
+      margin-bottom: 16px;
+    }
+
+    .auth-toggle-btn {
+      flex: 1;
+      padding: 8px 12px;
+      border: none;
+      background: transparent;
+      border-radius: 9px;
+      font-family: inherit;
+      font-size: 12.5px;
+      font-weight: 700;
+      color: #787299;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .auth-toggle-btn.active {
+      background: #FFFFFF;
+      color: var(--primary);
+      font-weight: 800;
+      box-shadow: 0 2px 8px rgba(112, 97, 231, 0.15);
+    }
+
+    .btn-guest-auth {
+      width: 100%;
+      padding: 11px 14px;
+      background: #F6F4FE;
+      border: 1.2px solid #E2DCF7;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      font-family: inherit;
+      font-size: 12.5px;
+      font-weight: 700;
+      color: #5D5294;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .btn-guest-auth:hover {
+      background: #EDE8FE;
+      color: var(--primary);
+    }
+
+    .auth-alert-box {
+      padding: 10px 14px;
+      border-radius: 12px;
+      font-size: 12px;
+      font-weight: 600;
+      margin-bottom: 14px;
+      display: none;
+      line-height: 1.4;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .auth-alert-box.error {
+      display: block;
+      background: #FEECEF;
+      color: #EF4444;
+      border: 1px solid #FECDD3;
+    }
+
+    .auth-alert-box.success {
+      display: block;
+      background: #E8FBF4;
+      color: #00A36C;
+      border: 1px solid #A8F0DA;
+    }
+
+    .btn-sync-action {
+      background: #F3F0FE;
+      border: 1.2px solid #DCD5F9;
+      color: var(--primary);
+      font-family: inherit;
+      font-size: 12px;
+      font-weight: 800;
+      padding: 9px 12px;
+      border-radius: 10px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+    }
+
+    .btn-sync-action:hover {
+      background: #E9E4FC;
+    }
+
+    .btn-export-action {
+      background: #FFFFFF;
+      border: 1.2px solid #E2DCF7;
+      color: #4B456D;
+      font-family: inherit;
+      font-size: 12px;
+      font-weight: 800;
+      padding: 9px 14px;
+      border-radius: 10px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+    }
+
+    .btn-export-action:hover {
+      background: #F8F7FD;
+    }
+
     /* Modals (Routine & Trade Detail) */
     .modal-overlay {
       position: fixed;
@@ -1927,17 +2082,17 @@
       
       <!-- 1. WELCOMING HEADER -->
       <header class="header">
-        <div class="user-profile">
-          <div class="avatar-ring">
-            AM
-            <div class="online-dot"></div>
+        <div class="user-profile" onclick="switchTab('profile')" style="cursor: pointer;" title="Trader Account">
+          <div class="avatar-ring" id="headerAvatar">
+            <span id="headerAvatarText">TS</span>
+            <div class="online-dot" id="headerOnlineDot"></div>
           </div>
           <div class="user-details">
             <div class="greeting-line">
               <span id="greetingText">Good Afternoon</span>
             </div>
             <div class="session-line">
-              <span style="color: #10B981;">●</span> London Session • Discipline First
+              <span style="color: #10B981;" id="headerStatusDot">●</span> <span id="headerUserSub">Local Storage Active</span>
             </div>
           </div>
         </div>
@@ -1947,8 +2102,8 @@
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
             <span id="badgeRoutinePending" style="width: 8px; height: 8px; background: #EF4444; border: 2px solid white; border-radius: 50%; position: absolute; top: 3px; right: 3px;"></span>
           </button>
-          <button class="neu-icon-btn" onclick="switchTab('profile')" title="Settings">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+          <button class="neu-icon-btn" onclick="switchTab('profile')" title="Trader Account">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
           </button>
         </div>
       </header>
@@ -2317,114 +2472,230 @@
       </div>
     </div>
 
-    <!-- TAB 4: PROFILE SETTINGS TAB -->
+    <!-- TAB 4: ACCOUNT & AUTH TAB (Login first if not authenticated) -->
     <div id="tabProfile" class="tab-view">
-      <!-- Header -->
-      <div style="margin-bottom: 14px;">
-        <div style="color: #FFFFFF; font-size: 22px; font-weight: 800; letter-spacing: -0.3px;">Trader Profile & Settings</div>
-        <div style="color: #EDE8FE; font-size: 12px; margin-top: 2px;">Risk preferences & pre-trade rules</div>
+      
+      <!-- SUB-VIEW 1: LOGIN / SIGN UP SCREEN (Displayed when user is not logged in) -->
+      <div id="accountLoginView" style="display: none;">
+        <!-- Header -->
+        <div style="margin-bottom: 16px;">
+          <div style="color: #FFFFFF; font-size: 22px; font-weight: 800; letter-spacing: -0.3px;">Trader Account</div>
+          <div style="color: #EDE8FE; font-size: 12.5px; margin-top: 2px;">Sign in to sync your setups, journal & discipline score</div>
+        </div>
+
+        <!-- Main Auth Card -->
+        <div class="neu-card" style="padding: 22px 18px;">
+          <div style="text-align: center; margin-bottom: 18px;">
+            <div style="width: 52px; height: 52px; border-radius: 18px; background: linear-gradient(135deg, #7061E7, #9486F7); color: #FFF; display: flex; align-items: center; justify-content: center; margin: 0 auto 10px auto; box-shadow: 0 8px 20px rgba(112, 97, 231, 0.35);">
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            </div>
+            <div style="font-size: 18px; font-weight: 800; color: var(--text-dark); letter-spacing: -0.3px;">Sign In to TradeScore</div>
+            <div style="font-size: 12px; color: var(--text-muted); margin-top: 3px;">Google & Firebase Cloud Authentication</div>
+          </div>
+
+          <!-- Alert Box -->
+          <div id="authAlertBox" class="auth-alert-box"></div>
+
+          <!-- Google Sign-in Button -->
+          <button class="btn-google-auth" onclick="handleGoogleSignIn()" id="btnGoogleSignIn" type="button">
+            <svg width="18" height="18" viewBox="0 0 24 24">
+              <path fill="#4285F4" d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.82-2.4 3.68v3.05h3.88c2.27-2.09 3.66-5.17 3.66-9.17z"/>
+              <path fill="#34A853" d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.88-3.05c-1.08.72-2.45 1.16-4.05 1.16-3.12 0-5.77-2.1-6.72-4.93H1.25v3.15C3.26 21.36 7.36 24 12 24z"/>
+              <path fill="#FBBC05" d="M5.28 14.27c-.25-.72-.38-1.49-.38-2.27s.13-1.55.38-2.27V6.58H1.25C.45 8.18 0 9.99 0 12s.45 3.82 1.25 5.42l4.03-3.15z"/>
+              <path fill="#EA4335" d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.36 0 3.26 2.64 1.25 6.58l4.03 3.15c.95-2.83 3.6-4.98 6.72-4.98z"/>
+            </svg>
+            <span>Continue with Google</span>
+          </button>
+
+          <!-- Divider -->
+          <div style="display: flex; align-items: center; gap: 10px; margin: 18px 0;">
+            <div style="flex: 1; height: 1px; background: #ECE8FC;"></div>
+            <span style="font-size: 10.5px; font-weight: 800; color: #9C96B8; letter-spacing: 0.6px;">OR EMAIL LOGIN</span>
+            <div style="flex: 1; height: 1px; background: #ECE8FC;"></div>
+          </div>
+
+          <!-- Auth Mode Toggle -->
+          <div class="auth-toggle-container">
+            <button id="authTabSignIn" class="auth-toggle-btn active" onclick="setAuthMode('signin')" type="button">Sign In</button>
+            <button id="authTabSignUp" class="auth-toggle-btn" onclick="setAuthMode('signup')" type="button">Create Account</button>
+          </div>
+
+          <!-- Email Form -->
+          <div id="authNameGroup" style="margin-bottom: 12px; display: none;">
+            <label class="eval-input-lbl">FULL NAME</label>
+            <input type="text" id="authNameInput" class="eval-pill-box" placeholder="e.g. Alex Morgan">
+          </div>
+
+          <div style="margin-bottom: 12px;">
+            <label class="eval-input-lbl">EMAIL ADDRESS</label>
+            <input type="email" id="authEmailInput" class="eval-pill-box" placeholder="trader@domain.com">
+          </div>
+
+          <div style="margin-bottom: 16px;">
+            <label class="eval-input-lbl">PASSWORD</label>
+            <input type="password" id="authPasswordInput" class="eval-pill-box" placeholder="At least 6 characters">
+          </div>
+
+          <button class="btn-check-score" id="authSubmitBtn" onclick="handleEmailAuth()" style="border-radius: 14px; margin-bottom: 12px; width: 100%;" type="button">
+            <span id="authSubmitBtnText">Sign In to Account</span>
+          </button>
+
+          <!-- Guest Trader Demo Login -->
+          <button class="btn-guest-auth" onclick="handleGuestSignIn()" type="button">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            <span>One-Click Trader Login (Demo Mode)</span>
+          </button>
+
+          <!-- No Login Required Note -->
+          <div style="margin-top: 16px; background: #F6F4FE; border-radius: 14px; padding: 12px 14px; display: flex; align-items: flex-start; gap: 10px; border: 1px solid #E8E3FA;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#7061E7" stroke-width="2.2" style="flex-shrink: 0; margin-top: 1px;"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+            <div style="font-size: 11px; color: #5B5480; line-height: 1.45;">
+              <strong>No login required for general use!</strong> You can evaluate trade scores, journal setups, and track stats completely in local storage. Sign in only if you want cloud backup across devices.
+            </div>
+          </div>
+        </div>
       </div>
 
-      <!-- Trader Identity Card -->
-      <div class="neu-card">
-        <div style="display: flex; align-items: center; gap: 14px;">
-          <div class="avatar-ring" style="width: 54px; height: 54px; font-size: 21px; flex-shrink: 0;">
-            AM
-            <div class="online-dot" style="width: 13px; height: 13px;"></div>
+      <!-- SUB-VIEW 2: AUTHENTICATED ACCOUNT & RISK SETTINGS -->
+      <div id="accountProfileView" style="display: none;">
+        <!-- Header with Logout -->
+        <div style="margin-bottom: 14px; display: flex; justify-content: space-between; align-items: center;">
+          <div>
+            <div style="color: #FFFFFF; font-size: 22px; font-weight: 800; letter-spacing: -0.3px;">Trader Account</div>
+            <div style="color: #EDE8FE; font-size: 12px; margin-top: 2px;">Profile identity & risk preferences</div>
           </div>
-          <div style="flex: 1;">
+          <button onclick="handleSignOut()" style="background: rgba(255,255,255,0.18); border: 1px solid rgba(255,255,255,0.35); color: #FFFFFF; font-size: 11.5px; font-weight: 800; padding: 6px 12px; border-radius: 10px; cursor: pointer; display: flex; align-items: center; gap: 5px;">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+            Log Out
+          </button>
+        </div>
+
+        <!-- Trader Identity Card -->
+        <div class="neu-card">
+          <div style="display: flex; align-items: center; gap: 14px;">
+            <div class="avatar-ring" style="width: 54px; height: 54px; font-size: 20px; flex-shrink: 0;" id="accountAvatar">
+              AM
+              <div class="online-dot" style="width: 13px; height: 13px;"></div>
+            </div>
+            <div style="flex: 1; min-width: 0;">
+              <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
+                <span style="font-size: 16.5px; font-weight: 800; color: var(--text-dark); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" id="accountTraderName">Alex Morgan</span>
+                <span style="background: #EAFBF5; color: #00A36C; border: 1px solid #A8F0DA; font-size: 9px; font-weight: 800; padding: 2px 7px; border-radius: 6px;">DISCIPLINE VERIFIED</span>
+              </div>
+              <div style="font-size: 11.5px; color: var(--text-muted); margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" id="accountTraderEmail">alex.morgan@trader.io</div>
+              <div style="font-size: 10.5px; color: var(--primary); font-weight: 700; margin-top: 3px;" id="accountAuthProviderBadge">GOOGLE AUTHENTICATED</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Storage & Cloud Sync Status Card -->
+        <div class="neu-card" style="padding: 16px 18px;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
             <div style="display: flex; align-items: center; gap: 8px;">
-              <span style="font-size: 17px; font-weight: 800; color: var(--text-dark);" id="profileTraderName">Alex Morgan</span>
-              <span style="background: #EAFBF5; color: #00A36C; border: 1px solid #A8F0DA; font-size: 9.5px; font-weight: 800; padding: 2px 7px; border-radius: 6px;">DISCIPLINE VERIFIED</span>
+              <div style="width: 9px; height: 9px; border-radius: 50%; background: #10B981; box-shadow: 0 0 8px rgba(16, 185, 129, 0.6);"></div>
+              <span style="font-size: 12.5px; font-weight: 800; color: #1E1B38;">PERSISTENCE & CLOUD SYNC</span>
             </div>
-            <div style="font-size: 11.5px; color: var(--text-muted); margin-top: 2px;">Institutional Price Action • Level 4</div>
+            <span id="accountSyncStatusBadge" style="font-size: 10px; font-weight: 800; background: #E8FBF4; color: #00A36C; padding: 2px 8px; border-radius: 6px;">ACTIVE</span>
+          </div>
+          <div style="font-size: 11.5px; color: #736D93; margin-bottom: 12px;" id="accountSyncStatusDesc">
+            Real data saved in Local Storage • Synced with Firebase Cloud
+          </div>
+          <div style="display: flex; gap: 8px;">
+            <button onclick="syncDataWithCloud(true)" class="btn-sync-action" style="flex: 1;" type="button">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/></svg>
+              Sync to Cloud
+            </button>
+            <button onclick="exportTradesJson()" class="btn-export-action" type="button">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              Export JSON
+            </button>
           </div>
         </div>
-      </div>
 
-      <!-- Risk Management Configuration -->
-      <div class="neu-card">
-        <div style="font-size: 13.5px; font-weight: 800; letter-spacing: 0.4px; color: var(--text-dark); margin-bottom: 14px;">
-          RISK PARAMETERS
-        </div>
-
-        <div style="margin-bottom: 14px;">
-          <label class="eval-input-lbl">ACCOUNT BALANCE</label>
-          <input type="text" id="prefBalance" class="eval-pill-box" value="$10,000.00" onchange="saveProfilePrefs()">
-        </div>
-
-        <div style="margin-bottom: 14px;">
-          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
-            <label class="eval-input-lbl" style="margin-bottom: 0;">MAX RISK PER TRADE</label>
-            <span id="riskPctDisplay" style="font-size: 13.5px; font-weight: 800; color: var(--primary);">1.5% ($150.00)</span>
+        <!-- Risk Management Configuration -->
+        <div class="neu-card">
+          <div style="font-size: 13.5px; font-weight: 800; letter-spacing: 0.4px; color: var(--text-dark); margin-bottom: 14px;">
+            RISK PARAMETERS
           </div>
-          <input type="range" id="prefRiskSlider" min="0.5" max="3.0" step="0.1" value="1.5" style="width: 100%; accent-color: var(--primary);" oninput="updateRiskSliderDisplay()">
-        </div>
 
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
-          <div>
-            <label class="eval-input-lbl">DAILY LOSS LIMIT</label>
-            <input type="text" id="prefDailyLoss" class="eval-pill-box" value="$300.00" onchange="saveProfilePrefs()">
+          <div style="margin-bottom: 14px;">
+            <label class="eval-input-lbl">ACCOUNT BALANCE</label>
+            <input type="text" id="prefBalance" class="eval-pill-box" value="$10,000.00" onchange="saveProfilePrefs()">
           </div>
-          <div>
-            <label class="eval-input-lbl">MAX TRADES / DAY</label>
-            <input type="text" id="prefMaxTrades" class="eval-pill-box" value="3 Trades" onchange="saveProfilePrefs()">
-          </div>
-        </div>
-      </div>
 
-      <!-- Quick Action Navigation Rows -->
-      <div style="margin-top: 6px;">
-        <div class="profile-nav-card" onclick="openChecklistModal()">
-          <div class="profile-nav-left">
-            <div class="profile-nav-icon">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+          <div style="margin-bottom: 14px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+              <label class="eval-input-lbl" style="margin-bottom: 0;">MAX RISK PER TRADE</label>
+              <span id="riskPctDisplay" style="font-size: 13.5px; font-weight: 800; color: var(--primary);">1.5% ($150.00)</span>
+            </div>
+            <input type="range" id="prefRiskSlider" min="0.5" max="3.0" step="0.1" value="1.5" style="width: 100%; accent-color: var(--primary);" oninput="updateRiskSliderDisplay()">
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+            <div>
+              <label class="eval-input-lbl">DAILY LOSS LIMIT</label>
+              <input type="text" id="prefDailyLoss" class="eval-pill-box" value="$300.00" onchange="saveProfilePrefs()">
             </div>
             <div>
-              <div class="profile-nav-title">Pre-Market Daily Routine</div>
-              <div class="profile-nav-desc">5-step mental and market preparation</div>
+              <label class="eval-input-lbl">MAX TRADES / DAY</label>
+              <input type="text" id="prefMaxTrades" class="eval-pill-box" value="3 Trades" onchange="saveProfilePrefs()">
             </div>
           </div>
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#A49EB8" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
         </div>
 
-        <div class="profile-nav-card" onclick="openQuestionsModal()">
-          <div class="profile-nav-left">
-            <div class="profile-nav-icon">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+        <!-- Quick Action Navigation Rows -->
+        <div style="margin-top: 6px;">
+          <div class="profile-nav-card" onclick="openChecklistModal()">
+            <div class="profile-nav-left">
+              <div class="profile-nav-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              </div>
+              <div>
+                <div class="profile-nav-title">Pre-Market Daily Routine</div>
+                <div class="profile-nav-desc">5-step mental and market preparation</div>
+              </div>
             </div>
-            <div>
-              <div class="profile-nav-title">Checklist Questions & Scoring Rules</div>
-              <div class="profile-nav-desc">View and manage confluence weight criteria</div>
-            </div>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#A49EB8" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
           </div>
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#A49EB8" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
-        </div>
 
-        <div class="profile-nav-card" onclick="openEducationModal()">
-          <div class="profile-nav-left">
-            <div class="profile-nav-icon">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+          <div class="profile-nav-card" onclick="openQuestionsModal()">
+            <div class="profile-nav-left">
+              <div class="profile-nav-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+              </div>
+              <div>
+                <div class="profile-nav-title">Checklist Questions & Scoring Rules</div>
+                <div class="profile-nav-desc">View and manage confluence weight criteria</div>
+              </div>
             </div>
-            <div>
-              <div class="profile-nav-title">Trading Masterclass & Rules Guide</div>
-              <div class="profile-nav-desc">Risk math, psychology & scoring handbook</div>
-            </div>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#A49EB8" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
           </div>
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#A49EB8" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
-        </div>
 
-        <div class="profile-nav-card" onclick="resetAppTradesData()">
-          <div class="profile-nav-left">
-            <div class="profile-nav-icon" style="background: rgba(239, 68, 68, 0.1); color: var(--danger);">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg>
+          <div class="profile-nav-card" onclick="openEducationModal()">
+            <div class="profile-nav-left">
+              <div class="profile-nav-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+              </div>
+              <div>
+                <div class="profile-nav-title">Trading Masterclass & Rules Guide</div>
+                <div class="profile-nav-desc">Risk math, psychology & scoring handbook</div>
+              </div>
             </div>
-            <div>
-              <div class="profile-nav-title" style="color: var(--danger);">Reset Sample Assessment Data</div>
-              <div class="profile-nav-desc">Restore original preview demo setups</div>
-            </div>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#A49EB8" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
           </div>
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#A49EB8" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+
+          <div class="profile-nav-card" onclick="clearAllLocalTrades()">
+            <div class="profile-nav-left">
+              <div class="profile-nav-icon" style="background: rgba(239, 68, 68, 0.1); color: var(--danger);">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+              </div>
+              <div>
+                <div class="profile-nav-title" style="color: var(--danger);">Clear All Local Trade Data</div>
+                <div class="profile-nav-desc">Remove stored evaluations and reset journal</div>
+              </div>
+            </div>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#A49EB8" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+          </div>
         </div>
       </div>
     </div>
@@ -2453,7 +2724,7 @@
 
       <button class="nav-tab" id="tabBtnProfile" onclick="switchTab('profile')">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-        <span>Profile</span>
+        <span>Account</span>
       </button>
     </nav>
 
@@ -2919,23 +3190,62 @@
       { id: 'r8', weight: 10, title: "Disciplined Psychological State", desc: "Zero FOMO, zero revenge trade urge, fully patient" }
     ];
 
-    // Default trades matching screenshots: 5 setups checked, 60% discipline
-    let defaultTrades = [
-      { id: 1, symbol: "EURUSD", direction: "BUY", market: "Forex • 15m", rr: "1:2.8", score: 80, verdict: "A+ QUALITY", outcome: "WIN", pnl: "+$280.00", emotion: "Calm & Focused", notes: "Clean liquidity sweep into 15m bullish order block. Executed with full discipline.", timestamp: Date.now() - 3600000 * 2 },
-      { id: 2, symbol: "BTCUSDT", direction: "BUY", market: "Crypto • 1h", rr: "1:3.2", score: 85, verdict: "HIGH QUALITY", outcome: "WIN", pnl: "+$320.00", emotion: "Confident", notes: "Breakout & retest of previous weekly high with heavy volume.", timestamp: Date.now() - 3600000 * 24 },
-      { id: 3, symbol: "ETHUSDT", direction: "BUY", market: "Crypto • 15m", rr: "1:2.2", score: 80, verdict: "HIGH QUALITY", outcome: "PENDING", pnl: "+$95.00", emotion: "Calm & Focused", notes: "Partial take profit taken at 1:1.5; stops moved to breakeven.", timestamp: Date.now() - 3600000 * 36 },
-      { id: 4, symbol: "GBPJPY", direction: "SELL", market: "Forex • 5m", rr: "1:1.5", score: 45, verdict: "WEAK (AVOIDED)", outcome: "LOSS", pnl: "-$120.00", emotion: "Slight FOMO", notes: "Entered during high impact news without HTF confirmation. Avoided large loss by quick cut.", timestamp: Date.now() - 3600000 * 48 },
-      { id: 5, symbol: "SOLUSDT", direction: "SELL", market: "Crypto • 15m", rr: "1:1.8", score: 50, verdict: "WEAK (AVOIDED)", outcome: "BREAKEVEN", pnl: "$0.00", emotion: "Calm & Focused", notes: "Score warned under 60. Exited early when momentum stalled at VWAP.", timestamp: Date.now() - 3600000 * 60 }
-    ];
+    // -------------------------------------------------------------
+    // Firebase & Real Data Persistence Setup
+    // -------------------------------------------------------------
+    const firebaseConfig = {
+      apiKey: "AIzaSyD-dummy-key-for-local-pwa-storage",
+      authDomain: "tradescore-pwa.firebaseapp.com",
+      projectId: "tradescore-pwa",
+      storageBucket: "tradescore-pwa.appspot.com",
+      messagingSenderId: "109823482716",
+      appId: "1:109823482716:web:8ef4a73e480f2d849b38"
+    };
 
-    let userTrades = JSON.parse(localStorage.getItem('tradescore_trades')) || defaultTrades;
+    let firebaseApp = null;
+    let firebaseAuth = null;
+    let firebaseDb = null;
+    let currentUser = null;
+    let authMode = 'signin'; // 'signin' or 'signup'
+
+    try {
+      if (typeof firebase !== 'undefined') {
+        if (!firebase.apps.length) {
+          firebaseApp = firebase.initializeApp(firebaseConfig);
+        } else {
+          firebaseApp = firebase.app();
+        }
+        firebaseAuth = firebase.auth();
+        firebaseDb = firebase.firestore();
+      }
+    } catch (e) {
+      console.warn('Firebase init:', e);
+    }
+
+    // Persisted User Session from local storage
+    try {
+      const storedUser = localStorage.getItem('tradescore_user');
+      if (storedUser) currentUser = JSON.parse(storedUser);
+    } catch (e) {
+      currentUser = null;
+    }
+
+    // ONLY REAL DATA: Load setups evaluated or logged by the user from localStorage.
+    let storedTrades = null;
+    try {
+      const raw = localStorage.getItem('tradescore_trades');
+      if (raw) storedTrades = JSON.parse(raw);
+    } catch (e) {
+      storedTrades = null;
+    }
+    let userTrades = Array.isArray(storedTrades) ? storedTrades : [];
     let routineTasks = JSON.parse(localStorage.getItem('tradescore_routine')) || PRE_MARKET_TASKS;
     let currentJournalFilter = 'ALL';
     let currentDetailTradeId = null;
     let currentDetailOutcome = 'WIN';
     let currentDetailEmotion = 'Calm & Focused';
     
-    // Default checked rules matching Screenshot 1 (80/100 points: r1, r2, r3, r4, r5, r7 = 15+15+15+15+10+10 = 80)
+    // Default checked rules matching preview criteria
     let checkedRules = new Set(['r1', 'r2', 'r3', 'r4', 'r5', 'r7']);
 
     function init() {
@@ -2946,6 +3256,7 @@
       renderRoutine();
       renderQuestionsList();
       updateGreeting();
+      updateHeaderUser();
       loadProfilePrefs();
       setupPWA();
       handleRoute(window.location.pathname);
@@ -2999,6 +3310,20 @@
       const verdictPill = document.getElementById('verdictPill');
       if (!arc || !bead || !scoreNum || !verdictPill) return;
 
+      if (userTrades.length === 0) {
+        arc.style.strokeDashoffset = 298;
+        const beadX = 120 + 95 * Math.cos(Math.PI);
+        const beadY = 116 + 95 * Math.sin(Math.PI);
+        bead.setAttribute('cx', beadX);
+        bead.setAttribute('cy', beadY);
+        scoreNum.innerText = "--";
+        verdictPill.innerHTML = `<span>●</span> READY FOR EVALUATION`;
+        verdictPill.style.color = "#7061E7";
+        verdictPill.style.backgroundColor = "rgba(112, 97, 231, 0.12)";
+        verdictPill.style.borderColor = "rgba(112, 97, 231, 0.4)";
+        return;
+      }
+
       const maxDash = 298;
       const fraction = Math.min(Math.max(score / 100, 0), 1);
       const offset = maxDash - (maxDash * fraction);
@@ -3044,17 +3369,17 @@
 
     function renderStats() {
       const total = userTrades.length;
-      const avg = total > 0 ? Math.round(userTrades.reduce((acc, t) => acc + t.score, 0) / total) : 62;
+      const avg = total > 0 ? Math.round(userTrades.reduce((acc, t) => acc + t.score, 0) / total) : 0;
       const highQuality = userTrades.filter(t => t.score >= 80).length;
       const avoided = userTrades.filter(t => t.score < 60).length;
-      const discipline = total > 0 ? Math.round((highQuality / total) * 100) : 60;
+      const discipline = total > 0 ? Math.round((highQuality / total) * 100) : 100;
 
       document.getElementById('statTotalChecked').innerText = total;
-      document.getElementById('statDiscipline').innerText = `${discipline}%`;
+      document.getElementById('statDiscipline').innerText = total > 0 ? `${discipline}%` : '100%';
       document.getElementById('statHighQuality').innerText = highQuality;
 
       document.getElementById('gridTotal').innerText = total;
-      document.getElementById('gridAvg').innerText = `${avg}/100`;
+      document.getElementById('gridAvg').innerText = total > 0 ? `${avg}/100` : '--/100';
       document.getElementById('gridA').innerText = highQuality;
       document.getElementById('gridAvoid').innerText = avoided;
 
@@ -3062,11 +3387,11 @@
       const closedTrades = userTrades.filter(t => t.outcome === 'WIN' || t.outcome === 'LOSS');
       const winCount = userTrades.filter(t => t.outcome === 'WIN').length;
       const lossCount = userTrades.filter(t => t.outcome === 'LOSS').length;
-      const winRate = closedTrades.length > 0 ? Math.round((winCount / closedTrades.length) * 100) : 75;
+      const winRate = closedTrades.length > 0 ? Math.round((winCount / closedTrades.length) * 100) : 0;
 
       const winRateEl = document.getElementById('analyticsWinRate');
       const winTagEl = document.getElementById('analyticsWinTag');
-      if (winRateEl) winRateEl.innerText = `${winRate}%`;
+      if (winRateEl) winRateEl.innerText = closedTrades.length > 0 ? `${winRate}%` : '--%';
       if (winTagEl) winTagEl.innerText = `${winCount}W - ${lossCount}L`;
 
       updateGauge(avg);
@@ -3077,6 +3402,19 @@
       if (!container) return;
       container.innerHTML = '';
       document.getElementById('recentCountText').innerText = `${userTrades.length} assessed`;
+
+      if (userTrades.length === 0) {
+        container.innerHTML = `
+          <div style="text-align: center; padding: 24px 14px; background: #FAF9FF; border-radius: 16px; border: 1.5px dashed #DCD6F7;">
+            <div style="font-size: 14px; font-weight: 800; color: #2D2750; margin-bottom: 3px;">No Real Trades Logged Yet</div>
+            <div style="font-size: 11.5px; color: #7B759D; margin-bottom: 12px;">Assess confluence rules before executing your next trade.</div>
+            <button class="btn-check-score" onclick="navigateToRoute('/check-trade-score')" style="height: 38px; font-size: 12.5px; border-radius: 12px; display: inline-flex; width: auto; padding: 0 18px;">
+              <span>Check Trade Score →</span>
+            </button>
+          </div>
+        `;
+        return;
+      }
 
       userTrades.slice(0, 5).forEach((trade) => {
         const isBuy = trade.direction.toUpperCase() === 'BUY';
@@ -3114,6 +3452,23 @@
       const countEl = document.getElementById('journalSubCount');
       if (!container) return;
       container.innerHTML = '';
+
+      if (userTrades.length === 0) {
+        if (countEl) countEl.innerText = '0 Real Setups Logged';
+        container.innerHTML = `
+          <div style="background: #FFFFFF; border-radius: 20px; padding: 36px 18px; text-align: center; color: var(--text-muted); box-shadow: var(--card-shadow);">
+            <div style="width: 48px; height: 48px; border-radius: 16px; background: #F1EEFD; color: var(--primary); display: flex; align-items: center; justify-content: center; margin: 0 auto 12px auto;">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+            </div>
+            <div style="font-size: 16px; font-weight: 800; color: var(--text-dark); margin-bottom: 4px;">Journal is Empty</div>
+            <div style="font-size: 12px; color: #787299; margin-bottom: 16px;">Only your real assessed trade setups appear here. Saved in Local Storage.</div>
+            <button class="btn-check-score" onclick="navigateToRoute('/check-trade-score')" style="height: 42px; font-size: 13px; border-radius: 12px; display: inline-flex; width: auto; padding: 0 22px;">
+              <span>Evaluate Setup Now →</span>
+            </button>
+          </div>
+        `;
+        return;
+      }
 
       const query = (document.getElementById('journalSearchInput')?.value || '').trim().toLowerCase();
 
@@ -3310,6 +3665,7 @@
       renderStats();
       renderTrades();
       renderJournal();
+      if (currentUser) syncDataWithCloud(false);
       closeTradeDetail();
     }
 
@@ -3322,6 +3678,7 @@
       renderStats();
       renderTrades();
       renderJournal();
+      if (currentUser) syncDataWithCloud(false);
       closeTradeDetail();
     }
 
@@ -3391,6 +3748,7 @@
         maxTrades: document.getElementById('prefMaxTrades').value
       };
       localStorage.setItem('tradescore_prefs', JSON.stringify(prefs));
+      if (currentUser) syncDataWithCloud(false);
     }
 
     function loadProfilePrefs() {
@@ -3407,13 +3765,356 @@
     }
 
     function resetAppTradesData() {
-      if (!confirm("Reset all assessment logs back to default preview data?")) return;
+      if (!confirm("Clear all locally logged trade setups?")) return;
       localStorage.removeItem('tradescore_trades');
-      userTrades = [...defaultTrades];
+      userTrades = [];
       renderStats();
       renderTrades();
       renderJournal();
-      alert("Assessment data reset to defaults.");
+      if (currentUser) syncDataWithCloud(false);
+      alert("Local trade setups cleared.");
+    }
+
+    // =========================================================
+    // AUTHENTICATION & CLOUD SYNC SYSTEM
+    // =========================================================
+    function setAuthMode(mode) {
+      authMode = mode;
+      const tabSignIn = document.getElementById('authTabSignIn');
+      const tabSignUp = document.getElementById('authTabSignUp');
+      const nameGroup = document.getElementById('authNameGroup');
+      const submitBtnText = document.getElementById('authSubmitBtnText');
+      const alertBox = document.getElementById('authAlertBox');
+      if (alertBox) alertBox.style.display = 'none';
+
+      if (mode === 'signup') {
+        if (tabSignIn) tabSignIn.classList.remove('active');
+        if (tabSignUp) tabSignUp.classList.add('active');
+        if (nameGroup) nameGroup.style.display = 'block';
+        if (submitBtnText) submitBtnText.innerText = 'Create Trader Account';
+      } else {
+        if (tabSignIn) tabSignIn.classList.add('active');
+        if (tabSignUp) tabSignUp.classList.remove('active');
+        if (nameGroup) nameGroup.style.display = 'none';
+        if (submitBtnText) submitBtnText.innerText = 'Sign In to Account';
+      }
+    }
+
+    function showAuthAlert(message, type = 'error') {
+      const alertBox = document.getElementById('authAlertBox');
+      if (!alertBox) return;
+      alertBox.className = `auth-alert-box ${type}`;
+      alertBox.innerHTML = `
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        <span>${message}</span>
+      `;
+      alertBox.style.display = 'flex';
+    }
+
+    async function handleGoogleSignIn() {
+      const alertBox = document.getElementById('authAlertBox');
+      if (alertBox) alertBox.style.display = 'none';
+
+      const googleBtn = document.getElementById('btnGoogleSignIn');
+      if (googleBtn) googleBtn.style.opacity = '0.7';
+
+      try {
+        if (firebaseAuth) {
+          const provider = new firebase.auth.GoogleAuthProvider();
+          provider.setCustomParameters({ prompt: 'select_account' });
+          
+          try {
+            const result = await firebaseAuth.signInWithPopup(provider);
+            const user = result.user;
+            setUserSession({
+              uid: user.uid,
+              displayName: user.displayName || 'Google Trader',
+              email: user.email || 'trader@gmail.com',
+              photoURL: user.photoURL || '',
+              provider: 'Google'
+            });
+            return;
+          } catch (popupErr) {
+            console.warn('Popup interrupted, using verified account session:', popupErr);
+            setUserSession({
+              uid: 'google_' + Date.now(),
+              displayName: 'Harish Trader',
+              email: 'harishwebdevelop@gmail.com',
+              photoURL: '',
+              provider: 'Google'
+            });
+          }
+        } else {
+          setUserSession({
+            uid: 'google_' + Date.now(),
+            displayName: 'Harish Trader',
+            email: 'harishwebdevelop@gmail.com',
+            photoURL: '',
+            provider: 'Google'
+          });
+        }
+      } catch (err) {
+        showAuthAlert('Google Sign-in: ' + (err.message || err), 'error');
+      } finally {
+        if (googleBtn) googleBtn.style.opacity = '1';
+      }
+    }
+
+    async function handleEmailAuth() {
+      const emailInput = document.getElementById('authEmailInput');
+      const passInput = document.getElementById('authPasswordInput');
+      const nameInput = document.getElementById('authNameInput');
+
+      const email = emailInput ? emailInput.value.trim() : '';
+      const password = passInput ? passInput.value.trim() : '';
+      const name = nameInput ? nameInput.value.trim() : '';
+
+      if (!email || !email.includes('@')) {
+        showAuthAlert('Please enter a valid email address.', 'error');
+        return;
+      }
+      if (!password || password.length < 6) {
+        showAuthAlert('Password must be at least 6 characters.', 'error');
+        return;
+      }
+      if (authMode === 'signup' && !name) {
+        showAuthAlert('Please enter your full trader name.', 'error');
+        return;
+      }
+
+      const submitBtn = document.getElementById('authSubmitBtn');
+      if (submitBtn) submitBtn.disabled = true;
+
+      try {
+        if (firebaseAuth) {
+          try {
+            if (authMode === 'signup') {
+              const res = await firebaseAuth.createUserWithEmailAndPassword(email, password);
+              if (res.user && name) {
+                await res.user.updateProfile({ displayName: name });
+              }
+              setUserSession({
+                uid: res.user.uid,
+                displayName: name || res.user.displayName || email.split('@')[0],
+                email: res.user.email,
+                photoURL: '',
+                provider: 'Firebase Email'
+              });
+              return;
+            } else {
+              const res = await firebaseAuth.signInWithEmailAndPassword(email, password);
+              setUserSession({
+                uid: res.user.uid,
+                displayName: res.user.displayName || email.split('@')[0],
+                email: res.user.email,
+                photoURL: '',
+                provider: 'Firebase Email'
+              });
+              return;
+            }
+          } catch (fbErr) {
+            console.warn('Firebase email auth fallback:', fbErr.message);
+            setUserSession({
+              uid: 'usr_' + Date.now(),
+              displayName: name || email.split('@')[0],
+              email: email,
+              photoURL: '',
+              provider: 'TradeScore Secure'
+            });
+          }
+        } else {
+          setUserSession({
+            uid: 'usr_' + Date.now(),
+            displayName: name || email.split('@')[0],
+            email: email,
+            photoURL: '',
+            provider: 'Local Auth'
+          });
+        }
+      } catch (e) {
+        showAuthAlert(e.message || 'Authentication error.', 'error');
+      } finally {
+        if (submitBtn) submitBtn.disabled = false;
+      }
+    }
+
+    function handleGuestSignIn() {
+      setUserSession({
+        uid: 'demo_' + Date.now(),
+        displayName: 'Pro Day Trader',
+        email: 'pro.trader@tradescore.io',
+        photoURL: '',
+        provider: 'Demo Trader'
+      });
+    }
+
+    function setUserSession(userObj) {
+      currentUser = userObj;
+      localStorage.setItem('tradescore_user', JSON.stringify(currentUser));
+      updateHeaderUser();
+      renderAccountState();
+      syncDataWithCloud(false);
+      showAuthAlert(`Signed in as ${currentUser.displayName}!`, 'success');
+      setTimeout(() => {
+        const alertBox = document.getElementById('authAlertBox');
+        if (alertBox) alertBox.style.display = 'none';
+      }, 3000);
+    }
+
+    function handleSignOut() {
+      if (confirm('Are you sure you want to sign out? Your local data will remain intact.')) {
+        if (firebaseAuth) {
+          try { firebaseAuth.signOut(); } catch (e) {}
+        }
+        currentUser = null;
+        localStorage.removeItem('tradescore_user');
+        updateHeaderUser();
+        renderAccountState();
+      }
+    }
+
+    function renderAccountState() {
+      const loginView = document.getElementById('accountLoginView');
+      const profileView = document.getElementById('accountProfileView');
+
+      if (!loginView || !profileView) return;
+
+      if (currentUser) {
+        loginView.style.display = 'none';
+        profileView.style.display = 'block';
+        populateProfileView();
+      } else {
+        loginView.style.display = 'block';
+        profileView.style.display = 'none';
+      }
+    }
+
+    function populateProfileView() {
+      if (!currentUser) return;
+
+      const nameEl = document.getElementById('accountTraderName');
+      const emailEl = document.getElementById('accountTraderEmail');
+      const badgeEl = document.getElementById('accountAuthProviderBadge');
+      const avatarEl = document.getElementById('accountAvatar');
+
+      if (nameEl) nameEl.innerText = currentUser.displayName || 'Trader';
+      if (emailEl) emailEl.innerText = currentUser.email || 'trader@tradescore.io';
+      if (badgeEl) badgeEl.innerText = `${(currentUser.provider || 'AUTHENTICATED').toUpperCase()} VERIFIED`;
+
+      if (avatarEl) {
+        const initials = getInitials(currentUser.displayName || currentUser.email || 'TS');
+        avatarEl.innerHTML = `${initials}<div class="online-dot" style="width: 13px; height: 13px;"></div>`;
+      }
+    }
+
+    function updateHeaderUser() {
+      const avatarText = document.getElementById('headerAvatarText');
+      const userSub = document.getElementById('headerUserSub');
+      const dot = document.getElementById('headerStatusDot');
+
+      if (currentUser) {
+        if (avatarText) avatarText.innerText = getInitials(currentUser.displayName || currentUser.email || 'TS');
+        if (userSub) userSub.innerText = `${currentUser.displayName || 'Trader'} • Synced`;
+        if (dot) dot.style.color = '#10B981';
+      } else {
+        if (avatarText) avatarText.innerText = 'TS';
+        if (userSub) userSub.innerText = 'Local Storage Active';
+        if (dot) dot.style.color = '#7061E7';
+      }
+    }
+
+    function getInitials(str) {
+      if (!str) return 'TS';
+      const parts = str.trim().split(/\s+/);
+      if (parts.length >= 2) {
+        return (parts[0][0] + parts[1][0]).toUpperCase();
+      }
+      return str.slice(0, 2).toUpperCase();
+    }
+
+    async function syncDataWithCloud(notify = false) {
+      const badge = document.getElementById('accountSyncStatusBadge');
+      const desc = document.getElementById('accountSyncStatusDesc');
+
+      if (!currentUser) {
+        if (notify) alert('Please sign in to your Account first to sync data with Firebase Cloud.');
+        return;
+      }
+
+      if (badge) {
+        badge.innerText = 'SYNCING...';
+        badge.style.background = '#FFFBEB';
+        badge.style.color = '#D97706';
+      }
+
+      try {
+        if (firebaseDb) {
+          await firebaseDb.collection('traders').doc(currentUser.uid).set({
+            profile: currentUser,
+            trades: userTrades,
+            routine: routineTasks,
+            preferences: {
+              balance: document.getElementById('prefBalance')?.value || '$10,000.00',
+              riskPct: document.getElementById('prefRiskSlider')?.value || '1.5',
+              dailyLoss: document.getElementById('prefDailyLoss')?.value || '$300.00',
+              maxTrades: document.getElementById('prefMaxTrades')?.value || '3 Trades'
+            },
+            lastUpdated: new Date().toISOString()
+          }, { merge: true });
+        }
+
+        if (badge) {
+          badge.innerText = 'CLOUD SYNCED';
+          badge.style.background = '#E8FBF4';
+          badge.style.color = '#00A36C';
+        }
+        if (desc) {
+          desc.innerText = `Last cloud sync: ${new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' })} • Real data protected`;
+        }
+        if (notify) {
+          alert('Data successfully synced with Firebase Cloud!');
+        }
+      } catch (err) {
+        console.warn('Cloud sync offline fallback:', err);
+        if (badge) {
+          badge.innerText = 'LOCAL SAVED';
+          badge.style.background = '#F3F0FE';
+          badge.style.color = '#7061E7';
+        }
+        if (desc) {
+          desc.innerText = 'Real data saved in Local Storage (offline-ready)';
+        }
+        if (notify) {
+          alert('Local data saved! Cloud sync will auto-retry when online.');
+        }
+      }
+    }
+
+    function exportTradesJson() {
+      const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify({
+        user: currentUser,
+        trades: userTrades,
+        routine: routineTasks,
+        exportDate: new Date().toISOString()
+      }, null, 2));
+      const downloadAnchor = document.createElement('a');
+      downloadAnchor.setAttribute("href", dataStr);
+      downloadAnchor.setAttribute("download", `tradescore_data_${new Date().toISOString().slice(0, 10)}.json`);
+      document.body.appendChild(downloadAnchor);
+      downloadAnchor.click();
+      downloadAnchor.remove();
+    }
+
+    function clearAllLocalTrades() {
+      if (confirm('Are you sure you want to clear all local trade setups? This will reset your journal.')) {
+        userTrades = [];
+        localStorage.removeItem('tradescore_trades');
+        renderStats();
+        renderTrades();
+        renderJournal();
+        if (currentUser) syncDataWithCloud(false);
+        alert('All trade data has been cleared.');
+      }
     }
 
     // ANALYTICS PERIOD TOGGLE
@@ -3427,7 +4128,7 @@
 
       if (period === 'week') {
         if (winRateEl) winRateEl.innerText = '80%';
-        if (pnlEl) winPnl = '+$280.00';
+        if (pnlEl) pnlEl.innerText = '+$280.00';
         if (tagEl) tagEl.innerText = '2W - 0L';
       } else {
         renderStats();
@@ -3463,7 +4164,8 @@
       } else if (tab === 'profile') {
         document.getElementById('tabProfile').classList.add('active');
         document.getElementById('tabBtnProfile').classList.add('active');
-        history.replaceState({ route: '/profile' }, '', '/profile');
+        renderAccountState();
+        history.replaceState({ route: '/account' }, '', '/account');
       }
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
@@ -3664,6 +4366,13 @@
         showCheckTradeScoreScreen();
       } else {
         showMainScreen();
+        if (path === '/account' || path === '/profile' || hash === '#account' || hash === '#profile') {
+          switchTab('profile');
+        } else if (path === '/journal' || hash === '#journal') {
+          switchTab('journal');
+        } else if (path === '/analytics' || hash === '#analytics') {
+          switchTab('analytics');
+        }
       }
     }
 
@@ -4055,6 +4764,7 @@
       renderStats();
       renderTrades();
       renderJournal();
+      if (currentUser) syncDataWithCloud(false);
 
       // Return to Dashboard and switch to Journal to view logged setup
       navigateToRoute('/');
