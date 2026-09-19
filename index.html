@@ -920,18 +920,19 @@
       border-radius: 50%;
     }
 
-    /* Decision Buttons Row (Image 3) */
+    /* Decision Buttons Row (Image 2) */
     .decision-buttons-row {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 16px;
-      margin-bottom: 10px;
+      margin-bottom: 12px;
+      margin-top: 10px;
     }
 
     .decision-btn {
       background: #FFFFFF;
-      border-radius: 24px;
-      height: 74px;
+      border-radius: 22px;
+      height: 68px;
       border: 2px solid transparent;
       display: flex;
       align-items: center;
@@ -943,69 +944,39 @@
       outline: none;
       user-select: none;
       -webkit-tap-highlight-color: transparent;
-      box-shadow: 0 6px 18px rgba(35, 22, 90, 0.1);
+      box-shadow: 0 10px 24px rgba(35, 22, 90, 0.14);
     }
 
-    .decision-btn .decision-icon-circle {
-      width: 36px;
-      height: 36px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: all 0.18s ease;
+    .decision-btn:active {
+      transform: scale(0.97);
     }
 
     .decision-btn .decision-label {
-      font-size: 20px;
-      font-weight: 900;
+      font-size: 19px;
+      font-weight: 800;
       letter-spacing: 0.5px;
     }
 
     .decision-btn.btn-yes {
       background: #FFFFFF;
-      color: #00A36C;
-    }
-
-    .decision-btn.btn-yes .decision-icon-circle {
-      background: #E8F5E9;
-      color: #00A36C;
     }
 
     .decision-btn.btn-yes.selected {
-      background: #10B981;
+      background: #E8FBF4;
       border-color: #10B981;
-      color: #FFFFFF;
-      box-shadow: 0 10px 26px rgba(16, 185, 129, 0.42);
+      box-shadow: 0 10px 26px rgba(16, 185, 129, 0.35);
       transform: scale(1.02);
-    }
-
-    .decision-btn.btn-yes.selected .decision-icon-circle {
-      background: rgba(255, 255, 255, 0.25);
-      color: #FFFFFF;
     }
 
     .decision-btn.btn-no {
       background: #FFFFFF;
-      color: #EF4444;
-    }
-
-    .decision-btn.btn-no .decision-icon-circle {
-      background: #FFEBEE;
-      color: #EF4444;
     }
 
     .decision-btn.btn-no.selected {
-      background: #EF4444;
+      background: #FEECEF;
       border-color: #EF4444;
-      color: #FFFFFF;
-      box-shadow: 0 10px 26px rgba(239, 68, 68, 0.42);
+      box-shadow: 0 10px 26px rgba(239, 68, 68, 0.35);
       transform: scale(1.02);
-    }
-
-    .decision-btn.btn-no.selected .decision-icon-circle {
-      background: rgba(255, 255, 255, 0.25);
-      color: #FFFFFF;
     }
 
     .score-decision-caption {
@@ -2446,20 +2417,16 @@
           </div>
         </div>
 
-        <!-- Large Interactive Decision Buttons (YES / NO) -->
+        <!-- Large Interactive Decision Buttons (YES / NO) matching Image 2 -->
         <div class="decision-buttons-row">
           <button type="button" class="decision-btn btn-yes" id="btnDecisionYes" onclick="recordQuestionAnswer(true)">
-            <div class="decision-icon-circle">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
-            </div>
-            <span class="decision-label">YES</span>
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            <span class="decision-label" style="color: #10B981;">YES</span>
           </button>
 
           <button type="button" class="decision-btn btn-no" id="btnDecisionNo" onclick="recordQuestionAnswer(false)">
-            <div class="decision-icon-circle">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-            </div>
-            <span class="decision-label">NO</span>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#EF4444" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            <span class="decision-label" style="color: #EF4444;">NO</span>
           </button>
         </div>
 
