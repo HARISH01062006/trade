@@ -1,10 +1,13 @@
-const CACHE_NAME = 'tradescore-pwa-v7';
+const CACHE_NAME = 'tradescore-pwa-v8';
 const CORE_ASSETS = [
   '/',
   '/index.html',
   '/manifest.json',
   '/icon-192.svg',
-  '/icon-512.svg'
+  '/icon-512.svg',
+  '/mr_nobody_trader_thumb.jpg',
+  '/mr_nobody_trader_512.jpg',
+  '/mr_nobody_trader.jpg'
 ];
 
 // Install: Cache all core assets safely

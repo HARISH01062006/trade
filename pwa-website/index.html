@@ -2245,6 +2245,272 @@
       background: rgba(255, 255, 255, 0.25);
       transform: scale(1.1);
     }
+
+    /* =========================================================
+       MR NOBODY TRADER: BRAND MARKETING FOOTER & SHOWCASE MODAL
+       ========================================================= */
+    .brand-marketing-footer {
+      margin: 22px 0 14px 0;
+      border-radius: 20px;
+      background: linear-gradient(135deg, #090814 0%, #15112A 55%, #0C192E 100%);
+      border: 1.5px solid rgba(59, 130, 246, 0.4);
+      box-shadow: 0 12px 32px -8px rgba(37, 99, 235, 0.3), 0 2px 12px rgba(0, 0, 0, 0.5);
+      cursor: pointer;
+      overflow: hidden;
+      position: relative;
+      transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.2s ease, border-color 0.2s ease;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+
+    .brand-marketing-footer:hover {
+      transform: translateY(-2px);
+      border-color: rgba(96, 165, 250, 0.7);
+      box-shadow: 0 16px 38px -6px rgba(37, 99, 235, 0.45), 0 0 20px rgba(59, 130, 246, 0.25);
+    }
+
+    .brand-marketing-footer:active {
+      transform: scale(0.985);
+    }
+
+    .brand-marketing-footer::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 60%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.08), transparent);
+      transform: skewX(-22deg);
+      animation: brandSweepLight 6s infinite ease-in-out;
+      pointer-events: none;
+    }
+
+    @keyframes brandSweepLight {
+      0% { left: -100%; }
+      35% { left: 200%; }
+      100% { left: 200%; }
+    }
+
+    .brand-marketing-inner {
+      padding: 14px 16px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .brand-badge-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .brand-badge-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      background: rgba(37, 99, 235, 0.22);
+      border: 1px solid rgba(59, 130, 246, 0.5);
+      padding: 2px 8px;
+      border-radius: 6px;
+      font-size: 9px;
+      font-weight: 800;
+      letter-spacing: 0.8px;
+      color: #60A5FA;
+      text-transform: uppercase;
+    }
+
+    .brand-pulse-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #38BDF8;
+      box-shadow: 0 0 8px #38BDF8;
+      animation: brandPulse 2s infinite;
+    }
+
+    @keyframes brandPulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(0.85); }
+    }
+
+    .brand-tag-verified {
+      font-size: 9.5px;
+      font-weight: 700;
+      color: #94A3B8;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+
+    .brand-main-content {
+      display: flex;
+      align-items: center;
+      gap: 13px;
+    }
+
+    .brand-logo-frame {
+      width: 58px;
+      height: 58px;
+      border-radius: 14px;
+      background: #05050A;
+      border: 1.5px solid rgba(59, 130, 246, 0.55);
+      box-shadow: 0 4px 16px rgba(37, 99, 235, 0.35);
+      overflow: hidden;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    .brand-logo-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .brand-text-block {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .brand-name-row {
+      display: flex;
+      align-items: baseline;
+      gap: 5px;
+      line-height: 1.15;
+    }
+
+    .brand-prefix {
+      color: #FFFFFF;
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: 0.2px;
+    }
+
+    .brand-title {
+      color: #38BDF8;
+      font-size: 15px;
+      font-weight: 900;
+      letter-spacing: 0.3px;
+      text-shadow: 0 0 12px rgba(56, 189, 248, 0.45);
+    }
+
+    .brand-tagline {
+      color: #E2E8F0;
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 1.4px;
+      margin-top: 2px;
+      text-transform: uppercase;
+    }
+
+    .brand-subtext {
+      color: #94A3B8;
+      font-size: 11px;
+      margin-top: 3px;
+      line-height: 1.3;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .brand-footer-action {
+      margin-top: 10px;
+      padding-top: 9px;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 10.5px;
+    }
+
+    .brand-action-link {
+      color: #60A5FA;
+      font-weight: 800;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .brand-pillars {
+      color: #64748B;
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.6px;
+    }
+
+    /* BRAND SHOWCASE MODAL */
+    .brand-modal-sheet {
+      background: #0B0A17 !important;
+      color: #FFFFFF;
+      border-top-left-radius: 28px;
+      border-top-right-radius: 28px;
+      border: 1.5px solid rgba(59, 130, 246, 0.35);
+      border-bottom: none;
+      box-shadow: 0 -12px 40px rgba(0, 0, 0, 0.9);
+    }
+
+    .brand-showcase-hero {
+      text-align: center;
+      padding: 16px 8px 12px 8px;
+    }
+
+    .brand-modal-logo-wrapper {
+      width: 112px;
+      height: 112px;
+      margin: 0 auto 14px auto;
+      border-radius: 24px;
+      background: #05050A;
+      border: 2px solid rgba(59, 130, 246, 0.7);
+      box-shadow: 0 10px 32px rgba(37, 99, 235, 0.5);
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      animation: heroLogoFloat 4s ease-in-out infinite;
+    }
+
+    @keyframes heroLogoFloat {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-4px); }
+    }
+
+    .brand-modal-logo-wrapper img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .brand-social-card {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1.2px solid rgba(255, 255, 255, 0.09);
+      border-radius: 14px;
+      padding: 12px 14px;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: #FFFFFF;
+      transition: all 0.2s ease;
+      cursor: pointer;
+    }
+
+    .brand-social-card:hover {
+      background: rgba(59, 130, 246, 0.15);
+      border-color: rgba(59, 130, 246, 0.45);
+      transform: translateX(3px);
+    }
+
+    .brand-pillar-box {
+      background: rgba(15, 23, 42, 0.7);
+      border: 1.2px solid rgba(59, 130, 246, 0.22);
+      border-radius: 14px;
+      padding: 12px 14px;
+      margin-bottom: 10px;
+    }
   </style>
 </head>
 <body>
@@ -2464,6 +2730,39 @@
       </div>
 
       <div id="recentTradeList"></div>
+
+      <!-- POWERED BY MR NOBODY TRADER MARKETING BANNER -->
+      <div class="brand-marketing-footer" onclick="openBrandShowcaseModal()" role="button" tabindex="0" title="Powered by Mr Nobody Trader - Own Your Tomorrow">
+        <div class="brand-marketing-inner">
+          <div class="brand-badge-top">
+            <div class="brand-badge-pill">
+              <span class="brand-pulse-dot"></span>
+              <span>POWERED BY</span>
+            </div>
+            <span class="brand-tag-verified">OFFICIAL TRADING PARTNER</span>
+          </div>
+          <div class="brand-main-content">
+            <div class="brand-logo-frame">
+              <img src="mr_nobody_trader_thumb.jpg" alt="Mr Nobody Trader" class="brand-logo-img" onerror="this.onerror=null; this.src='mr_nobody_trader.jpg';">
+            </div>
+            <div class="brand-text-block">
+              <div class="brand-name-row">
+                <span class="brand-prefix">MR</span>
+                <span class="brand-title">NOBODY TRADER</span>
+              </div>
+              <div class="brand-tagline">OWN YOUR TOMORROW</div>
+              <div class="brand-subtext">Precision Confluence & Disciplined Execution Engine</div>
+            </div>
+          </div>
+          <div class="brand-footer-action">
+            <span class="brand-action-link">
+              <span>Explore Brand & Community</span>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+            </span>
+            <span class="brand-pillars">DISCIPLINE • EDGE • MASTERY</span>
+          </div>
+        </div>
+      </div>
     </div>
 
     <!-- TAB 2: JOURNAL TAB -->
@@ -2502,6 +2801,39 @@
 
       <!-- Journal Cards List -->
       <div id="journalListContainer"></div>
+
+      <!-- POWERED BY MR NOBODY TRADER MARKETING BANNER -->
+      <div class="brand-marketing-footer" onclick="openBrandShowcaseModal()" role="button" tabindex="0" title="Powered by Mr Nobody Trader - Own Your Tomorrow">
+        <div class="brand-marketing-inner">
+          <div class="brand-badge-top">
+            <div class="brand-badge-pill">
+              <span class="brand-pulse-dot"></span>
+              <span>POWERED BY</span>
+            </div>
+            <span class="brand-tag-verified">OFFICIAL TRADING PARTNER</span>
+          </div>
+          <div class="brand-main-content">
+            <div class="brand-logo-frame">
+              <img src="mr_nobody_trader_thumb.jpg" alt="Mr Nobody Trader" class="brand-logo-img" onerror="this.onerror=null; this.src='mr_nobody_trader.jpg';">
+            </div>
+            <div class="brand-text-block">
+              <div class="brand-name-row">
+                <span class="brand-prefix">MR</span>
+                <span class="brand-title">NOBODY TRADER</span>
+              </div>
+              <div class="brand-tagline">OWN YOUR TOMORROW</div>
+              <div class="brand-subtext">Precision Confluence & Disciplined Execution Engine</div>
+            </div>
+          </div>
+          <div class="brand-footer-action">
+            <span class="brand-action-link">
+              <span>Explore Brand & Community</span>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+            </span>
+            <span class="brand-pillars">DISCIPLINE • EDGE • MASTERY</span>
+          </div>
+        </div>
+      </div>
     </div>
 
     <!-- TAB 3: ANALYTICS TAB -->
@@ -2592,6 +2924,39 @@
           <!-- Dynamically populated based on real userTrades -->
         </div>
       </div>
+
+      <!-- POWERED BY MR NOBODY TRADER MARKETING BANNER -->
+      <div class="brand-marketing-footer" onclick="openBrandShowcaseModal()" role="button" tabindex="0" title="Powered by Mr Nobody Trader - Own Your Tomorrow">
+        <div class="brand-marketing-inner">
+          <div class="brand-badge-top">
+            <div class="brand-badge-pill">
+              <span class="brand-pulse-dot"></span>
+              <span>POWERED BY</span>
+            </div>
+            <span class="brand-tag-verified">OFFICIAL TRADING PARTNER</span>
+          </div>
+          <div class="brand-main-content">
+            <div class="brand-logo-frame">
+              <img src="mr_nobody_trader_thumb.jpg" alt="Mr Nobody Trader" class="brand-logo-img" onerror="this.onerror=null; this.src='mr_nobody_trader.jpg';">
+            </div>
+            <div class="brand-text-block">
+              <div class="brand-name-row">
+                <span class="brand-prefix">MR</span>
+                <span class="brand-title">NOBODY TRADER</span>
+              </div>
+              <div class="brand-tagline">OWN YOUR TOMORROW</div>
+              <div class="brand-subtext">Precision Confluence & Disciplined Execution Engine</div>
+            </div>
+          </div>
+          <div class="brand-footer-action">
+            <span class="brand-action-link">
+              <span>Explore Brand & Community</span>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+            </span>
+            <span class="brand-pillars">DISCIPLINE • EDGE • MASTERY</span>
+          </div>
+        </div>
+      </div>
     </div>
 
     <!-- TAB 4: ACCOUNT & AUTH TAB (Login first if not authenticated) -->
@@ -2673,6 +3038,39 @@
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#7061E7" stroke-width="2.2" style="flex-shrink: 0; margin-top: 1px;"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
             <div style="font-size: 11px; color: #5B5480; line-height: 1.45;">
               <strong>Real Data Always Saved Locally:</strong> All your trade setups, scores, and journal evaluations are stored securely in your browser storage. Sign in to link cloud backup.
+            </div>
+          </div>
+        </div>
+
+        <!-- POWERED BY MR NOBODY TRADER MARKETING BANNER -->
+        <div class="brand-marketing-footer" onclick="openBrandShowcaseModal()" role="button" tabindex="0" title="Powered by Mr Nobody Trader - Own Your Tomorrow">
+          <div class="brand-marketing-inner">
+            <div class="brand-badge-top">
+              <div class="brand-badge-pill">
+                <span class="brand-pulse-dot"></span>
+                <span>POWERED BY</span>
+              </div>
+              <span class="brand-tag-verified">OFFICIAL TRADING PARTNER</span>
+            </div>
+            <div class="brand-main-content">
+              <div class="brand-logo-frame">
+                <img src="mr_nobody_trader_thumb.jpg" alt="Mr Nobody Trader" class="brand-logo-img" onerror="this.onerror=null; this.src='mr_nobody_trader.jpg';">
+              </div>
+              <div class="brand-text-block">
+                <div class="brand-name-row">
+                  <span class="brand-prefix">MR</span>
+                  <span class="brand-title">NOBODY TRADER</span>
+                </div>
+                <div class="brand-tagline">OWN YOUR TOMORROW</div>
+                <div class="brand-subtext">Precision Confluence & Disciplined Execution Engine</div>
+              </div>
+            </div>
+            <div class="brand-footer-action">
+              <span class="brand-action-link">
+                <span>Explore Brand & Community</span>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+              </span>
+              <span class="brand-pillars">DISCIPLINE • EDGE • MASTERY</span>
             </div>
           </div>
         </div>
@@ -2819,6 +3217,39 @@
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#A49EB8" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
           </div>
         </div>
+
+        <!-- POWERED BY MR NOBODY TRADER MARKETING BANNER -->
+        <div class="brand-marketing-footer" onclick="openBrandShowcaseModal()" role="button" tabindex="0" title="Powered by Mr Nobody Trader - Own Your Tomorrow">
+          <div class="brand-marketing-inner">
+            <div class="brand-badge-top">
+              <div class="brand-badge-pill">
+                <span class="brand-pulse-dot"></span>
+                <span>POWERED BY</span>
+              </div>
+              <span class="brand-tag-verified">OFFICIAL TRADING PARTNER</span>
+            </div>
+            <div class="brand-main-content">
+              <div class="brand-logo-frame">
+                <img src="mr_nobody_trader_thumb.jpg" alt="Mr Nobody Trader" class="brand-logo-img" onerror="this.onerror=null; this.src='mr_nobody_trader.jpg';">
+              </div>
+              <div class="brand-text-block">
+                <div class="brand-name-row">
+                  <span class="brand-prefix">MR</span>
+                  <span class="brand-title">NOBODY TRADER</span>
+                </div>
+                <div class="brand-tagline">OWN YOUR TOMORROW</div>
+                <div class="brand-subtext">Precision Confluence & Disciplined Execution Engine</div>
+              </div>
+            </div>
+            <div class="brand-footer-action">
+              <span class="brand-action-link">
+                <span>Explore Brand & Community</span>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+              </span>
+              <span class="brand-pillars">DISCIPLINE • EDGE • MASTERY</span>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -2931,6 +3362,39 @@
           <span>PROCEED TO CONFLUENCE EVALUATION</span>
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
         </button>
+
+        <!-- POWERED BY MR NOBODY TRADER MARKETING BANNER -->
+        <div class="brand-marketing-footer" onclick="openBrandShowcaseModal()" role="button" tabindex="0" title="Powered by Mr Nobody Trader - Own Your Tomorrow">
+          <div class="brand-marketing-inner">
+            <div class="brand-badge-top">
+              <div class="brand-badge-pill">
+                <span class="brand-pulse-dot"></span>
+                <span>POWERED BY</span>
+              </div>
+              <span class="brand-tag-verified">OFFICIAL TRADING PARTNER</span>
+            </div>
+            <div class="brand-main-content">
+              <div class="brand-logo-frame">
+                <img src="mr_nobody_trader_thumb.jpg" alt="Mr Nobody Trader" class="brand-logo-img" onerror="this.onerror=null; this.src='mr_nobody_trader.jpg';">
+              </div>
+              <div class="brand-text-block">
+                <div class="brand-name-row">
+                  <span class="brand-prefix">MR</span>
+                  <span class="brand-title">NOBODY TRADER</span>
+                </div>
+                <div class="brand-tagline">OWN YOUR TOMORROW</div>
+                <div class="brand-subtext">Precision Confluence & Disciplined Execution Engine</div>
+              </div>
+            </div>
+            <div class="brand-footer-action">
+              <span class="brand-action-link">
+                <span>Explore Brand & Community</span>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+              </span>
+              <span class="brand-pillars">DISCIPLINE • EDGE • MASTERY</span>
+            </div>
+          </div>
+        </div>
       </div>
 
       <!-- STAGE 2: QUESTIONNAIRE (EXACT MATCH TO USER IMAGE 3 & QuestionnaireScreen.kt) -->
@@ -3083,10 +3547,168 @@
         <button type="button" onclick="returnToDashboard()" style="width: 100%; margin-top: 8px; background: transparent; border: none; padding: 10px; font-weight: 700; color: #FFFFFF; cursor: pointer; font-size: 13px; font-family: inherit;">
           Return to Dashboard
         </button>
+
+        <!-- POWERED BY MR NOBODY TRADER MARKETING BANNER -->
+        <div class="brand-marketing-footer" onclick="openBrandShowcaseModal()" role="button" tabindex="0" title="Powered by Mr Nobody Trader - Own Your Tomorrow">
+          <div class="brand-marketing-inner">
+            <div class="brand-badge-top">
+              <div class="brand-badge-pill">
+                <span class="brand-pulse-dot"></span>
+                <span>POWERED BY</span>
+              </div>
+              <span class="brand-tag-verified">OFFICIAL TRADING PARTNER</span>
+            </div>
+            <div class="brand-main-content">
+              <div class="brand-logo-frame">
+                <img src="mr_nobody_trader_thumb.jpg" alt="Mr Nobody Trader" class="brand-logo-img" onerror="this.onerror=null; this.src='mr_nobody_trader.jpg';">
+              </div>
+              <div class="brand-text-block">
+                <div class="brand-name-row">
+                  <span class="brand-prefix">MR</span>
+                  <span class="brand-title">NOBODY TRADER</span>
+                </div>
+                <div class="brand-tagline">OWN YOUR TOMORROW</div>
+                <div class="brand-subtext">Precision Confluence & Disciplined Execution Engine</div>
+              </div>
+            </div>
+            <div class="brand-footer-action">
+              <span class="brand-action-link">
+                <span>Explore Brand & Community</span>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+              </span>
+              <span class="brand-pillars">DISCIPLINE • EDGE • MASTERY</span>
+            </div>
+          </div>
+        </div>
       </div>
 
     </div>
 
+  </div>
+
+  <!-- =========================================================
+       MODAL: MR NOBODY TRADER OFFICIAL BRAND SHOWCASE
+       ========================================================= -->
+  <div id="brandShowcaseModal" class="modal-overlay">
+    <div class="modal-sheet brand-modal-sheet" style="height: auto; max-height: 90vh; overflow-y: auto;">
+      <div class="modal-handle-bar" style="background: rgba(255,255,255,0.25);"></div>
+
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; padding: 0 4px;">
+        <div class="brand-badge-pill" style="font-size: 10px; padding: 4px 10px;">
+          <span class="brand-pulse-dot"></span>
+          <span>OFFICIAL TRADING ECOSYSTEM</span>
+        </div>
+        <button class="eval-close-btn" onclick="closeBrandShowcaseModal()" title="Close" style="background: rgba(255,255,255,0.12); color: #FFF;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+
+      <div class="brand-showcase-hero">
+        <div class="brand-modal-logo-wrapper">
+          <img src="mr_nobody_trader_512.jpg" alt="Mr Nobody Trader Brand Logo" onerror="this.onerror=null; this.src='mr_nobody_trader.jpg';">
+        </div>
+        
+        <div style="display: flex; align-items: baseline; justify-content: center; gap: 7px;">
+          <span style="font-size: 18px; font-weight: 800; color: #FFFFFF;">MR</span>
+          <span style="font-size: 24px; font-weight: 900; color: #38BDF8; letter-spacing: 0.5px; text-shadow: 0 0 16px rgba(56, 189, 248, 0.5);">NOBODY TRADER</span>
+        </div>
+        
+        <div style="font-size: 12px; font-weight: 800; color: #E2E8F0; letter-spacing: 2px; text-transform: uppercase; margin-top: 4px;">
+          OWN YOUR TOMORROW
+        </div>
+        <div style="font-size: 12px; color: #94A3B8; margin-top: 6px; max-width: 320px; margin-left: auto; margin-right: auto; line-height: 1.45;">
+          Empowering disciplined traders with mathematical confluence, strict risk management, and psychological mastery.
+        </div>
+      </div>
+
+      <!-- Core Trading Manifesto -->
+      <div style="margin: 14px 0 16px 0;">
+        <div style="font-size: 11px; font-weight: 800; color: #38BDF8; letter-spacing: 0.8px; margin-bottom: 8px; text-transform: uppercase;">
+          THE MR NOBODY TRADING CREED
+        </div>
+
+        <div class="brand-pillar-box">
+          <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 4px;">
+            <div style="width: 22px; height: 22px; border-radius: 6px; background: rgba(56, 189, 248, 0.2); color: #38BDF8; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 800;">1</div>
+            <div style="font-size: 13px; font-weight: 800; color: #FFFFFF;">Systematic Edge Over Emotion</div>
+          </div>
+          <div style="font-size: 11.5px; color: #94A3B8; line-height: 1.4; padding-left: 30px;">
+            No impulsive gambling. Every position requires at least 4+ independent confluence factors before execution.
+          </div>
+        </div>
+
+        <div class="brand-pillar-box">
+          <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 4px;">
+            <div style="width: 22px; height: 22px; border-radius: 6px; background: rgba(16, 185, 129, 0.2); color: #10B981; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 800;">2</div>
+            <div style="font-size: 13px; font-weight: 800; color: #FFFFFF;">Capital Preservation First</div>
+          </div>
+          <div style="font-size: 11.5px; color: #94A3B8; line-height: 1.4; padding-left: 30px;">
+            Never risk more than 1–2% per trade. Survive drawdowns comfortably so mathematical expectancy can compound your account.
+          </div>
+        </div>
+
+        <div class="brand-pillar-box">
+          <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 4px;">
+            <div style="width: 22px; height: 22px; border-radius: 6px; background: rgba(139, 92, 246, 0.2); color: #A78BFA; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 800;">3</div>
+            <div style="font-size: 13px; font-weight: 800; color: #FFFFFF;">Zero Ego Execution</div>
+          </div>
+          <div style="font-size: 11.5px; color: #94A3B8; line-height: 1.4; padding-left: 30px;">
+            The market is always right. Cut losses quickly when invalidation levels are reached, and let high-confluence winners run.
+          </div>
+        </div>
+      </div>
+
+      <!-- Community Channels & Social Hub -->
+      <div style="margin-bottom: 18px;">
+        <div style="font-size: 11px; font-weight: 800; color: #38BDF8; letter-spacing: 0.8px; margin-bottom: 8px; text-transform: uppercase;">
+          OFFICIAL TRADER COMMUNITY & RESOURCES
+        </div>
+
+        <div class="brand-social-card" onclick="alert('Welcome to Mr Nobody Trader community! Stay tuned for verified signals and masterclass announcements.')">
+          <div style="width: 38px; height: 38px; border-radius: 10px; background: #229ED9; display: flex; align-items: center; justify-content: center; color: #FFF; flex-shrink: 0;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+          </div>
+          <div style="flex: 1; min-width: 0;">
+            <div style="font-size: 13px; font-weight: 800; color: #FFFFFF;">Telegram Trading Channel</div>
+            <div style="font-size: 11px; color: #94A3B8; margin-top: 1px;">Live market breakdown, macro alerts & confluence setups</div>
+          </div>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#60A5FA" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+        </div>
+
+        <div class="brand-social-card" onclick="alert('Opening Mr Nobody Trader YouTube Masterclass sessions.')">
+          <div style="width: 38px; height: 38px; border-radius: 10px; background: #FF0000; display: flex; align-items: center; justify-content: center; color: #FFF; flex-shrink: 0;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/></svg>
+          </div>
+          <div style="flex: 1; min-width: 0;">
+            <div style="font-size: 13px; font-weight: 800; color: #FFFFFF;">YouTube Video Masterclass</div>
+            <div style="font-size: 11px; color: #94A3B8; margin-top: 1px;">Order flow, price action secrets & setup case studies</div>
+          </div>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#60A5FA" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+        </div>
+
+        <div class="brand-social-card" onclick="openEducationModal(); closeBrandShowcaseModal();">
+          <div style="width: 38px; height: 38px; border-radius: 10px; background: linear-gradient(135deg, #7061E7, #4F46E5); display: flex; align-items: center; justify-content: center; color: #FFF; flex-shrink: 0;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+          </div>
+          <div style="flex: 1; min-width: 0;">
+            <div style="font-size: 13px; font-weight: 800; color: #FFFFFF;">In-App Trading Masterclass</div>
+            <div style="font-size: 11px; color: #94A3B8; margin-top: 1px;">Learn the 10 confluence criteria & scoring methodology</div>
+          </div>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#60A5FA" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div style="display: flex; gap: 10px; margin-bottom: 8px;">
+        <button type="button" class="neu-hero-btn" onclick="shareBrandLink()" style="flex: 1; margin: 0; background: linear-gradient(135deg, #2563EB, #1D4ED8); box-shadow: 0 8px 24px rgba(37, 99, 235, 0.4);">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+          <span>SHARE WITH TRADERS</span>
+        </button>
+        <button type="button" onclick="closeBrandShowcaseModal()" style="background: rgba(255,255,255,0.08); border: 1.2px solid rgba(255,255,255,0.15); color: #FFFFFF; font-weight: 800; padding: 0 18px; border-radius: 16px; cursor: pointer; font-size: 12.5px; font-family: inherit;">
+          Close
+        </button>
+      </div>
+    </div>
   </div>
 
   <!-- MODAL: DAILY PRE-MARKET ROUTINE -->
@@ -5668,6 +6290,47 @@
         });
       }
       closeChecklistModal();
+    }
+
+    // =========================================================
+    // MR NOBODY TRADER: BRAND SHOWCASE MODAL
+    // =========================================================
+    function openBrandShowcaseModal() {
+      const modal = document.getElementById('brandShowcaseModal');
+      if (modal) {
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+      }
+    }
+
+    function closeBrandShowcaseModal() {
+      const modal = document.getElementById('brandShowcaseModal');
+      if (modal) {
+        modal.classList.remove('active');
+        document.body.style.overflow = '';
+      }
+    }
+
+    function shareBrandLink() {
+      const shareData = {
+        title: 'TradeScore — Powered by Mr Nobody Trader',
+        text: 'Master mathematical confluence, strict risk rules, and disciplined trading execution with TradeScore. Own Your Tomorrow.',
+        url: window.location.href
+      };
+
+      if (navigator.share && typeof navigator.share === 'function') {
+        navigator.share(shareData).catch(() => {});
+      } else {
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(window.location.href).then(() => {
+            alert('TradeScore link copied to clipboard! Share with fellow traders.');
+          }).catch(() => {
+            prompt('Copy this link:', window.location.href);
+          });
+        } else {
+          prompt('Copy this link:', window.location.href);
+        }
+      }
     }
 
     // PWA Setup
