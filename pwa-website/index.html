@@ -1811,7 +1811,28 @@
       box-shadow: 0 4px 12px rgba(50, 36, 128, 0.2);
     }
 
-    /* Rich Journal Card */
+    /* Rich Journal Card & Smooth List Transition */
+    #journalListContainer {
+      transition: opacity 0.16s cubic-bezier(0.2, 0.8, 0.2, 1), transform 0.16s cubic-bezier(0.2, 0.8, 0.2, 1);
+      will-change: opacity, transform;
+    }
+
+    #journalListContainer.is-filtering {
+      opacity: 0.2;
+      transform: translateY(4px);
+    }
+
+    @keyframes journalFadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(6px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
     .journal-card {
       background: #FFFFFF;
       border-radius: var(--radius-md);
@@ -1820,7 +1841,8 @@
       box-shadow: var(--card-shadow);
       border: 1.2px solid rgba(255, 255, 255, 0.95);
       cursor: pointer;
-      transition: transform 0.12s ease;
+      transition: transform 0.12s ease, box-shadow 0.15s ease;
+      animation: journalFadeIn 0.24s cubic-bezier(0.16, 1, 0.3, 1) both;
     }
 
     .journal-card:active {
@@ -4388,7 +4410,7 @@
 
       if (filtered.length === 0) {
         container.innerHTML = `
-          <div style="background: #FFFFFF; border-radius: 20px; padding: 32px 16px; text-align: center; color: var(--text-muted); box-shadow: var(--card-shadow);">
+          <div style="background: #FFFFFF; border-radius: 20px; padding: 32px 16px; text-align: center; color: var(--text-muted); box-shadow: var(--card-shadow); animation: journalFadeIn 0.22s ease both;">
             <div style="font-size: 15px; font-weight: 800; color: var(--text-dark); margin-bottom: 4px;">No matching trade setups</div>
             <div style="font-size: 12px;">Try changing your search query or filter chip</div>
           </div>
@@ -4396,7 +4418,7 @@
         return;
       }
 
-      filtered.forEach(trade => {
+      filtered.forEach((trade, index) => {
         const isBuy = trade.direction.toUpperCase() === 'BUY';
         const color = trade.score >= 80 ? '#10B981' : trade.score >= 60 ? '#7061E7' : '#EF4444';
         const bg = trade.score >= 80 ? 'rgba(16, 185, 129, 0.12)' : trade.score >= 60 ? 'rgba(112, 97, 231, 0.12)' : 'rgba(239, 68, 68, 0.12)';
@@ -4412,6 +4434,7 @@
 
         const card = document.createElement('div');
         card.className = 'journal-card';
+        card.style.animationDelay = `${Math.min(index * 25, 150)}ms`;
         card.onclick = () => openTradeDetail(trade.id);
         card.innerHTML = `
           <div class="journal-top-row">
@@ -4450,14 +4473,40 @@
     }
 
     function setJournalFilter(filter, btn) {
+      if (currentJournalFilter === filter && btn && btn.classList.contains('active')) return;
       currentJournalFilter = filter;
       document.querySelectorAll('.filter-chips-scroll .filter-chip').forEach(el => el.classList.remove('active'));
       if (btn) btn.classList.add('active');
-      renderJournal();
+
+      const container = document.getElementById('journalListContainer');
+      if (container) {
+        container.classList.add('is-filtering');
+        setTimeout(() => {
+          renderJournal();
+          requestAnimationFrame(() => {
+            container.classList.remove('is-filtering');
+          });
+        }, 90);
+      } else {
+        renderJournal();
+      }
     }
 
+    let journalSearchFilterTimer = null;
     function filterJournal() {
-      renderJournal();
+      const container = document.getElementById('journalListContainer');
+      if (container) {
+        container.classList.add('is-filtering');
+      }
+      clearTimeout(journalSearchFilterTimer);
+      journalSearchFilterTimer = setTimeout(() => {
+        renderJournal();
+        if (container) {
+          requestAnimationFrame(() => {
+            container.classList.remove('is-filtering');
+          });
+        }
+      }, 100);
     }
 
     // TRADE DETAIL INSPECTOR MODAL
