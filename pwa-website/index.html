@@ -2071,6 +2071,180 @@
       from { opacity: 0; transform: translateY(4px); }
       to { opacity: 1; transform: translateY(0); }
     }
+
+    /* =========================================================
+       SUCCESS CELEBRATION: CANVAS & TOAST ANIMATIONS
+       ========================================================= */
+    .celebration-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: 100000;
+      display: none;
+    }
+
+    .celebration-toast {
+      position: fixed;
+      top: 22px;
+      left: 50%;
+      transform: translateX(-50%) translateY(-140px) scale(0.85);
+      opacity: 0;
+      pointer-events: none;
+      z-index: 100001;
+      transition: transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.3s ease;
+      width: calc(100% - 32px);
+      max-width: 440px;
+    }
+
+    .celebration-toast.show {
+      transform: translateX(-50%) translateY(0) scale(1);
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .celebration-card {
+      position: relative;
+      background: linear-gradient(135deg, rgba(28, 23, 56, 0.96), rgba(46, 36, 92, 0.97));
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border: 1.5px solid rgba(16, 185, 129, 0.6);
+      border-radius: 20px;
+      padding: 13px 16px;
+      box-shadow: 0 16px 42px -6px rgba(16, 185, 129, 0.35), 0 0 28px rgba(112, 97, 231, 0.35);
+      display: flex;
+      align-items: center;
+      gap: 13px;
+      overflow: hidden;
+      animation: celebrateGlowPulse 2.8s infinite ease-in-out;
+    }
+
+    @keyframes celebrateGlowPulse {
+      0% {
+        box-shadow: 0 16px 42px -6px rgba(16, 185, 129, 0.35), 0 0 28px rgba(112, 97, 231, 0.35);
+        border-color: rgba(16, 185, 129, 0.55);
+      }
+      50% {
+        box-shadow: 0 18px 50px -4px rgba(16, 185, 129, 0.55), 0 0 40px rgba(112, 97, 231, 0.65);
+        border-color: rgba(16, 185, 129, 0.9);
+      }
+      100% {
+        box-shadow: 0 16px 42px -6px rgba(16, 185, 129, 0.35), 0 0 28px rgba(112, 97, 231, 0.35);
+        border-color: rgba(16, 185, 129, 0.55);
+      }
+    }
+
+    .celebration-card::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(255, 255, 255, 0.08) 0%, transparent 65%);
+      pointer-events: none;
+      animation: celebrateRotateLight 8s linear infinite;
+    }
+
+    @keyframes celebrateRotateLight {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    .celebration-icon-circle {
+      width: 44px;
+      height: 44px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, #10B981, #059669);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      box-shadow: 0 6px 18px rgba(16, 185, 129, 0.45);
+      animation: celebrateIconSpring 0.75s cubic-bezier(0.34, 1.56, 0.64, 1);
+      position: relative;
+      z-index: 2;
+    }
+
+    @keyframes celebrateIconSpring {
+      0% { transform: scale(0.3) rotate(-35deg); }
+      60% { transform: scale(1.22) rotate(15deg); }
+      80% { transform: scale(0.95) rotate(-6deg); }
+      100% { transform: scale(1) rotate(0deg); }
+    }
+
+    .celebration-text-col {
+      flex: 1;
+      min-width: 0;
+      position: relative;
+      z-index: 2;
+    }
+
+    .celebration-badge-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      background: rgba(16, 185, 129, 0.2);
+      border: 1px solid rgba(16, 185, 129, 0.5);
+      color: #34D399;
+      font-size: 9.5px;
+      font-weight: 800;
+      padding: 2px 8px;
+      border-radius: 6px;
+      letter-spacing: 0.6px;
+      text-transform: uppercase;
+      animation: shimmerBadge 2.2s infinite;
+    }
+
+    @keyframes shimmerBadge {
+      0% { opacity: 0.9; }
+      50% { opacity: 1; }
+      100% { opacity: 0.9; }
+    }
+
+    .celebration-title-text {
+      color: #FFFFFF;
+      font-size: 14.5px;
+      font-weight: 800;
+      letter-spacing: -0.2px;
+      margin-top: 3px;
+      line-height: 1.25;
+    }
+
+    .celebration-desc-text {
+      color: #D3CFF0;
+      font-size: 11.5px;
+      line-height: 1.35;
+      margin-top: 2px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .celebration-dismiss-btn {
+      background: rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: #FFFFFF;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      flex-shrink: 0;
+      transition: all 0.2s ease;
+      position: relative;
+      z-index: 2;
+    }
+
+    .celebration-dismiss-btn:hover {
+      background: rgba(255, 255, 255, 0.25);
+      transform: scale(1.1);
+    }
   </style>
 </head>
 <body>
@@ -2917,24 +3091,38 @@
 
   <!-- MODAL: DAILY PRE-MARKET ROUTINE -->
   <div id="checklistModal" class="modal-overlay">
-    <div class="modal-sheet" style="height: auto; max-height: 86vh;">
+    <div class="modal-sheet" style="height: auto; max-height: 88vh;">
       <div class="modal-handle-bar"></div>
       
       <div class="eval-header-row">
         <div>
           <div class="eval-title">Daily Pre-Market Routine</div>
-          <div class="eval-subtitle">Prime your psychology & check economic news</div>
+          <div class="eval-subtitle" id="routineModalSubtitle">Prime your psychology & check economic news</div>
         </div>
         <button class="eval-close-btn" onclick="closeChecklistModal()" title="Close">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
         </button>
       </div>
 
+      <!-- Live Routine Progress Banner -->
+      <div style="background: #F4F0FE; border-radius: 14px; padding: 11px 14px; margin-bottom: 14px; display: flex; align-items: center; justify-content: space-between; border: 1.2px solid #E6E0FA;">
+        <div>
+          <div style="font-size: 10px; font-weight: 800; color: #7B759D; letter-spacing: 0.5px; text-transform: uppercase;">Daily Readiness</div>
+          <div id="routineModalProgressText" style="font-size: 14px; font-weight: 800; color: var(--text-dark); margin-top: 1px;">3 of 5 completed (60%)</div>
+        </div>
+        <span id="routineModalStatusTag" style="font-size: 11px; font-weight: 800; color: var(--primary); background: rgba(112, 97, 231, 0.12); padding: 3px 10px; border-radius: 8px;">In Progress</span>
+      </div>
+
       <div id="routineListContainer"></div>
 
-      <button class="eval-save-btn" onclick="closeChecklistModal()" style="margin-top: 16px;">
-        DONE WITH ROUTINE
-      </button>
+      <div style="display: flex; gap: 8px; margin-top: 16px;">
+        <button type="button" class="btn-guest-auth" onclick="markAllRoutineDone()" style="flex: 1; height: 44px; font-size: 12px; border-radius: 12px; background: #FFFFFF; border: 1.2px solid #DCD6F7; color: var(--primary); font-weight: 800;">
+          ✓ Mark All Done
+        </button>
+        <button type="button" class="eval-save-btn" onclick="finishRoutineModal()" style="flex: 1; height: 44px; font-size: 12px; margin-top: 0;">
+          DONE WITH ROUTINE
+        </button>
+      </div>
     </div>
   </div>
 
@@ -3207,6 +3395,25 @@
       <button class="eval-save-btn" onclick="saveManualTrade()" style="margin-top: 4px;">
         SAVE TO REAL JOURNAL
       </button>
+    </div>
+  </div>
+
+  <!-- =========================================================
+       SUCCESS CELEBRATION: CANVAS & TOAST OVERLAYS
+       ========================================================= -->
+  <canvas id="celebrationCanvas" class="celebration-canvas"></canvas>
+
+  <div id="celebrationToast" class="celebration-toast" role="alert" aria-live="assertive">
+    <div class="celebration-card">
+      <div class="celebration-icon-circle" id="celebrationIconWrapper">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2.5"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+      </div>
+      <div class="celebration-text-col">
+        <div class="celebration-badge-pill" id="celebrationBadge">SUCCESS</div>
+        <div class="celebration-title-text" id="celebrationTitle">Celebration!</div>
+        <div class="celebration-desc-text" id="celebrationSubtitle">Great job maintaining discipline</div>
+      </div>
+      <button type="button" class="celebration-dismiss-btn" onclick="dismissCelebration()" title="Dismiss celebration">✕</button>
     </div>
   </div>
 
@@ -4452,7 +4659,22 @@
       }
 
       closeManualTradeModal();
-      alert(`Trade ${symbol} logged successfully to your real journal!`);
+
+      if (score >= 80) {
+        triggerCelebration({
+          title: "High-Edge Trade Logged! 🏆",
+          subtitle: `${symbol} ${manDirection} scored ${score}/100 • A+ Grade setup recorded!`,
+          badge: "A+ GRADE SETUP",
+          type: "trade"
+        });
+      } else {
+        triggerCelebration({
+          title: "Trade Logged to Journal",
+          subtitle: `${symbol} ${manDirection} recorded (${verdict})`,
+          badge: "SAVED",
+          type: "routine"
+        });
+      }
     }
 
     // Navigation Tab Switching
@@ -5013,6 +5235,15 @@
       // Trigger high-end animated score meter and count-up animation
       animateScoreMeter(score);
 
+      if (score >= 80) {
+        triggerCelebration({
+          title: "A+ High-Edge Confluence! 🎯",
+          subtitle: `Score: ${score}/100 • Strong setup meeting all primary edge rules.`,
+          badge: "A+ HIGH CONFLUENCE",
+          type: "trade"
+        });
+      }
+
       if (passBadge) {
         passBadge.innerText = `${passedCount} of ${CHECK_SCORE_QUESTIONS.length} Passed`;
       }
@@ -5088,9 +5319,228 @@
       renderJournal();
       if (currentUser) syncDataWithCloud(false);
 
+      if (score >= 80) {
+        triggerCelebration({
+          title: "A+ High-Edge Trade Logged! 🏆",
+          subtitle: `${symbol} ${direction} scored ${score}/100 • Added to your real journal!`,
+          badge: "A+ CONFLUENCE",
+          type: "trade"
+        });
+      }
+
       // Return to Dashboard and switch to Journal to view logged setup
       navigateToRoute('/');
       switchTab('journal');
+    }
+
+    // =========================================================
+    // SUCCESS CELEBRATION: CONFETTI CANVAS & TOAST SYSTEM
+    // =========================================================
+    let confettiAnimationId = null;
+    let confettiParticles = [];
+
+    function triggerCelebration({ title, subtitle, badge, type = 'general' }) {
+      const toast = document.getElementById('celebrationToast');
+      const badgeEl = document.getElementById('celebrationBadge');
+      const titleEl = document.getElementById('celebrationTitle');
+      const subEl = document.getElementById('celebrationSubtitle');
+      const iconWrapper = document.getElementById('celebrationIconWrapper');
+
+      if (badgeEl) badgeEl.innerText = badge || 'SUCCESS';
+      if (titleEl) titleEl.innerText = title || 'Celebration!';
+      if (subEl) subEl.innerText = subtitle || 'Disciplined execution logged!';
+
+      if (iconWrapper) {
+        if (type === 'routine') {
+          iconWrapper.style.background = 'linear-gradient(135deg, #10B981, #059669)';
+          iconWrapper.innerHTML = `
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+              <polyline points="22 4 12 14.01 9 11.01"/>
+            </svg>`;
+        } else {
+          iconWrapper.style.background = 'linear-gradient(135deg, #F59E0B, #D97706)';
+          iconWrapper.innerHTML = `
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/>
+              <path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/>
+              <path d="M4 22h16"/>
+              <path d="M10 14.66V17c0 .55-.45 1-1 1H7v2h10v-2h-2c-.55 0-1-.45-1-1v-2.34"/>
+              <path d="M18 4H6v7a6 6 0 0 0 12 0V4z"/>
+            </svg>`;
+        }
+      }
+
+      if (toast) {
+        toast.classList.add('show');
+        clearTimeout(toast._autoDismiss);
+        toast._autoDismiss = setTimeout(() => {
+          dismissCelebration();
+        }, 4800);
+      }
+
+      // Launch multi-burst canvas celebration particles
+      launchCanvasConfetti();
+
+      // Subtle haptic vibration on mobile devices
+      if (typeof navigator !== 'undefined' && navigator.vibrate) {
+        try { navigator.vibrate([35, 50, 35]); } catch (e) {}
+      }
+    }
+
+    function dismissCelebration() {
+      const toast = document.getElementById('celebrationToast');
+      if (toast) {
+        toast.classList.remove('show');
+      }
+    }
+
+    function launchCanvasConfetti() {
+      const canvas = document.getElementById('celebrationCanvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      if (!ctx) return;
+
+      const dpr = window.devicePixelRatio || 1;
+      const w = window.innerWidth;
+      const h = window.innerHeight;
+      canvas.width = w * dpr;
+      canvas.height = h * dpr;
+      canvas.style.width = w + 'px';
+      canvas.style.height = h + 'px';
+      ctx.scale(dpr, dpr);
+
+      canvas.style.display = 'block';
+
+      if (confettiAnimationId) {
+        cancelAnimationFrame(confettiAnimationId);
+      }
+
+      confettiParticles = [];
+      const colors = ['#10B981', '#34D399', '#7061E7', '#8B5CF6', '#F59E0B', '#FBBF24', '#06B6D4', '#FFFFFF'];
+      const count = 120;
+
+      for (let i = 0; i < count; i++) {
+        const origin = i % 3;
+        let startX, startY, vx, vy;
+
+        if (origin === 0) {
+          // Left cannon
+          startX = w * 0.12;
+          startY = h * 0.82;
+          vx = (Math.random() * 8 + 4);
+          vy = -(Math.random() * 14 + 11);
+        } else if (origin === 1) {
+          // Right cannon
+          startX = w * 0.88;
+          startY = h * 0.82;
+          vx = -(Math.random() * 8 + 4);
+          vy = -(Math.random() * 14 + 11);
+        } else {
+          // Center burst
+          startX = w * 0.5 + (Math.random() - 0.5) * 60;
+          startY = h * 0.25;
+          vx = (Math.random() - 0.5) * 12;
+          vy = -(Math.random() * 8 + 4);
+        }
+
+        confettiParticles.push({
+          x: startX,
+          y: startY,
+          vx: vx,
+          vy: vy,
+          gravity: 0.36 + Math.random() * 0.12,
+          drag: 0.983,
+          size: Math.random() * 7 + 6,
+          color: colors[Math.floor(Math.random() * colors.length)],
+          type: Math.random() > 0.45 ? 'rect' : Math.random() > 0.5 ? 'circle' : 'star',
+          rotation: Math.random() * 360,
+          rotSpeed: (Math.random() - 0.5) * 14,
+          tiltAngle: Math.random() * Math.PI,
+          tiltAngleInc: Math.random() * 0.09 + 0.05,
+          opacity: 1,
+          life: 0,
+          maxLife: 155 + Math.random() * 45
+        });
+      }
+
+      function drawStar(cx, cy, spikes, outerRadius, innerRadius) {
+        let rot = Math.PI / 2 * 3;
+        let x = cx;
+        let y = cy;
+        let step = Math.PI / spikes;
+
+        ctx.beginPath();
+        ctx.moveTo(cx, cy - outerRadius);
+        for (let i = 0; i < spikes; i++) {
+          x = cx + Math.cos(rot) * outerRadius;
+          y = cy + Math.sin(rot) * outerRadius;
+          ctx.lineTo(x, y);
+          rot += step;
+
+          x = cx + Math.cos(rot) * innerRadius;
+          y = cy + Math.sin(rot) * innerRadius;
+          ctx.lineTo(x, y);
+          rot += step;
+        }
+        ctx.lineTo(cx, cy - outerRadius);
+        ctx.closePath();
+        ctx.fill();
+      }
+
+      function renderFrame() {
+        ctx.clearRect(0, 0, w, h);
+        let activeCount = 0;
+
+        for (let i = 0; i < confettiParticles.length; i++) {
+          const p = confettiParticles[i];
+          p.life++;
+          if (p.life >= p.maxLife) continue;
+
+          p.vx *= p.drag;
+          p.vy *= p.drag;
+          p.vy += p.gravity;
+          p.x += p.vx;
+          p.y += p.vy;
+
+          p.rotation += p.rotSpeed;
+          p.tiltAngle += p.tiltAngleInc;
+          const tilt = Math.sin(p.tiltAngle) * 14;
+
+          if (p.life > p.maxLife - 35) {
+            p.opacity = Math.max(0, (p.maxLife - p.life) / 35);
+          }
+
+          ctx.save();
+          ctx.globalAlpha = p.opacity;
+          ctx.fillStyle = p.color;
+          ctx.translate(p.x, p.y);
+          ctx.rotate((p.rotation * Math.PI) / 180);
+
+          if (p.type === 'rect') {
+            ctx.fillRect(-p.size / 2, -p.size / 2 + tilt, p.size, p.size * 0.65);
+          } else if (p.type === 'circle') {
+            ctx.beginPath();
+            ctx.arc(0, tilt, p.size * 0.45, 0, Math.PI * 2);
+            ctx.fill();
+          } else if (p.type === 'star') {
+            drawStar(0, tilt, 4, p.size * 0.7, p.size * 0.32);
+          }
+
+          ctx.restore();
+          activeCount++;
+        }
+
+        if (activeCount > 0) {
+          confettiAnimationId = requestAnimationFrame(renderFrame);
+        } else {
+          ctx.clearRect(0, 0, w, h);
+          canvas.style.display = 'none';
+          confettiAnimationId = null;
+        }
+      }
+
+      confettiAnimationId = requestAnimationFrame(renderFrame);
     }
 
     // Daily Checklist Routine Modal
@@ -5110,8 +5560,23 @@
       const total = routineTasks.length;
       const pct = Math.round((doneCount / total) * 100);
 
-      document.getElementById('routinePctBadge').innerText = `${pct}% Done`;
-      document.getElementById('routineProgressBar').style.width = `${pct}%`;
+      const badgeEl = document.getElementById('routinePctBadge');
+      const barEl = document.getElementById('routineProgressBar');
+      if (badgeEl) {
+        if (pct === 100) {
+          badgeEl.innerText = '100% Done ✓';
+          badgeEl.style.background = 'rgba(16, 185, 129, 0.15)';
+          badgeEl.style.color = 'var(--success)';
+        } else {
+          badgeEl.innerText = `${pct}% Done`;
+          badgeEl.style.background = 'rgba(112, 97, 231, 0.12)';
+          badgeEl.style.color = 'var(--primary)';
+        }
+      }
+      if (barEl) {
+        barEl.style.width = `${pct}%`;
+        barEl.style.background = pct === 100 ? 'var(--success)' : 'var(--primary)';
+      }
 
       const badge = document.getElementById('badgeRoutinePending');
       if (badge) badge.style.display = pct === 100 ? 'none' : 'block';
@@ -5121,6 +5586,27 @@
       const container = document.getElementById('routineListContainer');
       if (!container) return;
       container.innerHTML = '';
+
+      const doneCount = routineTasks.filter(t => t.done).length;
+      const total = routineTasks.length;
+      const pct = Math.round((doneCount / total) * 100);
+
+      const progressText = document.getElementById('routineModalProgressText');
+      const statusTag = document.getElementById('routineModalStatusTag');
+      if (progressText) {
+        progressText.innerText = `${doneCount} of ${total} completed (${pct}%)`;
+      }
+      if (statusTag) {
+        if (pct === 100) {
+          statusTag.innerText = 'Ready to Trade ✓';
+          statusTag.style.background = 'rgba(16, 185, 129, 0.15)';
+          statusTag.style.color = 'var(--success)';
+        } else {
+          statusTag.innerText = 'In Progress';
+          statusTag.style.background = 'rgba(112, 97, 231, 0.12)';
+          statusTag.style.color = 'var(--primary)';
+        }
+      }
 
       routineTasks.forEach(task => {
         const div = document.createElement('div');
@@ -5140,10 +5626,48 @@
     }
 
     function toggleTask(id) {
+      const allDoneBefore = routineTasks.every(t => t.done);
       routineTasks = routineTasks.map(t => t.id === id ? { ...t, done: !t.done } : t);
       localStorage.setItem('tradescore_routine', JSON.stringify(routineTasks));
       renderRoutine();
       renderRoutineModal();
+
+      const allDoneAfter = routineTasks.every(t => t.done);
+      if (!allDoneBefore && allDoneAfter) {
+        triggerCelebration({
+          title: "Pre-Market Routine Finished! 🎯",
+          subtitle: "All 5 checklist items verified • Disciplined mindset locked in!",
+          badge: "100% READINESS",
+          type: "routine"
+        });
+      }
+    }
+
+    function markAllRoutineDone() {
+      routineTasks = routineTasks.map(t => ({ ...t, done: true }));
+      localStorage.setItem('tradescore_routine', JSON.stringify(routineTasks));
+      renderRoutine();
+      renderRoutineModal();
+
+      triggerCelebration({
+        title: "Pre-Market Routine Finished! 🎯",
+        subtitle: "100% Prepared • Psychology primed & risk limits locked in.",
+        badge: "100% READINESS",
+        type: "routine"
+      });
+    }
+
+    function finishRoutineModal() {
+      const allDone = routineTasks.every(t => t.done);
+      if (allDone) {
+        triggerCelebration({
+          title: "Pre-Market Routine Finished! 🎯",
+          subtitle: "100% Prepared • Good luck on your session today!",
+          badge: "100% READINESS",
+          type: "routine"
+        });
+      }
+      closeChecklistModal();
     }
 
     // PWA Setup
