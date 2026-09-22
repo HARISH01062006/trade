@@ -1,4 +1,4 @@
-const CACHE_NAME = 'tradescore-pwa-v9';
+const CACHE_NAME = 'tradescore-pwa-v12';
 const CORE_ASSETS = [
   '/',
   '/index.html',
@@ -18,7 +18,6 @@ const CORE_ASSETS = [
 self.addEventListener('install', (event) => {
   event.waitUntil(
     caches.open(CACHE_NAME).then((cache) => {
-      // Use individual caching so if one fails, others still succeed
       return Promise.allSettled(
         CORE_ASSETS.map((asset) =>
           fetch(asset, { cache: 'reload' })
@@ -35,20 +34,27 @@ self.addEventListener('install', (event) => {
   self.skipWaiting();
 });
 
-// Activate: Clean up old caches immediately
+// Activate: Clean up all previous caches immediately
 self.addEventListener('activate', (event) => {
   event.waitUntil(
     caches.keys().then((keys) => {
       return Promise.all(
         keys.map((key) => {
           if (key !== CACHE_NAME) {
+            console.log('[SW] Purging outdated cache:', key);
             return caches.delete(key);
           }
         })
       );
-    })
+    }).then(() => self.clients.claim())
   );
-  self.clients.claim();
+});
+
+// Message listener for immediate updates
+self.addEventListener('message', (event) => {
+  if (event.data && (event.data === 'skipWaiting' || event.data.type === 'SKIP_WAITING' || event.data.action === 'skipWaiting')) {
+    self.skipWaiting();
+  }
 });
 
 // Fetch handler
@@ -84,29 +90,36 @@ self.addEventListener('fetch', (event) => {
   event.respondWith(
     caches.match(req).then((cachedResponse) => {
       if (cachedResponse) {
-        // Fetch in background to revalidate
+        // Revalidate in background
         fetch(req).then((networkResponse) => {
           if (networkResponse && (networkResponse.status === 200 || networkResponse.type === 'opaque')) {
             caches.open(CACHE_NAME).then((cache) => cache.put(req, networkResponse));
           }
-        }).catch(() => {/* ignore background fetch errors */});
+        }).catch(() => {});
 
         return cachedResponse;
       }
 
-      return fetch(req).then((response) => {
-        if (!response || (response.status !== 200 && response.type !== 'opaque')) {
+      // Check cache by filename fallback for deep links (e.g., /journal/trading_banner_hero.jpg -> /trading_banner_hero.jpg)
+      const filename = '/' + url.pathname.split('/').pop();
+      return caches.match(filename).then((fallbackMatch) => {
+        if (fallbackMatch) {
+          return fallbackMatch;
+        }
+
+        return fetch(req).then((response) => {
+          if (!response || (response.status !== 200 && response.type !== 'opaque')) {
+            return response;
+          }
+          const copy = response.clone();
+          caches.open(CACHE_NAME).then((cache) => cache.put(req, copy));
           return response;
-        }
-        const copy = response.clone();
-        caches.open(CACHE_NAME).then((cache) => cache.put(req, copy));
-        return response;
-      }).catch((err) => {
-        // If image or icon, fallback if in cache
-        if (req.destination === 'image') {
-          return caches.match('/icon-192.svg');
-        }
-        throw err;
+        }).catch((err) => {
+          if (req.destination === 'image') {
+            return caches.match('/mr_nobody_logo.jpg').then(res => res || caches.match('/icon-192.svg'));
+          }
+          throw err;
+        });
       });
     })
   );

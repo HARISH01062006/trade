@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <base href="/">
   <title>TradeScore - Pre-Trade Setup Evaluator</title>
   
   <!-- PWA Meta Tags -->
@@ -2675,7 +2676,7 @@
 
       <!-- Institutional Market Desk Banner -->
       <div class="trading-page-banner">
-        <img src="trading_banner_hero.jpg" alt="Institutional Trading Desk" class="trading-banner-img">
+        <img src="/trading_banner_hero.jpg" alt="Institutional Trading Desk" class="trading-banner-img" onerror="this.onerror=null; this.src='trading_banner_hero.jpg';">
         <div class="trading-banner-overlay">
           <div class="trading-banner-badge">
             <span class="live-dot-cyan"></span>
@@ -2924,7 +2925,7 @@
 
       <!-- Journal Strategy Execution Banner -->
       <div class="trading-page-banner">
-        <img src="trading_banner_journal.jpg" alt="Disciplined Journal Matrix" class="trading-banner-img">
+        <img src="/trading_banner_journal.jpg" alt="Disciplined Journal Matrix" class="trading-banner-img" onerror="this.onerror=null; this.src='trading_banner_journal.jpg';">
         <div class="trading-banner-overlay">
           <div class="trading-banner-badge">
             <span class="live-dot-purple"></span>
@@ -2997,7 +2998,7 @@
 
       <!-- Algorithmic Market Analytics Banner -->
       <div class="trading-page-banner">
-        <img src="trading_banner_analytics.jpg" alt="Algorithmic Trading Analytics" class="trading-banner-img">
+        <img src="/trading_banner_analytics.jpg" alt="Algorithmic Trading Analytics" class="trading-banner-img" onerror="this.onerror=null; this.src='trading_banner_analytics.jpg';">
         <div class="trading-banner-overlay">
           <div class="trading-banner-badge">
             <span class="live-dot-green"></span>
@@ -3136,7 +3137,7 @@
 
         <!-- Institutional Trading Banner -->
         <div class="trading-page-banner">
-          <img src="trading_banner_hero.jpg" alt="Institutional Trading Desk" class="trading-banner-img">
+          <img src="/trading_banner_hero.jpg" alt="Institutional Trading Desk" class="trading-banner-img" onerror="this.onerror=null; this.src='trading_banner_hero.jpg';">
           <div class="trading-banner-overlay">
             <div class="trading-banner-badge">
               <span class="live-dot-cyan"></span>
@@ -3250,6 +3251,12 @@
               <span class="brand-pillars">OWN YOUR TOMORROW</span>
             </div>
           </div>
+          <div style="margin-top: 10px; display: flex; justify-content: center;">
+            <button type="button" onclick="clearPWACacheAndReload()" style="background: rgba(255,255,255,0.14); border: 1px solid rgba(255,255,255,0.3); color: #FFFFFF; font-size: 11px; font-weight: 800; padding: 7px 14px; border-radius: 10px; cursor: pointer; display: inline-flex; align-items: center; gap: 6px;">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
+              Sync PWA & Refresh Banners
+            </button>
+          </div>
         </div>
       </div>
 
@@ -3301,6 +3308,10 @@
             <button onclick="syncDataWithCloud(true)" class="btn-sync-action" style="flex: 1;" type="button">
               <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/></svg>
               Sync to Cloud
+            </button>
+            <button onclick="clearPWACacheAndReload()" class="btn-export-action" type="button" title="Purge Cache and Reload App">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
+              Update PWA
             </button>
             <button onclick="exportTradesJson()" class="btn-export-action" type="button">
               <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
@@ -3480,7 +3491,7 @@
 
         <!-- Confluence Verification Banner -->
         <div class="trading-page-banner">
-          <img src="trading_banner_hero.jpg" alt="Institutional Trading Setup" class="trading-banner-img">
+          <img src="/trading_banner_hero.jpg" alt="Institutional Trading Setup" class="trading-banner-img" onerror="this.onerror=null; this.src='trading_banner_hero.jpg';">
           <div class="trading-banner-overlay">
             <div class="trading-banner-badge">
               <span class="live-dot-cyan"></span>
@@ -3833,7 +3844,7 @@
         </div>
 
         <div class="trading-page-banner" style="margin-bottom: 10px;">
-          <img src="trading_banner_hero.jpg" alt="Institutional Trading Desk" class="trading-banner-img">
+          <img src="/trading_banner_hero.jpg" alt="Institutional Trading Desk" class="trading-banner-img" onerror="this.onerror=null; this.src='trading_banner_hero.jpg';">
           <div class="trading-banner-overlay">
             <div class="trading-banner-badge">
               <span class="live-dot-cyan"></span>
@@ -3844,7 +3855,7 @@
         </div>
 
         <div class="trading-page-banner" style="margin-bottom: 10px;">
-          <img src="trading_banner_analytics.jpg" alt="Algorithmic Market Analytics" class="trading-banner-img">
+          <img src="/trading_banner_analytics.jpg" alt="Algorithmic Market Analytics" class="trading-banner-img" onerror="this.onerror=null; this.src='trading_banner_analytics.jpg';">
           <div class="trading-banner-overlay">
             <div class="trading-banner-badge">
               <span class="live-dot-green"></span>
@@ -3975,7 +3986,7 @@
 
         <!-- Banner 1 -->
         <div class="trading-page-banner" style="margin-bottom: 14px;">
-          <img src="trading_banner_hero.jpg" alt="Institutional Trading Desk" class="trading-banner-img">
+          <img src="/trading_banner_hero.jpg" alt="Institutional Trading Desk" class="trading-banner-img" onerror="this.onerror=null; this.src='trading_banner_hero.jpg';">
           <div class="trading-banner-overlay">
             <div class="trading-banner-badge">
               <span class="live-dot-cyan"></span>
@@ -3988,7 +3999,7 @@
 
         <!-- Banner 2 -->
         <div class="trading-page-banner" style="margin-bottom: 14px;">
-          <img src="trading_banner_analytics.jpg" alt="Algorithmic Market Analytics" class="trading-banner-img">
+          <img src="/trading_banner_analytics.jpg" alt="Algorithmic Market Analytics" class="trading-banner-img" onerror="this.onerror=null; this.src='trading_banner_analytics.jpg';">
           <div class="trading-banner-overlay">
             <div class="trading-banner-badge">
               <span class="live-dot-green"></span>
@@ -4001,7 +4012,7 @@
 
         <!-- Banner 3 -->
         <div class="trading-page-banner" style="margin-bottom: 14px;">
-          <img src="trading_banner_journal.jpg" alt="Execution Strategy Journal" class="trading-banner-img">
+          <img src="/trading_banner_journal.jpg" alt="Execution Strategy Journal" class="trading-banner-img" onerror="this.onerror=null; this.src='trading_banner_journal.jpg';">
           <div class="trading-banner-overlay">
             <div class="trading-banner-badge">
               <span class="live-dot-purple"></span>
@@ -6739,15 +6750,77 @@
       }
     }
 
-    // PWA Setup
+    // PWA Setup & Immediate Live Synchronizer
     function setupPWA() {
       if ('serviceWorker' in navigator) {
+        let refreshing = false;
+        navigator.serviceWorker.addEventListener('controllerchange', () => {
+          if (!refreshing) {
+            refreshing = true;
+            console.log('[PWA] New version activated, auto-refreshing interface');
+            window.location.reload();
+          }
+        });
+
         navigator.serviceWorker.register('/sw.js', { scope: '/' })
           .then(reg => {
+            console.log('[PWA] Registered in scope:', reg.scope);
             reg.update();
-            console.log('[PWA] Registered');
+
+            if (reg.waiting) {
+              reg.waiting.postMessage({ type: 'SKIP_WAITING' });
+            }
+
+            reg.onupdatefound = () => {
+              const installing = reg.installing;
+              if (installing) {
+                installing.onstatechange = () => {
+                  if (installing.state === 'installed') {
+                    if (navigator.serviceWorker.controller) {
+                      console.log('[PWA] New version ready - triggering activation');
+                      installing.postMessage({ type: 'SKIP_WAITING' });
+                    }
+                  }
+                };
+              }
+            };
           })
           .catch(err => console.log('[PWA] SW error:', err));
+
+        // Re-check for fresh banners and assets whenever app regains visibility
+        document.addEventListener('visibilitychange', () => {
+          if (document.visibilityState === 'visible') {
+            navigator.serviceWorker.getRegistration().then(reg => {
+              if (reg) reg.update();
+            });
+          }
+        });
+      }
+    }
+
+    // Force purge cache and reload latest banners
+    function clearPWACacheAndReload() {
+      if (confirm('Sync & Update PWA?\n\nThis will purge cached assets, refresh the service worker, and load the newest official banners & updates.')) {
+        if ('caches' in window) {
+          caches.keys().then((keys) => {
+            return Promise.all(keys.map(k => caches.delete(k)));
+          }).then(() => {
+            if ('serviceWorker' in navigator) {
+              navigator.serviceWorker.getRegistrations().then((registrations) => {
+                const unregisters = registrations.map(r => r.unregister());
+                return Promise.all(unregisters);
+              }).finally(() => {
+                window.location.reload(true);
+              });
+            } else {
+              window.location.reload(true);
+            }
+          }).catch(() => {
+            window.location.reload(true);
+          });
+        } else {
+          window.location.reload(true);
+        }
       }
     }
 

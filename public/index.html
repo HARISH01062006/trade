@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <base href="/">
   <title>TradeScore - Pre-Trade Setup Evaluator</title>
   
   <!-- PWA Meta Tags -->
@@ -2484,9 +2485,9 @@
       height: 112px;
       margin: 0 auto 14px auto;
       border-radius: 24px;
-      background: #05050A;
-      border: 2px solid rgba(59, 130, 246, 0.7);
-      box-shadow: 0 10px 32px rgba(37, 99, 235, 0.5);
+      background: #000000;
+      border: 2px solid #38BDF8;
+      box-shadow: 0 10px 32px rgba(56, 189, 248, 0.5);
       overflow: hidden;
       display: flex;
       align-items: center;
@@ -2505,25 +2506,51 @@
       object-fit: cover;
     }
 
-    .brand-social-card {
-      background: rgba(255, 255, 255, 0.05);
-      border: 1.2px solid rgba(255, 255, 255, 0.09);
-      border-radius: 14px;
-      padding: 12px 14px;
-      margin-bottom: 10px;
+    /* Website Card in Brand Showcase */
+    .brand-website-card {
+      background: linear-gradient(135deg, rgba(37, 99, 235, 0.28) 0%, rgba(15, 23, 42, 0.88) 100%);
+      border: 1.5px solid rgba(56, 189, 248, 0.6);
+      border-radius: 16px;
+      padding: 14px 16px;
+      margin-bottom: 14px;
       display: flex;
       align-items: center;
       gap: 12px;
       text-decoration: none;
       color: #FFFFFF;
+      box-shadow: 0 8px 24px rgba(37, 99, 235, 0.3);
       transition: all 0.2s ease;
       cursor: pointer;
     }
 
-    .brand-social-card:hover {
-      background: rgba(59, 130, 246, 0.15);
-      border-color: rgba(59, 130, 246, 0.45);
-      transform: translateX(3px);
+    .brand-website-card:hover {
+      background: linear-gradient(135deg, rgba(37, 99, 235, 0.45) 0%, rgba(15, 23, 42, 0.95) 100%);
+      border-color: #38BDF8;
+      transform: translateY(-2px);
+      box-shadow: 0 12px 30px rgba(56, 189, 248, 0.4);
+    }
+
+    .brand-web-icon-wrap {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      background: #0284C7;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #FFFFFF;
+      flex-shrink: 0;
+      box-shadow: 0 4px 14px rgba(2, 132, 199, 0.45);
+    }
+
+    .brand-live-badge {
+      background: #10B981;
+      color: #FFFFFF;
+      font-size: 8.5px;
+      font-weight: 800;
+      padding: 2px 6px;
+      border-radius: 4px;
+      letter-spacing: 0.5px;
     }
 
     .brand-pillar-box {
@@ -2532,6 +2559,83 @@
       border-radius: 14px;
       padding: 12px 14px;
       margin-bottom: 10px;
+    }
+
+    /* =========================================================
+       TRADING PAGE BANNERS (ACROSS ALL PAGES)
+       ========================================================= */
+    .trading-page-banner {
+      position: relative;
+      border-radius: 18px;
+      overflow: hidden;
+      margin: 10px 0 16px 0;
+      box-shadow: 0 8px 24px -4px rgba(16, 12, 44, 0.35);
+      border: 1.2px solid rgba(255, 255, 255, 0.9);
+      background: #0B0A17;
+      aspect-ratio: 16 / 7.2;
+    }
+
+    .trading-banner-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.35s ease;
+    }
+
+    .trading-page-banner:hover .trading-banner-img {
+      transform: scale(1.025);
+    }
+
+    .trading-banner-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(8, 7, 18, 0.15) 0%, rgba(8, 7, 18, 0.88) 100%);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 11px 14px;
+      color: #FFFFFF;
+      pointer-events: none;
+    }
+
+    .trading-banner-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      background: rgba(0, 0, 0, 0.65);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      padding: 2px 7px;
+      border-radius: 6px;
+      font-size: 8.5px;
+      font-weight: 800;
+      letter-spacing: 0.8px;
+      color: #E2E8F0;
+      width: fit-content;
+      margin-bottom: 4px;
+      text-transform: uppercase;
+    }
+
+    .live-dot-green { width: 6px; height: 6px; border-radius: 50%; background: #10B981; box-shadow: 0 0 6px #10B981; }
+    .live-dot-purple { width: 6px; height: 6px; border-radius: 50%; background: #A78BFA; box-shadow: 0 0 6px #A78BFA; }
+    .live-dot-cyan { width: 6px; height: 6px; border-radius: 50%; background: #38BDF8; box-shadow: 0 0 6px #38BDF8; }
+
+    .trading-banner-headline {
+      font-size: 14px;
+      font-weight: 800;
+      color: #FFFFFF;
+      line-height: 1.2;
+      text-shadow: 0 2px 8px rgba(0,0,0,0.8);
+    }
+
+    .trading-banner-desc {
+      font-size: 10.5px;
+      color: #CBD5E1;
+      margin-top: 2px;
+      line-height: 1.35;
+      text-shadow: 0 1px 4px rgba(0,0,0,0.8);
     }
   </style>
 </head>
@@ -2569,6 +2673,19 @@
           </button>
         </div>
       </header>
+
+      <!-- Institutional Market Desk Banner -->
+      <div class="trading-page-banner">
+        <img src="/trading_banner_hero.jpg" alt="Institutional Trading Desk" class="trading-banner-img" onerror="this.onerror=null; this.src='trading_banner_hero.jpg';">
+        <div class="trading-banner-overlay">
+          <div class="trading-banner-badge">
+            <span class="live-dot-cyan"></span>
+            <span>INSTITUTIONAL MARKET CONFLUENCE</span>
+          </div>
+          <div class="trading-banner-headline">Pre-Market Execution Engine</div>
+          <div class="trading-banner-desc">Quantify mathematical confluence before taking any entry</div>
+        </div>
+      </div>
 
       <!-- 2. ARCH GAUGE CARD matching Preview -->
       <div class="neu-card">
@@ -2765,7 +2882,7 @@
           </div>
           <div class="brand-main-content">
             <div class="brand-logo-frame">
-              <img src="mr_nobody_trader_thumb.jpg" alt="Mr Nobody Trader" class="brand-logo-img" onerror="this.onerror=null; this.src='mr_nobody_trader.jpg';">
+              <img src="mr_nobody_logo.jpg" alt="Mr Nobody Trader" class="brand-logo-img" onerror="this.onerror=null; this.src='mr_nobody_trader.jpg';">
             </div>
             <div class="brand-text-block">
               <div class="brand-name-row">
@@ -2778,10 +2895,10 @@
           </div>
           <div class="brand-footer-action">
             <span class="brand-action-link">
-              <span>Explore Brand & Community</span>
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+              <span>https://mrnobody.live/</span>
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
             </span>
-            <span class="brand-pillars">DISCIPLINE • EDGE • MASTERY</span>
+            <span class="brand-pillars">OWN YOUR TOMORROW</span>
           </div>
         </div>
       </div>
@@ -2803,6 +2920,19 @@
           <button class="neu-icon-btn" onclick="navigateToRoute('/check-trade-score')" title="New Setup Check" style="width: 38px; height: 38px;">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
           </button>
+        </div>
+      </div>
+
+      <!-- Journal Strategy Execution Banner -->
+      <div class="trading-page-banner">
+        <img src="/trading_banner_journal.jpg" alt="Disciplined Journal Matrix" class="trading-banner-img" onerror="this.onerror=null; this.src='trading_banner_journal.jpg';">
+        <div class="trading-banner-overlay">
+          <div class="trading-banner-badge">
+            <span class="live-dot-purple"></span>
+            <span>ZERO-EGO EXECUTION LOG</span>
+          </div>
+          <div class="trading-banner-headline">Disciplined Setup Audit Matrix</div>
+          <div class="trading-banner-desc">Review executions, verify invalidations, and track psychological edge</div>
         </div>
       </div>
 
@@ -2836,7 +2966,7 @@
           </div>
           <div class="brand-main-content">
             <div class="brand-logo-frame">
-              <img src="mr_nobody_trader_thumb.jpg" alt="Mr Nobody Trader" class="brand-logo-img" onerror="this.onerror=null; this.src='mr_nobody_trader.jpg';">
+              <img src="mr_nobody_logo.jpg" alt="Mr Nobody Trader" class="brand-logo-img" onerror="this.onerror=null; this.src='mr_nobody_trader.jpg';">
             </div>
             <div class="brand-text-block">
               <div class="brand-name-row">
@@ -2849,10 +2979,10 @@
           </div>
           <div class="brand-footer-action">
             <span class="brand-action-link">
-              <span>Explore Brand & Community</span>
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+              <span>https://mrnobody.live/</span>
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
             </span>
-            <span class="brand-pillars">DISCIPLINE • EDGE • MASTERY</span>
+            <span class="brand-pillars">OWN YOUR TOMORROW</span>
           </div>
         </div>
       </div>
@@ -2864,6 +2994,19 @@
       <div style="margin-bottom: 14px;">
         <div style="color: #FFFFFF; font-size: 22px; font-weight: 800; letter-spacing: -0.3px;">Performance Analytics</div>
         <div style="color: #EDE8FE; font-size: 12px; margin-top: 2px;">Disciplined Setup Evaluation vs Outcomes</div>
+      </div>
+
+      <!-- Algorithmic Market Analytics Banner -->
+      <div class="trading-page-banner">
+        <img src="/trading_banner_analytics.jpg" alt="Algorithmic Trading Analytics" class="trading-banner-img" onerror="this.onerror=null; this.src='trading_banner_analytics.jpg';">
+        <div class="trading-banner-overlay">
+          <div class="trading-banner-badge">
+            <span class="live-dot-green"></span>
+            <span>PROBABILITY & RISK GEOMETRY</span>
+          </div>
+          <div class="trading-banner-headline">Mathematical Expectancy Models</div>
+          <div class="trading-banner-desc">Live win-rate distribution mapped against scoring thresholds</div>
+        </div>
       </div>
 
       <!-- Segmented Time Period Toggle -->
@@ -2959,7 +3102,7 @@
           </div>
           <div class="brand-main-content">
             <div class="brand-logo-frame">
-              <img src="mr_nobody_trader_thumb.jpg" alt="Mr Nobody Trader" class="brand-logo-img" onerror="this.onerror=null; this.src='mr_nobody_trader.jpg';">
+              <img src="mr_nobody_logo.jpg" alt="Mr Nobody Trader" class="brand-logo-img" onerror="this.onerror=null; this.src='mr_nobody_trader.jpg';">
             </div>
             <div class="brand-text-block">
               <div class="brand-name-row">
@@ -2972,10 +3115,10 @@
           </div>
           <div class="brand-footer-action">
             <span class="brand-action-link">
-              <span>Explore Brand & Community</span>
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+              <span>https://mrnobody.live/</span>
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
             </span>
-            <span class="brand-pillars">DISCIPLINE • EDGE • MASTERY</span>
+            <span class="brand-pillars">OWN YOUR TOMORROW</span>
           </div>
         </div>
       </div>
@@ -2990,6 +3133,19 @@
         <div style="margin-bottom: 16px;">
           <div style="color: #FFFFFF; font-size: 22px; font-weight: 800; letter-spacing: -0.3px;">Trader Account</div>
           <div style="color: #EDE8FE; font-size: 12.5px; margin-top: 2px;">Sign in to sync your setups, journal & discipline score</div>
+        </div>
+
+        <!-- Institutional Trading Banner -->
+        <div class="trading-page-banner">
+          <img src="/trading_banner_hero.jpg" alt="Institutional Trading Desk" class="trading-banner-img" onerror="this.onerror=null; this.src='trading_banner_hero.jpg';">
+          <div class="trading-banner-overlay">
+            <div class="trading-banner-badge">
+              <span class="live-dot-cyan"></span>
+              <span>MR NOBODY TRADING ECOSYSTEM</span>
+            </div>
+            <div class="trading-banner-headline">Institutional Trader Identity</div>
+            <div class="trading-banner-desc">Sync your high-confluence setups and journal metrics across devices</div>
+          </div>
         </div>
 
         <!-- Main Auth Card -->
@@ -3076,7 +3232,7 @@
             </div>
             <div class="brand-main-content">
               <div class="brand-logo-frame">
-                <img src="mr_nobody_trader_thumb.jpg" alt="Mr Nobody Trader" class="brand-logo-img" onerror="this.onerror=null; this.src='mr_nobody_trader.jpg';">
+                <img src="mr_nobody_logo.jpg" alt="Mr Nobody Trader" class="brand-logo-img" onerror="this.onerror=null; this.src='mr_nobody_trader.jpg';">
               </div>
               <div class="brand-text-block">
                 <div class="brand-name-row">
@@ -3089,11 +3245,17 @@
             </div>
             <div class="brand-footer-action">
               <span class="brand-action-link">
-                <span>Explore Brand & Community</span>
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+                <span>https://mrnobody.live/</span>
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
               </span>
-              <span class="brand-pillars">DISCIPLINE • EDGE • MASTERY</span>
+              <span class="brand-pillars">OWN YOUR TOMORROW</span>
             </div>
+          </div>
+          <div style="margin-top: 10px; display: flex; justify-content: center;">
+            <button type="button" onclick="clearPWACacheAndReload()" style="background: rgba(255,255,255,0.14); border: 1px solid rgba(255,255,255,0.3); color: #FFFFFF; font-size: 11px; font-weight: 800; padding: 7px 14px; border-radius: 10px; cursor: pointer; display: inline-flex; align-items: center; gap: 6px;">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
+              Sync PWA & Refresh Banners
+            </button>
           </div>
         </div>
       </div>
@@ -3146,6 +3308,10 @@
             <button onclick="syncDataWithCloud(true)" class="btn-sync-action" style="flex: 1;" type="button">
               <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/></svg>
               Sync to Cloud
+            </button>
+            <button onclick="clearPWACacheAndReload()" class="btn-export-action" type="button" title="Purge Cache and Reload App">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
+              Update PWA
             </button>
             <button onclick="exportTradesJson()" class="btn-export-action" type="button">
               <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
@@ -3252,7 +3418,7 @@
             </div>
             <div class="brand-main-content">
               <div class="brand-logo-frame">
-                <img src="mr_nobody_trader_thumb.jpg" alt="Mr Nobody Trader" class="brand-logo-img" onerror="this.onerror=null; this.src='mr_nobody_trader.jpg';">
+                <img src="mr_nobody_logo.jpg" alt="Mr Nobody Trader" class="brand-logo-img" onerror="this.onerror=null; this.src='mr_nobody_trader.jpg';">
               </div>
               <div class="brand-text-block">
                 <div class="brand-name-row">
@@ -3265,10 +3431,10 @@
             </div>
             <div class="brand-footer-action">
               <span class="brand-action-link">
-                <span>Explore Brand & Community</span>
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+                <span>https://mrnobody.live/</span>
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
               </span>
-              <span class="brand-pillars">DISCIPLINE • EDGE • MASTERY</span>
+              <span class="brand-pillars">OWN YOUR TOMORROW</span>
             </div>
           </div>
         </div>
@@ -3320,6 +3486,19 @@
           <div class="setup-header-text">
             <h1 class="setup-page-title">Setup Evaluation</h1>
             <div class="setup-page-subtitle">Enter setup specs before checking score</div>
+          </div>
+        </div>
+
+        <!-- Confluence Verification Banner -->
+        <div class="trading-page-banner">
+          <img src="/trading_banner_hero.jpg" alt="Institutional Trading Setup" class="trading-banner-img" onerror="this.onerror=null; this.src='trading_banner_hero.jpg';">
+          <div class="trading-banner-overlay">
+            <div class="trading-banner-badge">
+              <span class="live-dot-cyan"></span>
+              <span>CONFLUENCE VERIFICATION</span>
+            </div>
+            <div class="trading-banner-headline">Institutional Execution Checklist</div>
+            <div class="trading-banner-desc">Filter high-conviction entries and eliminate emotional overtrading</div>
           </div>
         </div>
 
@@ -3397,7 +3576,7 @@
             </div>
             <div class="brand-main-content">
               <div class="brand-logo-frame">
-                <img src="mr_nobody_trader_thumb.jpg" alt="Mr Nobody Trader" class="brand-logo-img" onerror="this.onerror=null; this.src='mr_nobody_trader.jpg';">
+                <img src="mr_nobody_logo.jpg" alt="Mr Nobody Trader" class="brand-logo-img" onerror="this.onerror=null; this.src='mr_nobody_trader.jpg';">
               </div>
               <div class="brand-text-block">
                 <div class="brand-name-row">
@@ -3410,10 +3589,10 @@
             </div>
             <div class="brand-footer-action">
               <span class="brand-action-link">
-                <span>Explore Brand & Community</span>
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+                <span>https://mrnobody.live/</span>
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
               </span>
-              <span class="brand-pillars">DISCIPLINE • EDGE • MASTERY</span>
+              <span class="brand-pillars">OWN YOUR TOMORROW</span>
             </div>
           </div>
         </div>
@@ -3582,7 +3761,7 @@
             </div>
             <div class="brand-main-content">
               <div class="brand-logo-frame">
-                <img src="mr_nobody_trader_thumb.jpg" alt="Mr Nobody Trader" class="brand-logo-img" onerror="this.onerror=null; this.src='mr_nobody_trader.jpg';">
+                <img src="mr_nobody_logo.jpg" alt="Mr Nobody Trader" class="brand-logo-img" onerror="this.onerror=null; this.src='mr_nobody_trader.jpg';">
               </div>
               <div class="brand-text-block">
                 <div class="brand-name-row">
@@ -3595,10 +3774,10 @@
             </div>
             <div class="brand-footer-action">
               <span class="brand-action-link">
-                <span>Explore Brand & Community</span>
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+                <span>https://mrnobody.live/</span>
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
               </span>
-              <span class="brand-pillars">DISCIPLINE • EDGE • MASTERY</span>
+              <span class="brand-pillars">OWN YOUR TOMORROW</span>
             </div>
           </div>
         </div>
@@ -3627,7 +3806,7 @@
 
       <div class="brand-showcase-hero">
         <div class="brand-modal-logo-wrapper">
-          <img src="mr_nobody_trader_512.jpg" alt="Mr Nobody Trader Brand Logo" onerror="this.onerror=null; this.src='mr_nobody_trader.jpg';">
+          <img src="mr_nobody_logo.jpg" alt="Mr Nobody Trader Brand Logo" onerror="this.onerror=null; this.src='mr_nobody_trader.jpg';">
         </div>
         
         <div style="display: flex; align-items: baseline; justify-content: center; gap: 7px;">
@@ -3640,6 +3819,50 @@
         </div>
         <div style="font-size: 12px; color: #94A3B8; margin-top: 6px; max-width: 320px; margin-left: auto; margin-right: auto; line-height: 1.45;">
           Empowering disciplined traders with mathematical confluence, strict risk management, and psychological mastery.
+        </div>
+      </div>
+
+      <!-- Official Website Banner Card -->
+      <a href="https://mrnobody.live/" target="_blank" rel="noopener noreferrer" class="brand-website-card">
+        <div class="brand-web-icon-wrap">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+        </div>
+        <div style="flex: 1; min-width: 0;">
+          <div style="display: flex; align-items: center; gap: 6px;">
+            <span style="font-size: 13.5px; font-weight: 800; color: #FFFFFF;">Visit Official Website</span>
+            <span class="brand-live-badge">OFFICIAL</span>
+          </div>
+          <div style="font-size: 12px; color: #38BDF8; font-weight: 700; margin-top: 2px;">https://mrnobody.live/</div>
+        </div>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#38BDF8" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+      </a>
+
+      <!-- Professional Trading Banners Showcase -->
+      <div style="margin: 12px 0 14px 0;">
+        <div style="font-size: 11px; font-weight: 800; color: #38BDF8; letter-spacing: 0.8px; margin-bottom: 8px; text-transform: uppercase;">
+          SYSTEM TRADING BANNERS
+        </div>
+
+        <div class="trading-page-banner" style="margin-bottom: 10px;">
+          <img src="/trading_banner_hero.jpg" alt="Institutional Trading Desk" class="trading-banner-img" onerror="this.onerror=null; this.src='trading_banner_hero.jpg';">
+          <div class="trading-banner-overlay">
+            <div class="trading-banner-badge">
+              <span class="live-dot-cyan"></span>
+              <span>MULTI-SCREEN CONFLUENCE DESK</span>
+            </div>
+            <div class="trading-banner-headline">Institutional Order Flow & Confluence</div>
+          </div>
+        </div>
+
+        <div class="trading-page-banner" style="margin-bottom: 10px;">
+          <img src="/trading_banner_analytics.jpg" alt="Algorithmic Market Analytics" class="trading-banner-img" onerror="this.onerror=null; this.src='trading_banner_analytics.jpg';">
+          <div class="trading-banner-overlay">
+            <div class="trading-banner-badge">
+              <span class="live-dot-green"></span>
+              <span>PROBABILITY & RISK GEOMETRY</span>
+            </div>
+            <div class="trading-banner-headline">Mathematical Expectancy Engine</div>
+          </div>
         </div>
       </div>
 
@@ -3680,56 +3903,163 @@
         </div>
       </div>
 
-      <!-- Community Channels & Social Hub -->
-      <div style="margin-bottom: 18px;">
-        <div style="font-size: 11px; font-weight: 800; color: #38BDF8; letter-spacing: 0.8px; margin-bottom: 8px; text-transform: uppercase;">
-          OFFICIAL TRADER COMMUNITY & RESOURCES
-        </div>
-
-        <div class="brand-social-card" onclick="alert('Welcome to Mr Nobody Trader community! Stay tuned for verified signals and masterclass announcements.')">
-          <div style="width: 38px; height: 38px; border-radius: 10px; background: #229ED9; display: flex; align-items: center; justify-content: center; color: #FFF; flex-shrink: 0;">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
-          </div>
-          <div style="flex: 1; min-width: 0;">
-            <div style="font-size: 13px; font-weight: 800; color: #FFFFFF;">Telegram Trading Channel</div>
-            <div style="font-size: 11px; color: #94A3B8; margin-top: 1px;">Live market breakdown, macro alerts & confluence setups</div>
-          </div>
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#60A5FA" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
-        </div>
-
-        <div class="brand-social-card" onclick="alert('Opening Mr Nobody Trader YouTube Masterclass sessions.')">
-          <div style="width: 38px; height: 38px; border-radius: 10px; background: #FF0000; display: flex; align-items: center; justify-content: center; color: #FFF; flex-shrink: 0;">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/></svg>
-          </div>
-          <div style="flex: 1; min-width: 0;">
-            <div style="font-size: 13px; font-weight: 800; color: #FFFFFF;">YouTube Video Masterclass</div>
-            <div style="font-size: 11px; color: #94A3B8; margin-top: 1px;">Order flow, price action secrets & setup case studies</div>
-          </div>
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#60A5FA" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
-        </div>
-
-        <div class="brand-social-card" onclick="openEducationModal(); closeBrandShowcaseModal();">
-          <div style="width: 38px; height: 38px; border-radius: 10px; background: linear-gradient(135deg, #7061E7, #4F46E5); display: flex; align-items: center; justify-content: center; color: #FFF; flex-shrink: 0;">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
-          </div>
-          <div style="flex: 1; min-width: 0;">
-            <div style="font-size: 13px; font-weight: 800; color: #FFFFFF;">In-App Trading Masterclass</div>
-            <div style="font-size: 11px; color: #94A3B8; margin-top: 1px;">Learn the 10 confluence criteria & scoring methodology</div>
-          </div>
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#60A5FA" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
-        </div>
-      </div>
-
       <!-- Action Buttons -->
-      <div style="display: flex; gap: 10px; margin-bottom: 8px;">
-        <button type="button" class="neu-hero-btn" onclick="shareBrandLink()" style="flex: 1; margin: 0; background: linear-gradient(135deg, #2563EB, #1D4ED8); box-shadow: 0 8px 24px rgba(37, 99, 235, 0.4);">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
-          <span>SHARE WITH TRADERS</span>
-        </button>
-        <button type="button" onclick="closeBrandShowcaseModal()" style="background: rgba(255,255,255,0.08); border: 1.2px solid rgba(255,255,255,0.15); color: #FFFFFF; font-weight: 800; padding: 0 18px; border-radius: 16px; cursor: pointer; font-size: 12.5px; font-family: inherit;">
+      <div style="display: flex; flex-direction: column; gap: 8px; margin-bottom: 8px;">
+        <div style="display: flex; gap: 8px;">
+          <button type="button" class="neu-hero-btn" onclick="shareBrandLink()" style="flex: 1; margin: 0; background: linear-gradient(135deg, #2563EB, #1D4ED8); box-shadow: 0 8px 24px rgba(37, 99, 235, 0.4); height: 46px; font-size: 12.5px;">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+            <span>SHARE WITH TRADERS</span>
+          </button>
+          <button type="button" onclick="openBrandUniquePage()" style="background: rgba(56, 189, 248, 0.15); border: 1.2px solid #38BDF8; color: #38BDF8; font-weight: 800; padding: 0 14px; border-radius: 16px; cursor: pointer; font-size: 12px; font-family: inherit; display: flex; align-items: center; gap: 4px;">
+            <span>View Full Page</span>
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+          </button>
+        </div>
+        <button type="button" onclick="closeBrandShowcaseModal()" style="background: rgba(255,255,255,0.08); border: 1.2px solid rgba(255,255,255,0.15); color: #FFFFFF; font-weight: 800; height: 40px; border-radius: 14px; cursor: pointer; font-size: 12.5px; font-family: inherit; width: 100%;">
           Close
         </button>
       </div>
+    </div>
+  </div>
+
+  <!-- =========================================================
+       UNIQUE STANDALONE BRAND SHOWCASE VIEW
+       Triggered via Share link (?view=brand or #brand) or "View Full Page"
+       Displays information only with banners and explore button
+       ========================================================= -->
+  <div id="brandUniquePageView" style="display: none; padding: 18px 16px 40px 16px; background: #080712; min-height: 100vh; color: #FFFFFF; position: fixed; inset: 0; z-index: 9999; overflow-y: auto;">
+    <!-- Top Action Bar -->
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; max-width: 580px; margin-left: auto; margin-right: auto;">
+      <button type="button" onclick="exitBrandUniquePage()" class="eval-btn-pill" style="height: 38px; padding: 0 16px; font-size: 12.5px; background: rgba(255,255,255,0.12); color: #FFF; border: 1px solid rgba(255,255,255,0.2); border-radius: 12px; cursor: pointer;">
+        ← Explore App
+      </button>
+      <div class="brand-badge-pill" style="font-size: 10px; padding: 4px 10px;">
+        <span class="brand-pulse-dot"></span>
+        <span>OFFICIAL TRADING PARTNER</span>
+      </div>
+      <button type="button" onclick="shareBrandLink()" class="eval-btn-pill" style="height: 38px; width: 38px; padding: 0; display: flex; align-items: center; justify-content: center; background: #2563EB; color: #FFF; border: none; border-radius: 12px; cursor: pointer;" title="Share with traders">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+      </button>
+    </div>
+
+    <div style="max-width: 580px; margin: 0 auto;">
+      <!-- Main Brand Profile -->
+      <div style="background: linear-gradient(135deg, #090814 0%, #15112A 55%, #0C192E 100%); border-radius: 24px; padding: 26px 18px 20px 18px; border: 1.5px solid rgba(59, 130, 246, 0.5); box-shadow: 0 18px 48px rgba(0,0,0,0.65); text-align: center; margin-bottom: 18px;">
+        <div class="brand-modal-logo-wrapper" style="width: 128px; height: 128px; border-radius: 28px; background: #000; border: 2.5px solid #38BDF8; box-shadow: 0 12px 36px rgba(56, 189, 248, 0.5);">
+          <img src="mr_nobody_logo.jpg" alt="Mr Nobody Trader" onerror="this.onerror=null; this.src='mr_nobody_trader.jpg';">
+        </div>
+        
+        <div style="display: flex; align-items: baseline; justify-content: center; gap: 8px; margin-top: 6px;">
+          <span style="font-size: 20px; font-weight: 800; color: #FFFFFF;">MR</span>
+          <span style="font-size: 28px; font-weight: 900; color: #38BDF8; letter-spacing: 0.8px; text-shadow: 0 0 20px rgba(56, 189, 248, 0.6);">NOBODY TRADER</span>
+        </div>
+
+        <div style="font-size: 13px; font-weight: 800; color: #E2E8F0; letter-spacing: 2.5px; text-transform: uppercase; margin-top: 5px;">
+          OWN YOUR TOMORROW
+        </div>
+        <div style="font-size: 13px; color: #94A3B8; margin-top: 10px; max-width: 360px; margin-left: auto; margin-right: auto; line-height: 1.5;">
+          Systematic edge, mathematical confluence scoring, institutional risk guardrails, and psychological execution for serious traders.
+        </div>
+
+        <!-- Direct Official Website Card -->
+        <a href="https://mrnobody.live/" target="_blank" rel="noopener noreferrer" class="brand-website-card" style="margin-top: 20px; text-align: left;">
+          <div class="brand-web-icon-wrap">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+          </div>
+          <div style="flex: 1; min-width: 0;">
+            <div style="display: flex; align-items: center; gap: 6px;">
+              <span style="font-size: 14.5px; font-weight: 800; color: #FFFFFF;">Official Website</span>
+              <span class="brand-live-badge">VISIT NOW</span>
+            </div>
+            <div style="font-size: 12.5px; color: #38BDF8; font-weight: 700; margin-top: 2px;">https://mrnobody.live/</div>
+          </div>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#38BDF8" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        </a>
+      </div>
+
+      <!-- Trading Banners Gallery Showcase -->
+      <div style="margin-bottom: 20px;">
+        <div style="font-size: 12px; font-weight: 800; color: #38BDF8; letter-spacing: 0.8px; margin-bottom: 12px; text-transform: uppercase; display: flex; align-items: center; gap: 6px;">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#38BDF8" stroke-width="2.5"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+          <span>OFFICIAL TRADING SYSTEM BANNERS</span>
+        </div>
+
+        <!-- Banner 1 -->
+        <div class="trading-page-banner" style="margin-bottom: 14px;">
+          <img src="/trading_banner_hero.jpg" alt="Institutional Trading Desk" class="trading-banner-img" onerror="this.onerror=null; this.src='trading_banner_hero.jpg';">
+          <div class="trading-banner-overlay">
+            <div class="trading-banner-badge">
+              <span class="live-dot-cyan"></span>
+              <span>MULTI-SCREEN CONFLUENCE DESK</span>
+            </div>
+            <div class="trading-banner-headline">Institutional Order Flow & Execution</div>
+            <div class="trading-banner-desc">Quantify high-probability liquidity pools and market structure shifts</div>
+          </div>
+        </div>
+
+        <!-- Banner 2 -->
+        <div class="trading-page-banner" style="margin-bottom: 14px;">
+          <img src="/trading_banner_analytics.jpg" alt="Algorithmic Market Analytics" class="trading-banner-img" onerror="this.onerror=null; this.src='trading_banner_analytics.jpg';">
+          <div class="trading-banner-overlay">
+            <div class="trading-banner-badge">
+              <span class="live-dot-green"></span>
+              <span>PROBABILITY & RISK GEOMETRY</span>
+            </div>
+            <div class="trading-banner-headline">Mathematical Expectancy Models</div>
+            <div class="trading-banner-desc">Real-time win distributions and positive mathematical expectation</div>
+          </div>
+        </div>
+
+        <!-- Banner 3 -->
+        <div class="trading-page-banner" style="margin-bottom: 14px;">
+          <img src="/trading_banner_journal.jpg" alt="Execution Strategy Journal" class="trading-banner-img" onerror="this.onerror=null; this.src='trading_banner_journal.jpg';">
+          <div class="trading-banner-overlay">
+            <div class="trading-banner-badge">
+              <span class="live-dot-purple"></span>
+              <span>ZERO-EGO EXECUTION</span>
+            </div>
+            <div class="trading-banner-headline">Disciplined Setup Audit Matrix</div>
+            <div class="trading-banner-desc">Strict invalidation enforcement and psychological consistency</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Core Trading Creed -->
+      <div style="background: rgba(15, 23, 42, 0.7); border: 1.2px solid rgba(59, 130, 246, 0.3); border-radius: 20px; padding: 18px; margin-bottom: 22px;">
+        <div style="font-size: 11.5px; font-weight: 800; color: #38BDF8; letter-spacing: 0.8px; margin-bottom: 12px; text-transform: uppercase;">
+          THE MR NOBODY TRADING CREED
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 10px;">
+          <div style="font-size: 13px; color: #E2E8F0; line-height: 1.45;">
+            <span style="color: #38BDF8; font-weight: 800;">1. Systematic Edge Over Emotion:</span> No impulsive gambling. Every position requires at least 4+ independent confluence factors before execution.
+          </div>
+          <div style="font-size: 13px; color: #E2E8F0; line-height: 1.45;">
+            <span style="color: #10B981; font-weight: 800;">2. Capital Preservation First:</span> Never risk more than 1–2% per setup. Survive drawdowns comfortably so mathematical expectancy can compound your capital.
+          </div>
+          <div style="font-size: 13px; color: #E2E8F0; line-height: 1.45;">
+            <span style="color: #A78BFA; font-weight: 800;">3. Zero Ego Execution:</span> The market is always right. Cut losses quickly at invalidation, and let high-score winners run without interference.
+          </div>
+        </div>
+      </div>
+
+      <!-- Explore & Action Buttons -->
+      <div style="display: flex; flex-direction: column; gap: 12px;">
+        <button type="button" onclick="exitBrandUniquePage(); navigateToRoute('/check-trade-score');" class="btn-check-score" style="margin: 0; width: 100%; height: 52px; font-size: 15px; letter-spacing: 0.5px; border-radius: 16px;">
+          <span>EXPLORE TRADESCORE APP →</span>
+        </button>
+
+        <a href="https://mrnobody.live/" target="_blank" rel="noopener noreferrer" style="display: flex; align-items: center; justify-content: center; gap: 8px; height: 50px; border-radius: 16px; background: rgba(56, 189, 248, 0.15); border: 1.5px solid #38BDF8; color: #FFFFFF; font-weight: 800; font-size: 14px; text-decoration: none;">
+          <span>VISIT MRNOBODY.LIVE</span>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        </a>
+
+        <button type="button" onclick="shareBrandLink()" class="neu-hero-btn" style="margin: 0; width: 100%; height: 50px; font-size: 14px; background: linear-gradient(135deg, #2563EB, #1D4ED8); border-radius: 16px;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+          <span>SHARE WITH TRADERS (OPEN APPS)</span>
+        </button>
+      </div>
+    </div>
+  </div>
     </div>
   </div>
 
@@ -4174,7 +4504,19 @@
       renderAnalytics();
       setupPWA();
       handleRoute(window.location.pathname);
-      window.addEventListener('popstate', () => handleRoute(window.location.pathname));
+      const urlParams = new URLSearchParams(window.location.search);
+      if (urlParams.get('view') === 'brand' || window.location.hash === '#brand') {
+        openBrandUniquePage();
+      }
+      window.addEventListener('popstate', () => {
+        const curP = new URLSearchParams(window.location.search);
+        if (curP.get('view') === 'brand' || window.location.hash === '#brand') {
+          openBrandUniquePage();
+        } else {
+          exitBrandUniquePage();
+        }
+        handleRoute(window.location.pathname);
+      });
     }
 
     function updateGreeting() {
@@ -6360,37 +6702,125 @@
       }
     }
 
-    function shareBrandLink() {
-      const shareData = {
-        title: 'TradeScore — Powered by Mr Nobody Trader',
-        text: 'Master mathematical confluence, strict risk rules, and disciplined trading execution with TradeScore. Own Your Tomorrow.',
-        url: window.location.href
-      };
-
-      if (navigator.share && typeof navigator.share === 'function') {
-        navigator.share(shareData).catch(() => {});
-      } else {
-        if (navigator.clipboard && navigator.clipboard.writeText) {
-          navigator.clipboard.writeText(window.location.href).then(() => {
-            alert('TradeScore link copied to clipboard! Share with fellow traders.');
-          }).catch(() => {
-            prompt('Copy this link:', window.location.href);
-          });
-        } else {
-          prompt('Copy this link:', window.location.href);
+    function openBrandUniquePage() {
+      closeBrandShowcaseModal();
+      const brandPage = document.getElementById('brandUniquePageView');
+      if (brandPage) {
+        brandPage.style.display = 'block';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        if (window.history && window.history.pushState) {
+          const newUrl = window.location.pathname + '?view=brand';
+          window.history.pushState({ view: 'brand' }, 'Mr Nobody Trader', newUrl);
         }
       }
     }
 
-    // PWA Setup
+    function exitBrandUniquePage() {
+      const brandPage = document.getElementById('brandUniquePageView');
+      if (brandPage) {
+        brandPage.style.display = 'none';
+        if (window.history && window.history.pushState) {
+          window.history.pushState({}, document.title, window.location.pathname);
+        }
+      }
+    }
+
+    function shareBrandLink() {
+      const uniqueUrl = window.location.origin + window.location.pathname + '?view=brand';
+      const shareData = {
+        title: 'Mr Nobody Trader — Own Your Tomorrow',
+        text: 'Check out Mr Nobody Trader & TradeScore. Master systematic confluence, disciplined execution, and capital preservation. Website: https://mrnobody.live/',
+        url: uniqueUrl
+      };
+
+      if (navigator.share && typeof navigator.share === 'function') {
+        navigator.share(shareData).catch((err) => {
+          console.log('[Share] User dismissed or cancelled:', err);
+        });
+      } else {
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(uniqueUrl).then(() => {
+            alert('Official Mr Nobody Trader unique link copied to clipboard!\n\n' + uniqueUrl + '\n\nShare with fellow traders across WhatsApp, Telegram or Twitter.');
+          }).catch(() => {
+            prompt('Copy this unique brand showcase link to share with traders:', uniqueUrl);
+          });
+        } else {
+          prompt('Copy this unique brand showcase link to share with traders:', uniqueUrl);
+        }
+      }
+    }
+
+    // PWA Setup & Immediate Live Synchronizer
     function setupPWA() {
       if ('serviceWorker' in navigator) {
+        let refreshing = false;
+        navigator.serviceWorker.addEventListener('controllerchange', () => {
+          if (!refreshing) {
+            refreshing = true;
+            console.log('[PWA] New version activated, auto-refreshing interface');
+            window.location.reload();
+          }
+        });
+
         navigator.serviceWorker.register('/sw.js', { scope: '/' })
           .then(reg => {
+            console.log('[PWA] Registered in scope:', reg.scope);
             reg.update();
-            console.log('[PWA] Registered');
+
+            if (reg.waiting) {
+              reg.waiting.postMessage({ type: 'SKIP_WAITING' });
+            }
+
+            reg.onupdatefound = () => {
+              const installing = reg.installing;
+              if (installing) {
+                installing.onstatechange = () => {
+                  if (installing.state === 'installed') {
+                    if (navigator.serviceWorker.controller) {
+                      console.log('[PWA] New version ready - triggering activation');
+                      installing.postMessage({ type: 'SKIP_WAITING' });
+                    }
+                  }
+                };
+              }
+            };
           })
           .catch(err => console.log('[PWA] SW error:', err));
+
+        // Re-check for fresh banners and assets whenever app regains visibility
+        document.addEventListener('visibilitychange', () => {
+          if (document.visibilityState === 'visible') {
+            navigator.serviceWorker.getRegistration().then(reg => {
+              if (reg) reg.update();
+            });
+          }
+        });
+      }
+    }
+
+    // Force purge cache and reload latest banners
+    function clearPWACacheAndReload() {
+      if (confirm('Sync & Update PWA?\n\nThis will purge cached assets, refresh the service worker, and load the newest official banners & updates.')) {
+        if ('caches' in window) {
+          caches.keys().then((keys) => {
+            return Promise.all(keys.map(k => caches.delete(k)));
+          }).then(() => {
+            if ('serviceWorker' in navigator) {
+              navigator.serviceWorker.getRegistrations().then((registrations) => {
+                const unregisters = registrations.map(r => r.unregister());
+                return Promise.all(unregisters);
+              }).finally(() => {
+                window.location.reload(true);
+              });
+            } else {
+              window.location.reload(true);
+            }
+          }).catch(() => {
+            window.location.reload(true);
+          });
+        } else {
+          window.location.reload(true);
+        }
       }
     }
 
